@@ -1,11 +1,13 @@
 import { Suspense } from "react";
-import "./App.css";
 import LayoutSplashScreen from "./pages/LayoutSplashScreen";
-import NhanVienNghiViec from "./pages/NhanVienNghiViec";
+import DashBoard from "./pages/DashboardPage";
+import '@ionic/react/css/core.css';
+import { setupIonicReact } from '@ionic/react';
+setupIonicReact();
 function App() {
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
-      <NhanVienNghiViec></NhanVienNghiViec>
+      <DashBoard />
     </Suspense>
   );
 }
