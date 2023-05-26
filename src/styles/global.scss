@@ -20,9 +20,13 @@ body {
   height: 100%;
   background-color: $blue;
   border-left: 10px solid var($blue);
-  transition: 0.5s;
+  transition: 0.3s;
   overflow: hidden;
+  &.active {
+    width: 70px;
+  }
 }
+
 .navigation ul {
   position: absolute;
   top: 0;
@@ -36,8 +40,10 @@ body {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
 }
-.navigation ul li:hover {
+
+.navigation ul li.active {
   background: $white;
+  color: $blue !important;
 }
 .navigation ul li:nth-child(1) {
   margin-bottom: 40px;
@@ -51,8 +57,13 @@ body {
   text-decoration: none;
   color: $white;
 }
-.navigation ul li:hover a {
+.navigation ul li:hover a,
+.navigation ul li.active a,
+.navigation ul li.active a:hover {
   color: $blue;
+}
+.navigation ul li a:hover {
+  color: $white;
 }
 .navigation ul li a .icon {
   position: relative;
@@ -64,6 +75,8 @@ body {
 }
 .navigation ul li a .icon .ion-icon {
   font-size: 1.75rem;
+  vertical-align: middle;
+  margin-bottom: 5px;
 }
 .navigation ul li a .title {
   position: relative;
@@ -72,8 +85,17 @@ body {
   line-height: 60px;
   text-align: start;
 }
+.navigation.active {
+  .title-sidebar {
+    display: none;
+  }
+}
+.navigation.active ul li a .title {
+  display: none;
+}
 /*curver outside */
-.navigation ul li:hover a:before {
+
+.navigation ul li.active a:before {
   content: "";
   position: absolute;
   right: 0;
@@ -85,7 +107,8 @@ body {
   box-shadow: 35px 35px 0 10px $white;
   pointer-events: none;
 }
-.navigation ul li:hover a:after {
+
+.navigation ul li.active a:after {
   content: "";
   position: absolute;
   right: 0;
@@ -96,4 +119,80 @@ body {
   border-radius: 50%;
   box-shadow: 35px -35px 0 10px $white;
   pointer-events: none;
+}
+.main {
+  position: relative;
+  width: calc(100% - 300px);
+  left: 300px;
+  min-height: 100vh;
+  background: $white;
+  transition: 0.3s;
+  &.active {
+    width: calc(100% - 70px);
+    left: 70px;
+  }
+}
+.topbar {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  .user {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+.toggle {
+  position: relative;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  background: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5em;
+  cursor: pointer;
+}
+.search {
+  position: relative;
+  width: 400px;
+  margin: 0 10px;
+}
+.search label {
+  position: relative;
+  width: 100%;
+}
+.search label input {
+  width: 100%;
+  height: 40px;
+  border-radius: 40px;
+  padding: 5px 20px;
+  padding-left: 35px;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid $black2;
+}
+.search label .ion-icon {
+  position: absolute;
+  top: 0%;
+  left: 10px;
+  font-size: 1.2em;
+}
+.title-sidebar {
+  padding: 20px;
+  color: $white;
 }
