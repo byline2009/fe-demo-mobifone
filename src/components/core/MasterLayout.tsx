@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { IonIcon } from "@ionic/react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 import {
   chatbubbleOutline,
@@ -39,30 +39,30 @@ const MasterLayout: React.FC = ({ children }) => {
     main?.classList.toggle("active");
   };
   return (
-    <div className="container">
+    <div className="container-warper">
       <div className="navigation">
         <ul>
           <li className="title-sidebar">
             <h2>Báo cáo Sản Phẩm Dịch Vụ</h2>
           </li>
           <li>
-            <a href="#">
+            <Link className="menu-link" to={`dashboard`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={homeOutline}></IonIcon>
               </span>
               <span className="title">DashBoard</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link className="menu-link" to={`nhan-vien-nghi-viec`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={personOutline}></IonIcon>
               </span>
               <span className="title">Nhân viên nghỉ việc</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link className="menu-link" to={`phat-trien-moi`}>
               <span className="icon">
                 <IonIcon
                   className="ion-icon"
@@ -70,26 +70,26 @@ const MasterLayout: React.FC = ({ children }) => {
                 ></IonIcon>
               </span>
               <span className="title">CP Phát triển mới</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link className="menu-link" to={`/`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={helpOutline}></IonIcon>
               </span>
               <span className="title">Help</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link className="menu-link" to={`/`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={settingsOutline}></IonIcon>
               </span>
               <span className="title">Settings</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link className="menu-link" to={`/`}>
               <span className="icon">
                 <IonIcon
                   className="ion-icon"
@@ -97,15 +97,15 @@ const MasterLayout: React.FC = ({ children }) => {
                 ></IonIcon>
               </span>
               <span className="title">Password</span>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link className="menu-link" to={`/`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={logOutOutline}></IonIcon>
               </span>
               <span className="title">Sign out</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

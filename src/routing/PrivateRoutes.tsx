@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import DashboardPage from "../pages/DashboardPage";
 import TopBarProgress from "react-topbar-progress-indicator";
 import MasterLayout from "../components/core/MasterLayout";
+import NhanVienNghiViec from "../pages/NhanVienNghiViec";
 
 export default function ComingSoonPage() {
   return <h1>Coming soon</h1>;
@@ -22,6 +23,7 @@ const PrivateRoutes = () => {
         <Route path="auth/*" element={<Navigate to="/dashboard" />} />
         {/* Pages */}
         <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="nhan-vien-nghi-viec" element={<NhanVienNghiViec />} />
 
         {routesAsideMenu.map((route, index) => {
           return (

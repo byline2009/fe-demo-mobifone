@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 @import "variables";
+@import "breakpoint";
+
+@import "tables";
+@import "./pages/emplyee-off.scss";
+@import "./pages/dashboard.scss";
 
 // @import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/functions";
@@ -16,6 +21,14 @@
 body {
   min-height: 100vh;
   overflow-x: hidden;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  height: 100vh;
 }
 .container {
   position: relative;
@@ -56,7 +69,7 @@ body {
   margin-bottom: 40px;
   pointer-events: none;
 }
-.navigation ul li a {
+.navigation ul li .menu-link {
   position: relative;
   display: block;
   width: 100%;
@@ -64,15 +77,15 @@ body {
   text-decoration: none;
   color: $white;
 }
-.navigation ul li:hover a,
-.navigation ul li.active a,
-.navigation ul li.active a:hover {
+.navigation ul li:hover .menu-link,
+.navigation ul li.active .menu-link,
+.navigation ul li.active .menu-link:hover {
   color: $blue;
 }
-.navigation ul li a:hover {
+.navigation ul li .menu-link:hover {
   color: $white;
 }
-.navigation ul li a .icon {
+.navigation ul li .menu-link .icon {
   position: relative;
   display: block;
   min-width: 60px;
@@ -80,12 +93,12 @@ body {
   line-height: 60px;
   text-align: center;
 }
-.navigation ul li a .icon .ion-icon {
+.navigation ul li .menu-link .icon .ion-icon {
   font-size: 1.75rem;
   vertical-align: middle;
   margin-bottom: 5px;
 }
-.navigation ul li a .title {
+.navigation ul li .menu-link .title {
   position: relative;
   padding: 0 10px;
   height: 60px;
@@ -97,12 +110,12 @@ body {
     display: none;
   }
 }
-.navigation.active ul li a .title {
+.navigation.active ul li .menu-link .title {
   display: none;
 }
 /*curver outside */
 
-.navigation ul li.active a:before {
+.navigation ul li.active .menu-link:before {
   content: "";
   position: absolute;
   right: 0;
@@ -115,7 +128,7 @@ body {
   pointer-events: none;
 }
 
-.navigation ul li.active a:after {
+.navigation ul li.active .menu-link:after {
   content: "";
   position: absolute;
   right: 0;
@@ -191,13 +204,14 @@ body {
   padding-left: 35px;
   font-size: 18px;
   outline: none;
-  border: 1px solid $black2;
+  border: 1px solid $gray-900;
 }
 .search label .ion-icon {
   position: absolute;
   top: 0%;
   left: 10px;
   font-size: 1.2em;
+  height: 100%;
 }
 .title-sidebar {
   padding: 20px;

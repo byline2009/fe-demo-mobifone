@@ -16,24 +16,36 @@ const NhanVienNghiViec = () => {
   return (
     <div>
       {arr ? (
-        <>
-          <h1>Danh sách nhân viên nghỉ việc</h1>
+        <div className="employee-off">
+          <h4>Danh sách nhân viên nghỉ việc</h4>
           {/* <pre>{arr}</pre> */}
-          <table>
-            {arr.map((item: any) => (
-              <tr>
-                <th></th>
-                <th>{item[0]}</th>
-                <th>{item[1]}</th>
-                <th>{item[2]}</th>
-                <th>{item[3]}</th>
-                <th>{item[4]}</th>
-                <th>{item[5]}</th>
-                <th>{item[6]}</th>
-              </tr>
-            ))}
-          </table>
-        </>
+          <div className="table-responsive">
+            <table className="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+              <thead className="thead-dark">
+                <tr>
+                  <th scope="col">Tỉnh</th>
+                  <th scope="col">Shopcode</th>
+                  <th scope="col">Huyện</th>
+                  <th scope="col">Mã nvpt</th>
+                  <th scope="col">Họ và tên</th>
+                  <th scope="col">Mã Tỉnh-huyện</th>
+                  <th scope="col">Lí do nghỉ việc</th>
+                </tr>
+              </thead>
+              {arr.map((item: any) => (
+                <tr>
+                  <th>{item[0]}</th>
+                  <th>{item[1]}</th>
+                  <th>{item[2]}</th>
+                  <th>{item[3]}</th>
+                  <th>{item[4]}</th>
+                  <th>{item[5]}</th>
+                  <th>{item[6]}</th>
+                </tr>
+              ))}
+            </table>
+          </div>
+        </div>
       ) : null}
     </div>
   );
