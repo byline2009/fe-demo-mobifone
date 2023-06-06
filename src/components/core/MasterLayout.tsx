@@ -28,8 +28,6 @@ const MasterLayout: React.FC = ({ children }) => {
           });
         });
       });
-      let toggle = document.querySelector(".toggle");
-      let main = document.querySelector(".main");
     }
   }, []);
   const toggleOnClick = () => {
@@ -43,7 +41,7 @@ const MasterLayout: React.FC = ({ children }) => {
       <div className="navigation">
         <ul>
           <li className="title-sidebar">
-            <h2>Báo cáo Sản Phẩm Dịch Vụ</h2>
+            <h4>Báo cáo Sản Phẩm Dịch Vụ</h4>
           </li>
           <li>
             <Link className="menu-link" to={`dashboard`}>

@@ -1,9 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 @import "variables";
 @import "breakpoint";
-
 @import "tables";
-@import "./pages/emplyee-off.scss";
+@import "./pages/employee-off.scss";
 @import "./pages/dashboard.scss";
 
 // @import "~bootstrap/scss/maps";
@@ -18,8 +17,16 @@
   margin: 0;
   font-family: "Open Sans", sans-serif;
 }
+html,
 body {
-  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  color: $gray-600;
+  font-weight: 400;
+  line-height: 1;
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
   overflow-x: hidden;
 }
 #root {
@@ -43,7 +50,7 @@ body {
   transition: 0.3s;
   overflow: hidden;
   &.active {
-    width: 70px;
+    width: 100px;
   }
 }
 
@@ -107,7 +114,11 @@ body {
 }
 .navigation.active {
   .title-sidebar {
-    display: none;
+    height: 65px;
+    transition: 0.3s ease-out;
+    h4 {
+      display: none;
+    }
   }
 }
 .navigation.active ul li .menu-link .title {
@@ -148,8 +159,8 @@ body {
   background: $white;
   transition: 0.3s;
   &.active {
-    width: calc(100% - 70px);
-    left: 70px;
+    width: calc(100% - 100px);
+    left: 100px;
   }
 }
 .topbar {

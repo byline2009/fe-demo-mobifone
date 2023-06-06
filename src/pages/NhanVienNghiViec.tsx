@@ -17,11 +17,10 @@ const NhanVienNghiViec = () => {
     <div>
       {arr ? (
         <div className="employee-off">
-          <h4>Danh sách nhân viên nghỉ việc</h4>
-          {/* <pre>{arr}</pre> */}
+          <h4 className="title">Danh sách nhân viên nghỉ việc</h4>
           <div className="table-responsive">
             <table className="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
-              <thead className="thead-dark">
+              <thead className="">
                 <tr>
                   <th scope="col">Tỉnh</th>
                   <th scope="col">Shopcode</th>
@@ -32,8 +31,8 @@ const NhanVienNghiViec = () => {
                   <th scope="col">Lí do nghỉ việc</th>
                 </tr>
               </thead>
-              {arr.map((item: any) => (
-                <tr>
+              {arr.map((item: any, index: number) => (
+                <tr key={index}>
                   <th>{item[0]}</th>
                   <th>{item[1]}</th>
                   <th>{item[2]}</th>
