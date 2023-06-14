@@ -31,6 +31,7 @@ const MasterLayout: React.FC = ({ children }) => {
     }
   }, []);
   const toggleOnClick = () => {
+    console.log("check");
     let navigation = document.querySelector(".navigation");
     let main = document.querySelector(".main");
     navigation?.classList.toggle("active");
@@ -128,7 +129,9 @@ const MasterLayout: React.FC = ({ children }) => {
             <img src="/imgs/user.jpg" alt="user" />
           </div>
         </div>
-        <Outlet />
+        <div className="content-page">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
