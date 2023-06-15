@@ -18,10 +18,8 @@ const MasterLayout: React.FC = ({ children }) => {
   useEffect(() => {
     if (document) {
       let list = document.querySelectorAll(".navigation li");
-
       list.forEach((object) => {
         object.addEventListener("click", () => {
-          console.log("check");
           list.forEach((item) => {
             item.classList.remove("active");
             object.classList.add("active");
@@ -30,8 +28,32 @@ const MasterLayout: React.FC = ({ children }) => {
       });
     }
   }, []);
+  useEffect(() => {
+    const pathnames = window.location.pathname.split("/");
+    console.log("pathnames", pathnames);
+    let element;
+    switch (pathnames[1]) {
+      case "nhan-vien-nghi-viec":
+        element = document.getElementById("menu-employee-off");
+        element?.classList.add("active");
+        break;
+      case "dashboard":
+        element = document.getElementById("menu-dashboard");
+        element?.classList.add("active");
+        break;
+      case "ptm":
+        element = document.getElementById("menu-ptm");
+        element?.classList.add("active");
+        break;
+      case "cs":
+        element = document.getElementById("menu-cs");
+        element?.classList.add("active");
+        break;
+      default:
+        break;
+    }
+  }, []);
   const toggleOnClick = () => {
-    console.log("check");
     let navigation = document.querySelector(".navigation");
     let main = document.querySelector(".main");
     navigation?.classList.toggle("active");
@@ -44,7 +66,7 @@ const MasterLayout: React.FC = ({ children }) => {
           <li className="title-sidebar">
             <h4>Báo cáo Sản Phẩm Dịch Vụ</h4>
           </li>
-          <li>
+          <li id="menu-dashboard">
             <Link className="menu-link" to={`dashboard`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={homeOutline}></IonIcon>
@@ -52,7 +74,7 @@ const MasterLayout: React.FC = ({ children }) => {
               <span className="title">DashBoard</span>
             </Link>
           </li>
-          <li>
+          <li id="menu-employee-off">
             <Link className="menu-link" to={`nhan-vien-nghi-viec`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={personOutline}></IonIcon>
@@ -60,15 +82,26 @@ const MasterLayout: React.FC = ({ children }) => {
               <span className="title">Nhân viên nghỉ việc</span>
             </Link>
           </li>
-          <li>
-            <Link className="menu-link" to={`phat-trien-moi`}>
+          <li id="menu-ptm">
+            <Link className="menu-link" to={`ptm`}>
               <span className="icon">
                 <IonIcon
                   className="ion-icon"
                   icon={chatbubbleOutline}
                 ></IonIcon>
               </span>
-              <span className="title">CP Phát triển mới</span>
+              <span className="title">Phát triển mới</span>
+            </Link>
+          </li>
+          <li id="menu-cs">
+            <Link className="menu-link" to={`cs`}>
+              <span className="icon">
+                <IonIcon
+                  className="ion-icon"
+                  icon={chatbubbleOutline}
+                ></IonIcon>
+              </span>
+              <span className="title">Duy trì</span>
             </Link>
           </li>
           <li>
