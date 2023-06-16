@@ -26,22 +26,24 @@ const NhanVienNghiViec = () => {
   useEffect(() => {
     if (!renderAfterCalled.current) {
       getNhanVienNghiViec({ skip: 0, limit: limit }).then((response: any) => {
-        const arrTemp: EmployeeOff[] = [];
-        response.data.map((item: any) => {
-          const object = {
-            tinh: item[0],
-            shopCode: item[1],
-            shopName: item[2],
-            empCode: item[3],
-            empName: item[4],
-            areaCode: item[5],
-            description: item[6],
-          };
-          arrTemp.push(object);
-          setArr(arrTemp);
-        });
-        setTotalCount(response.totalCount);
-        setLoading(false);
+        if (response) {
+          const arrTemp: EmployeeOff[] = [];
+          response.data.map((item: any) => {
+            const object = {
+              tinh: item[0],
+              shopCode: item[1],
+              shopName: item[2],
+              empCode: item[3],
+              empName: item[4],
+              areaCode: item[5],
+              description: item[6],
+            };
+            arrTemp.push(object);
+            setArr(arrTemp);
+          });
+          setTotalCount(response.totalCount);
+          setLoading(false);
+        }
       });
     }
     renderAfterCalled.current = true;
@@ -87,7 +89,7 @@ const NhanVienNghiViec = () => {
           </div>
         ) : (
           <div className="table-responsive">
-            <table className="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+            <table className="table table-row-dashed table-striped  table-row-gray-300 align-middle gs-0 gy-4">
               <thead className="">
                 <tr>
                   <th scope="col">Tỉnh</th>
