@@ -6,6 +6,7 @@ import MasterLayout from "../components/core/MasterLayout";
 const NhanVienNghiViec = lazy(() => import("../pages/NhanVienNghiViec"));
 const PhattrienmoiPage = lazy(() => import("../pages/PhattrienmoiPage"));
 const DuytriPage = lazy(() => import("../pages/DuytriPage"));
+const Thaysim4GPage = lazy(() => import("../pages/Thaysim4GPage"));
 
 export default function ComingSoonPage() {
   return <h1>Coming soon</h1>;
@@ -24,10 +25,46 @@ const PrivateRoutes = () => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path="auth/*" element={<Navigate to="/dashboard" />} />
         {/* Pages */}
-        <Route path="dashboard" element={<DashboardPage />} />
-        <Route path="nhan-vien-nghi-viec" element={<NhanVienNghiViec />} />
-        <Route path="ptm" element={<PhattrienmoiPage />} />
-        <Route path="cs" element={<DuytriPage />} />
+        <Route
+          path="dashboard"
+          element={
+            <SuspensedView>
+              <DashboardPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path="nhan-vien-nghi-viec"
+          element={
+            <SuspensedView>
+              <NhanVienNghiViec />{" "}
+            </SuspensedView>
+          }
+        />
+        <Route
+          path="thay-sim-4G"
+          element={
+            <SuspensedView>
+              <Thaysim4GPage />{" "}
+            </SuspensedView>
+          }
+        />
+        <Route
+          path="ptm"
+          element={
+            <SuspensedView>
+              <PhattrienmoiPage />{" "}
+            </SuspensedView>
+          }
+        />
+        <Route
+          path="cs"
+          element={
+            <SuspensedView>
+              <DuytriPage />{" "}
+            </SuspensedView>
+          }
+        />
 
         {routesAsideMenu.map((route, index) => {
           return (

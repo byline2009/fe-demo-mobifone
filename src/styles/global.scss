@@ -4,10 +4,12 @@
 @import "tables";
 @import "mixins";
 @import "footer";
+@import "search";
 @import "./components/pagination/pagination";
 @import "./pages/employee-off.scss";
 @import "./pages/dashboard.scss";
 @import "./pages/ptm.scss";
+@import "./pages/thaysim.scss";
 
 // @import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/functions";
@@ -183,6 +185,7 @@ body {
   position: fixed;
   z-index: 10;
   background-color: white;
+  box-shadow: $shadow-light-20;
   .user {
     position: relative;
     width: 40px;

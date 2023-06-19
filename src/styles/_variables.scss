@@ -17,6 +17,18 @@ $gray-800: #3f4254 !default;
 $gray-900: #181c32 !default;
 $text-muted: $gray-500 !default;
 $text-navy: #344a63 !default;
+$neutral-black: #171717;
+$neutral-grey-50: #fcfcfc;
+$neutral-grey-100: #f8f8f8;
+$neutral-grey-200: #eaeaea;
+$neutral-grey-300: #d3d3d3;
+$neutral-grey-400: #b2b2b2;
+$neutral-grey-500: #8c8c8c;
+$neutral-grey-600: #656565;
+$neutral-grey-700: #444;
+$neutral-grey-800: #2c2c2c;
+$neutral-grey-900: #1e1e1e;
+$neutral-grey-950: #1a1a1a;
 
 // Dark Mode
 $dark-mode-page-bg-color: #151521 !default;
@@ -603,7 +615,7 @@ $font-sizes: (
   // 68.25px
   5hx: $font-size-base * 5.5,
   // 71.5px
-  5tx: $font-size-base * 5.75 // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,
+  5tx: $font-size-base * 5.75 // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ) !default;
 
 $headings-margin-bottom: $spacer * 0.5 !default;
@@ -1369,3 +1381,90 @@ $social-colors: (
     active: darken(#0077b5, 7.5%),
   ),
 ) !default; // Custom variable
+//font-weight
+$font-light: 300;
+$font-normal: 400;
+$font-medium: 500;
+$font-semibold: 600;
+$font-bold: 700;
+
+// responsive
+$extra-extra-large: 1400px;
+$extra-large: 1200px;
+$medium: 960px;
+$small: 480px;
+
+$w-number-icon: 35px;
+
+$bg-tooltip: #1c2c2f;
+
+//margin padding
+$spacing-xxs: 2px;
+$spacing-xs: 4px;
+$spacing-s: 8px;
+$spacing-m: 12px;
+$spacing-l: 16px;
+$spacing-xl: 20px;
+$spacing-xxl: 24px;
+$spacing-xxl-2: 32px;
+$spacing-xxl-3: 40px;
+$spacing-xxl-4: 48px;
+$spacing-xxl-5: 64px;
+
+//font-size
+$caption-2: 10px;
+$caption-1: 12px;
+$subhead: 14px;
+$body: 16px;
+$headline-2: 20px;
+$headline-1: 24px;
+$title-3: 32px;
+$title-2: 40px;
+$title-1: 50px;
+$large-title: 64px;
+
+//line-height
+$lh-caption-2: 16px;
+$lh-caption-1: 18px;
+$lh-subhead: 21px;
+$lh-body: 24px;
+$lh-headline-2: 30px;
+$lh-headline-1: 36px;
+$lh-title-3: 48px;
+$lh-title-2: 56px;
+$lh-title-1: 70px;
+$lh-large-title: 90px;
+
+// set fz 12> 100 by fz-12 .. fz-100
+@for $i from 8 through 20 {
+  .fz-#{$i} {
+    font-size: #{$i}px !important;
+  }
+}
+
+//box-shadow
+$shadow-light-20: 0px 0px 1px rgba(44, 44, 44, 0.05),
+  0px 2px 4px rgba(44, 44, 44, 0.1);
+$shadow-light-40: 0px 0px 1px rgba(44, 44, 44, 0.05),
+  0px 4px 8px rgba(44, 44, 44, 0.1);
+$shadow-light-60: 0px 0px 1px rgba(44, 44, 44, 0.05),
+  0px 8px 16px rgba(44, 44, 44, 0.1);
+$shadow-light-80: 0px 0px 1px rgba(44, 44, 44, 0.05),
+  0px 16px 24px rgba(44, 44, 44, 0.1);
+$shadow-light-100: 0px 0px 1px rgba(44, 44, 44, 0.05),
+  0px 24px 32px rgba(44, 44, 44, 0.1);
+$shadow-dark-20: 0px 0px 1px #0d0d0d, 0px 2px 4px rgba(13, 13, 13, 0.9);
+$shadow-dark-40: 0px 0px 1px #0d0d0d, 0px 4px 8px rgba(13, 13, 13, 0.9);
+$shadow-dark-60: 0px 0px 1px #0d0d0d, 0px 8px 16px rgba(13, 13, 13, 0.9);
+$shadow-dark-80: 0px 0px 1px #0d0d0d, 0px 16px 24px rgba(13, 13, 13, 0.9);
+$shadow-dark-100: 0px 0px 1px #0d0d0d, 0px 24px 32px rgba(13, 13, 13, 0.9);
+$shadow-primary-20: 0px 0px 1px rgba(75, 0, 150, 0.05),
+  0px 2px 4px rgba(75, 0, 150, 0.1);
+$shadow-primary-40: 0px 0px 1px rgba(75, 0, 150, 0.05),
+  0px 4px 8px rgba(75, 0, 150, 0.1);
+$shadow-primary-60: 0px 0px 1px rgba(75, 0, 150, 0.05),
+  0px 8px 16px rgba(75, 0, 150, 0.1);
+$shadow-primary-80: 0px 0px 1px rgba(75, 0, 150, 0.05),
+  0px 16px 24px rgba(75, 0, 150, 0.1);
+$shadow-primary-100: 0px 0px 1px rgba(75, 0, 150, 0.05),
+  0px 24px 32px rgba(75, 0, 150, 0.1);
