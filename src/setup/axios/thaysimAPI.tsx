@@ -1,9 +1,9 @@
 import API from "../../utils/Api";
 
-export const getNhanVienNghiViec = async (params: any) => {
+export const getThaySim = async (params: any) => {
   try {
     const response = await API.get(
-      `/nhan-vien-nghi-viec?skip=${params.skip}&limit=${params.limit}`
+      `/thay-sim-4g?type=${params.type}&month=${params.month}&year=${params.year}&skip=${params.skip}&limit=${params.limit}`
     );
     if (response) {
       return response.data;
