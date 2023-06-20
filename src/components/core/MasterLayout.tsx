@@ -35,8 +35,8 @@ const MasterLayout: React.FC = ({ children }) => {
     console.log("pathnames", pathnames);
     let element;
     switch (pathnames[1]) {
-      case "thay-sim-4G":
-        element = document.getElementById("menu-thay-sim-4G");
+      case "thay-sim-4g":
+        element = document.getElementById("menu-thay-sim-4g");
         element?.classList.add("active");
         break;
       case "nhan-vien-nghi-viec":
@@ -80,8 +80,8 @@ const MasterLayout: React.FC = ({ children }) => {
               <span className="title">DashBoard</span>
             </Link>
           </li>
-          <li id="menu-thay-sim-4G">
-            <Link className="menu-link" to={`thay-sim-4G`}>
+          <li id="menu-thay-sim-4g">
+            <Link className="menu-link" to={`thay-sim-4g`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={pricetagOutline}></IonIcon>
               </span>

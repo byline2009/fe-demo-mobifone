@@ -42,7 +42,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path="thay-sim-4G"
+          path="thay-sim-4g"
           element={
             <SuspensedView>
               <Thaysim4GPage />{" "}

@@ -1,7 +1,7 @@
 .footer {
   width: inherit;
-  margin-left: 16px;
-  margin-right: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
   position: fixed;
   bottom: 0px;
   background-color: $white;
@@ -78,6 +78,6 @@
     line-height: 1.2;
     color: rgb(5, 31, 77);
     text-align: center;
-    padding-bottom: 24px;
+    padding-bottom: 16px;
   }
 }

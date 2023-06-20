@@ -69,8 +69,8 @@ const NhanVienNghiViec = () => {
           description: item[6],
         };
         arrTemp.push(object);
-        setArr(arrTemp);
       });
+      setArr(arrTemp);
       setTotalCount(response.totalCount);
       setLoading(false);
     });
