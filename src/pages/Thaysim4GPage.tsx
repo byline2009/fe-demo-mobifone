@@ -8,19 +8,20 @@ import { getThaySim } from "../setup/axios/thaysimAPI";
 import { getPageNumber } from "../helpers/ConvertHelper";
 import ReactPaginate from "react-paginate";
 import { TailSpin } from "react-loader-spinner";
+import moment from "moment";
 interface ThaySim4G {
   isdn: string;
   shopCode: string;
-  shopName: String;
-  shopType: String;
-  issueDateTime: String;
-  empCode: String;
-  empName: String;
-  province: String;
-  districtName: String;
-  reasonId: String;
-  loaiTB: String;
-  thangtt: String;
+  shopName: string;
+  shopType: string;
+  issueDateTime: string;
+  empCode: string;
+  empName: string;
+  province: string;
+  districtName: string;
+  reasonId: string;
+  loaiTB: string;
+  thangtt: string;
 }
 interface InitThaySim4G {
   selectMonthYear: Date;
@@ -55,23 +56,24 @@ const Thaysim4GPage = () => {
       }).then((response: any) => {
         if (response) {
           const arrTemp: ThaySim4G[] = [];
-          response.data.map((item: any) => {
-            const object = {
-              isdn: item[0],
-              shopCode: item[1],
-              shopName: item[2],
-              shopType: item[3],
-              issueDateTime: item[4],
-              empCode: item[5],
-              empName: item[6],
-              province: item[7],
-              districtName: item[8],
-              reasonId: item[9],
-              loaiTB: item[13],
-              thangtt: item[16],
-            };
-            arrTemp.push(object);
-          });
+          response &&
+            response.data.map((item: any) => {
+              const object = {
+                isdn: item[0],
+                shopCode: item[1],
+                shopName: item[2],
+                shopType: item[3],
+                issueDateTime: item[4],
+                empCode: item[5],
+                empName: item[6],
+                province: item[7],
+                districtName: item[8],
+                reasonId: item[9],
+                loaiTB: item[13],
+                thangtt: item[16],
+              };
+              arrTemp.push(object);
+            });
           setArr(arrTemp);
           console.log("arr", arr);
           setTotalCount(response.totalCount);
@@ -95,24 +97,25 @@ const Thaysim4GPage = () => {
       type: initValues.selectType,
     }).then((response: any) => {
       const arrTemp: ThaySim4G[] = [];
-      response.data.map((item: any) => {
-        const object = {
-          isdn: item[0],
-          shopCode: item[1],
-          shopName: item[2],
-          shopType: item[3],
-          issueDateTime: item[4],
-          empCode: item[5],
-          empName: item[6],
-          province: item[7],
-          districtName: item[8],
-          reasonId: item[9],
-          loaiTB: item[13],
-          thangtt: item[16],
-        };
-        arrTemp.push(object);
-        setArr(arrTemp);
-      });
+      response &&
+        response.data.map((item: any) => {
+          const object = {
+            isdn: item[0],
+            shopCode: item[1],
+            shopName: item[2],
+            shopType: item[3],
+            issueDateTime: item[4],
+            empCode: item[5],
+            empName: item[6],
+            province: item[7],
+            districtName: item[8],
+            reasonId: item[9],
+            loaiTB: item[13],
+            thangtt: item[16],
+          };
+          arrTemp.push(object);
+          setArr(arrTemp);
+        });
       setTotalCount(response.totalCount);
       setLoading(false);
     });
@@ -142,23 +145,24 @@ const Thaysim4GPage = () => {
           setLoading(true);
           await getThaySim(data).then((response) => {
             const arrTemp: ThaySim4G[] = [];
-            response.data.map((item: any) => {
-              const object = {
-                isdn: item[0],
-                shopCode: item[1],
-                shopName: item[2],
-                shopType: item[3],
-                issueDateTime: item[4],
-                empCode: item[5],
-                empName: item[6],
-                province: item[7],
-                districtName: item[8],
-                reasonId: item[9],
-                loaiTB: item[13],
-                thangtt: item[16],
-              };
-              arrTemp.push(object);
-            });
+            response &&
+              response.data.map((item: any) => {
+                const object = {
+                  isdn: item[0],
+                  shopCode: item[1],
+                  shopName: item[2],
+                  shopType: item[3],
+                  issueDateTime: item[4],
+                  empCode: item[5],
+                  empName: item[6],
+                  province: item[7],
+                  districtName: item[8],
+                  reasonId: item[9],
+                  loaiTB: item[13],
+                  thangtt: item[16],
+                };
+                arrTemp.push(object);
+              });
             setArr(arrTemp);
             setTotalCount(response.totalCount);
             setLoading(false);
@@ -248,8 +252,14 @@ const Thaysim4GPage = () => {
                       <th>{item.shopName}</th>
                       <th>{item.empCode}</th>
                       <th>{item.empName}</th>
-                      <th>{item.issueDateTime}</th>
-                      <th>{item.thangtt}</th>
+                      <th>
+                        {moment(new Date(item.issueDateTime)).format(
+                          "DD/MM/YYYY"
+                        )}
+                      </th>
+                      <th>
+                        {moment(new Date(item.thangtt)).format("MM/YYYY")}
+                      </th>
                     </tr>
                   ))}
                 </tbody>

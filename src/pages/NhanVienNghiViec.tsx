@@ -7,11 +7,11 @@ import { getPageNumber } from "../helpers/ConvertHelper";
 interface EmployeeOff {
   tinh: string;
   shopCode: string;
-  shopName: String;
-  empCode: String;
-  empName: String;
-  areaCode: String;
-  description: String;
+  shopName: string;
+  empCode: string;
+  empName: string;
+  areaCode: string;
+  description: string;
 }
 const limit = 10;
 
@@ -28,19 +28,20 @@ const NhanVienNghiViec = () => {
       getNhanVienNghiViec({ skip: 0, limit: limit }).then((response: any) => {
         if (response) {
           const arrTemp: EmployeeOff[] = [];
-          response.data.map((item: any) => {
-            const object = {
-              tinh: item[0],
-              shopCode: item[1],
-              shopName: item[2],
-              empCode: item[3],
-              empName: item[4],
-              areaCode: item[5],
-              description: item[6],
-            };
-            arrTemp.push(object);
-            setArr(arrTemp);
-          });
+          response &&
+            response.data.map((item: any) => {
+              const object = {
+                tinh: item[0],
+                shopCode: item[1],
+                shopName: item[2],
+                empCode: item[3],
+                empName: item[4],
+                areaCode: item[5],
+                description: item[6],
+              };
+              arrTemp.push(object);
+              setArr(arrTemp);
+            });
           setTotalCount(response.totalCount);
           setLoading(false);
         }
@@ -58,18 +59,19 @@ const NhanVienNghiViec = () => {
       limit: limit,
     }).then((response: any) => {
       const arrTemp: EmployeeOff[] = [];
-      response.data.map((item: any) => {
-        const object = {
-          tinh: item[0],
-          shopCode: item[1],
-          shopName: item[2],
-          empCode: item[3],
-          empName: item[4],
-          areaCode: item[5],
-          description: item[6],
-        };
-        arrTemp.push(object);
-      });
+      response &&
+        response.data.map((item: any) => {
+          const object = {
+            tinh: item[0],
+            shopCode: item[1],
+            shopName: item[2],
+            empCode: item[3],
+            empName: item[4],
+            areaCode: item[5],
+            description: item[6],
+          };
+          arrTemp.push(object);
+        });
       setArr(arrTemp);
       setTotalCount(response.totalCount);
       setLoading(false);
