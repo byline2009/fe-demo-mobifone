@@ -6,7 +6,7 @@ import MasterLayout from "../components/core/MasterLayout";
 const NhanVienNghiViec = lazy(() => import("../pages/NhanVienNghiViec"));
 const DuytriPage = lazy(() => import("../pages/DuytriPage"));
 const Thaysim4GPage = lazy(() => import("../pages/Thaysim4GPage"));
-const PhatTrienMoiPage = lazy(() => import("../pages/PhatTrienMoiPage"));
+const PTMPage = lazy(() => import("../pages/PTMPage"));
 
 export default function ComingSoonPage() {
   return <h1>Coming soon</h1>;
@@ -53,7 +53,7 @@ const PrivateRoutes = () => {
           path="ptm/*"
           element={
             <SuspensedView>
-              <PhatTrienMoiPage />{" "}
+              <PTMPage />{" "}
             </SuspensedView>
           }
         />

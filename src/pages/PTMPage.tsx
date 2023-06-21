@@ -11,7 +11,7 @@ const HeaderPhatTrienMoi = lazy(
   () => import("./ptm/components//HeaderPhatTrienMoi")
 );
 
-const PhatTrienMoiPage = () => {
+const PTMPage = () => {
   return (
     <Routes>
       <Route
@@ -79,4 +79,4 @@ const SuspensedView: FC = ({ children }) => {
   return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>;
 };
 
-export default PhatTrienMoiPage;
+export default PTMPage;
