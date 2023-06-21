@@ -4,7 +4,7 @@ import DashboardPage from "../pages/DashboardPage";
 import TopBarProgress from "react-topbar-progress-indicator";
 import MasterLayout from "../components/core/MasterLayout";
 const NhanVienNghiViec = lazy(() => import("../pages/NhanVienNghiViec"));
-const PhattrienmoiPage = lazy(() => import("../pages/PhattrienmoiPage"));
+const PhatTrienMoiPage = lazy(() => import("../pages/PhatTrienMoiPage"));
 const DuytriPage = lazy(() => import("../pages/DuytriPage"));
 const Thaysim4GPage = lazy(() => import("../pages/Thaysim4GPage"));
 
@@ -50,10 +50,10 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path="ptm"
+          path="ptm/*"
           element={
             <SuspensedView>
-              <PhattrienmoiPage />{" "}
+              <PhatTrienMoiPage />{" "}
             </SuspensedView>
           }
         />
@@ -77,7 +77,7 @@ const PrivateRoutes = () => {
         })}
 
         {/* Page Not Found  */}
-        <Route path="*" element={<Navigate to="/error/404" />} />
+        {/* <Route path="*" element={<Navigate to="/error/404" />} /> */}
       </Route>
     </Routes>
   );

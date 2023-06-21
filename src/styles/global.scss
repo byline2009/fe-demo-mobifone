@@ -1,21 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 @import "variables";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 @import "breakpoint";
 @import "tables";
 @import "mixins";
 @import "footer";
 @import "search";
+@import "nav";
+@import "text";
 @import "./components/pagination/pagination";
 @import "./pages/employee-off.scss";
 @import "./pages/dashboard.scss";
-@import "./pages/ptm.scss";
+@import "./pages/ptm-nvbh-tbtt.scss";
 @import "./pages/thaysim.scss";
-
-// @import "~bootstrap/scss/maps";
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/utilities";
+@import "./components/ptm/header.scss";
 
 * {
   padding: 0;
