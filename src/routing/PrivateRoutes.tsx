@@ -4,7 +4,6 @@ import DashboardPage from "../pages/DashboardPage";
 import TopBarProgress from "react-topbar-progress-indicator";
 import MasterLayout from "../components/core/MasterLayout";
 const NhanVienNghiViec = lazy(() => import("../pages/NhanVienNghiViec"));
-// const PhatTrienMoiPage = lazy(() => import("../pages/"));
 const DuytriPage = lazy(() => import("../pages/DuytriPage"));
 const Thaysim4GPage = lazy(() => import("../pages/Thaysim4GPage"));
 const PhatTrienMoiPage = lazy(() => import("../pages/PhatTrienMoiPage"));
