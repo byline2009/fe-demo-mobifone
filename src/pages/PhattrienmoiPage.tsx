@@ -11,7 +11,7 @@ const HeaderPhatTrienMoi = lazy(
   () => import("./ptm/components//HeaderPhatTrienMoi")
 );
 
-export default function PhatTrienMoi() {
+export default function PhatTrienMoiPage() {
   return (
     <Routes>
       <Route
