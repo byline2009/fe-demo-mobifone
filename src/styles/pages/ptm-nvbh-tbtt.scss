@@ -1,4 +1,12 @@
 .nvbh-tbtt {
+  .list-subscriber {
+    height: 564px;
+    max-height: 564px;
+    .empty-content {
+      height: 100%;
+    }
+  }
+
   .filter {
     display: flex;
     justify-content: start;

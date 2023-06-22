@@ -232,7 +232,7 @@ const Thaysim4GPage = () => {
             </div>
           ) : (
             <div className="table-responsive">
-              <table className="table table-row-dashed table-striped  table-row-gray-300 align-middle gs-0 gy-4">
+              <table className="table table-row-dashed table-striped  table-row-gray-300 align-middle gs-0 gy-3">
                 <thead className="">
                   <tr>
                     <th scope="col">Tỉnh</th>

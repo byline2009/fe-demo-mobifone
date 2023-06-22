@@ -82,7 +82,7 @@ const NhanVienNghiViec = () => {
   return (
     <div>
       <div className="employee-off">
-        <h4 className="title">Danh sách nhân viên nghỉ việc</h4>
+        <h4 className="title mb-3">Danh sách nhân viên nghỉ việc</h4>
         {loading ? (
           <div className="empty-content">
             <div className="w-100 h-100 d-flex align-items-center justify-content-center">
@@ -91,7 +91,7 @@ const NhanVienNghiViec = () => {
           </div>
         ) : (
           <div className="table-responsive">
-            <table className="table table-row-dashed table-striped  table-row-gray-300 align-middle gs-0 gy-4">
+            <table className="table table-row-dashed table-striped  table-row-gray-300 align-middle gs-0 gy-3">
               <thead className="">
                 <tr>
                   <th scope="col">Tỉnh</th>

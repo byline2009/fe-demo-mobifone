@@ -14,9 +14,9 @@ const HeaderPhatTrienMoi = () => {
               className={
                 `nav-link text-active-primary me-3 ` +
                 (location.pathname === `/ptm/nvbh` ||
-                `/ptm/nvbh/tbtt` ||
-                `/ptm/nvbh/tbts`
-                  ? "active"
+                location.pathname === `/ptm/nvbh/tbtt` ||
+                location.pathname === `/ptm/nvbh/tbts`
+                  ? " active"
                   : "")
               }
               to={`/ptm/nvbh`}
@@ -28,9 +28,9 @@ const HeaderPhatTrienMoi = () => {
             <Link
               className={
                 `nav-link text-active-primary me-3 ` +
-                (location.pathname === `/ptm/gdv` ||
-                `/ptm/gdv/tbtt` ||
-                `/ptm/gdv/tbts`
+                (location.pathname == `/ptm/gdv` ||
+                location.pathname == `/ptm/gdv/tbtt` ||
+                location.pathname == `/ptm/gdv/tbts`
                   ? "active"
                   : "")
               }

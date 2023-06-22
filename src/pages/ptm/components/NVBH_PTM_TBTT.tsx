@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useEffect, useRef, useState } from "react";
 import { DatePickerField } from "../../../components/widgets/datePickers/DatePickerField";
 import * as Yup from "yup";
+import "react-datepicker/dist/react-datepicker.css";
 import { getPageNumber } from "../../../helpers/ConvertHelper";
 import { get_CP_PTM_NVBH_TBTT } from "../../../setup/axios/Ptm";
 import { ErrorMessage, Form, Formik } from "formik";
@@ -284,7 +285,7 @@ const NVBH_PTM_TBTT = () => {
             </div>
           ) : (
             <div className="table-responsive">
-              <table className="table table-row-dashed table-striped  table-row-gray-300 align-middle gs-0 gy-4">
+              <table className="table table-row-dashed table-striped  table-row-gray-300 align-middle gs-0 gy-3">
                 <thead className="">
                   <tr>
                     <th scope="col">Tháng tính lương</th>
@@ -292,6 +293,9 @@ const NVBH_PTM_TBTT = () => {
                     <th scope="col">isdn</th>
                     <th scope="col">Sub_Id</th>
                     <th scope="col">Emp_code</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Comm_amount</th>
+                    <th scope="col">Số ngày xác minh</th>
                     <th scope="col">accept</th>
                     <th scope="col">description</th>
                   </tr>
@@ -299,11 +303,16 @@ const NVBH_PTM_TBTT = () => {
                 <tbody>
                   {(arr as any).map((item: NVBH_PTM_TBTT, index: number) => (
                     <tr key={index}>
-                      {moment(new Date(item.pay_month)).format("DD/MM/YYYY")}
+                      <th>
+                        {moment(new Date(item.pay_month)).format("DD/MM/YYYY")}
+                      </th>
                       <th>{item.shop_code}</th>
                       <th>{item.isdn}</th>
                       <th>{item.sub_id}</th>
                       <th>{item.emp_code}</th>
+                      <th>{item.code}</th>
+                      <th>{item.comm_amount}</th>
+                      <th>{item.xacminh_songay}</th>
                       <th>{item.accept}</th>
                       <th>{item.description}</th>
                     </tr>

@@ -1,14 +1,13 @@
 import React, { FC, Suspense, lazy } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import TopBarProgress from "react-topbar-progress-indicator";
-import NVBHPhattrienmoi from "./ptm/NVBHPhattrienmoi";
-
+const NVBHPhattrienmoi = lazy(() => import("./ptm/NVBHPhattrienmoi"));
 const GDVPhattrienmoi = lazy(() => import("./ptm/GDVPhattrienmoi"));
 const AMPhattrienmoi = lazy(() => import("./ptm/AMPhattrienmoi"));
 const DailyPhattrienmoi = lazy(() => import("./ptm/DailyPhattrienmoi"));
 
 const HeaderPhatTrienMoi = lazy(
-  () => import("./ptm/components//HeaderPhatTrienMoi")
+  () => import("./ptm/components/HeaderPhatTrienMoi")
 );
 
 const PTMPage = () => {
@@ -62,7 +61,6 @@ const PTMPage = () => {
             </>
           }
         />
-
         <Route index element={<Navigate to="/ptm/nvbh" />} />
       </Route>
     </Routes>
