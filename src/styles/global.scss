@@ -58,6 +58,10 @@ body {
   overflow: hidden;
   &.active {
     width: 100px;
+    display: block;
+  }
+  @media (max-width: 767px) {
+    display: none;
   }
 }
 
@@ -168,6 +172,10 @@ body {
   &.active {
     width: calc(100% - 100px);
     left: 100px;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+    left: 0;
   }
 }
 .content-page {
