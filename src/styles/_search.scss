@@ -6,8 +6,8 @@
   margin-bottom: $spacing-s;
   margin-top: $spacing-s;
   border: 0.5px solid $neutral-grey-400;
-  @media (max-width: 480px) {
-    // display: none;
+  @media (max-width: 767px) {
+    display: none;
   }
 
   .search-text {
