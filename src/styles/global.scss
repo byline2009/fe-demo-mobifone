@@ -11,6 +11,7 @@
 @import "search";
 @import "nav";
 @import "text";
+@import "base";
 @import "./components/pagination/pagination";
 @import "./pages/employee-off.scss";
 @import "./pages/dashboard.scss";
@@ -281,6 +282,7 @@ body {
   padding: 20px;
   color: $white;
 }
+
 .min- {
   &w-50px {
     min-width: 50px;

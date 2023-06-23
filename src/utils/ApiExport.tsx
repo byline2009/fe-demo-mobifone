@@ -1,12 +1,13 @@
 import axios from "axios";
-
 const API_URL = process.env.REACT_APP_API_URL;
-const API = axios.create({
+
+const APIExport = axios.create({
   baseURL: `${API_URL}`,
-  timeout: 10000,
+  timeout: 1000000,
   headers: {
     "Content-Type": "application/json",
   },
+  responseType: "blob",
 });
 
-export default API;
+export default APIExport;
