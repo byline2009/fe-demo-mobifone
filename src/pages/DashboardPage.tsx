@@ -22,14 +22,18 @@ const DashboardPage = () => {
       month: new Date().getMonth() + 1,
       year: new Date().getFullYear(),
     }).then((result) => {
-      set_bhtt_ptm(result.data);
+      if (result) {
+        set_bhtt_ptm(result.data);
+      }
       setLoading_BHTT_PTM(false);
     });
     get_PTM_DB01({
       month: new Date().getMonth() + 1,
       year: new Date().getFullYear(),
     }).then((result) => {
-      set_db01_ptm(result.data);
+      if (result) {
+        set_db01_ptm(result.data);
+      }
       setLoading_DB01_PTM(false);
     });
   }, []);

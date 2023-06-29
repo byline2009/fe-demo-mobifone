@@ -11,8 +11,9 @@ import {
   lockClosedOutline,
   logOutOutline,
   menuOutline,
-  searchOutline,
+  trendingUpOutline,
   pricetagOutline,
+  shuffleOutline,
 } from "ionicons/icons";
 import SearchHeader from "../widgets/search/SearchHeader";
 
@@ -88,20 +89,13 @@ const MasterLayout: React.FC = ({ children }) => {
               <span className="title">Thay sim 4G</span>
             </Link>
           </li>
-          <li id="menu-employee-off">
-            <Link className="menu-link" to={`nhan-vien-nghi-viec`}>
-              <span className="icon">
-                <IonIcon className="ion-icon" icon={personOutline}></IonIcon>
-              </span>
-              <span className="title">Nhân viên nghỉ việc</span>
-            </Link>
-          </li>
+
           <li id="menu-ptm">
             <Link className="menu-link" to={`ptm`}>
               <span className="icon">
                 <IonIcon
                   className="ion-icon"
-                  icon={chatbubbleOutline}
+                  icon={trendingUpOutline}
                 ></IonIcon>
               </span>
               <span className="title">Phát triển mới</span>
@@ -110,12 +104,17 @@ const MasterLayout: React.FC = ({ children }) => {
           <li id="menu-cs">
             <Link className="menu-link" to={`cs`}>
               <span className="icon">
-                <IonIcon
-                  className="ion-icon"
-                  icon={chatbubbleOutline}
-                ></IonIcon>
+                <IonIcon className="ion-icon" icon={shuffleOutline}></IonIcon>
               </span>
               <span className="title">Duy trì</span>
+            </Link>
+          </li>
+          <li id="menu-employee-off">
+            <Link className="menu-link" to={`nhan-vien-nghi-viec`}>
+              <span className="icon">
+                <IonIcon className="ion-icon" icon={personOutline}></IonIcon>
+              </span>
+              <span className="title">Nhân viên nghỉ việc</span>
             </Link>
           </li>
           <li>

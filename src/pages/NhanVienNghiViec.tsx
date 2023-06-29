@@ -66,25 +66,31 @@ const NhanVienNghiViec = () => {
     getNhanVienNghiViec({
       skip: event.selected + 1 == -1 ? 0 : event.selected * limit,
       limit: limit,
-    }).then((response: any) => {
-      const arrTemp: EmployeeOff[] = [];
-      response &&
-        response.data.map((item: any) => {
-          const object = {
-            tinh: item[0],
-            shopCode: item[1],
-            shopName: item[2],
-            empCode: item[3],
-            empName: item[4],
-            areaCode: item[5],
-            description: item[6],
-          };
-          arrTemp.push(object);
-        });
-      setArr(arrTemp);
-      setTotalCount(response.totalCount);
-      setLoading(false);
-    });
+    })
+      .then((response: any) => {
+        if (response) {
+          const arrTemp: EmployeeOff[] = [];
+          response &&
+            response.data.map((item: any) => {
+              const object = {
+                tinh: item[0],
+                shopCode: item[1],
+                shopName: item[2],
+                empCode: item[3],
+                empName: item[4],
+                areaCode: item[5],
+                description: item[6],
+              };
+              arrTemp.push(object);
+            });
+          setArr(arrTemp);
+          setTotalCount(response.totalCount);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
     setForcePageIndex(event.selected);
   };
   const handleExport = (e: string) => {
