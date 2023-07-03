@@ -47,7 +47,7 @@ const DashboardPage = () => {
             <div className="card-body d-flex justify-content-center text-center flex-column  p-8">
               <div className="fs-5 fw-bold text-gray-700 text-wrap mb-2">
                 {`Tổng số thuê bao phát triển mới kích hoạt tháng ${
-                  d.getMonth() + 1
+                  new Date().getMonth() + 1
                 } được ghi nhận đến ${moment(d).format(
                   "DD/MM/YYYY"
                 )} trên BHTT`}
@@ -67,7 +67,7 @@ const DashboardPage = () => {
             <div className="card-body d-flex justify-content-center text-center flex-column p-8">
               <div className="fs-5 fw-bold text-gray-700 text-wrap mb-2">
                 {`Tổng số thuê bao phát triển mới kích hoạt tháng ${
-                  d.getMonth() + 1
+                  new Date().getMonth() + 1
                 } được ghi nhận đến ${moment(d).format(
                   "DD/MM/YYYY"
                 )} trên DB01`}
