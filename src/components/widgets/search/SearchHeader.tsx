@@ -43,7 +43,12 @@ const SearchHeader: FC<PropsType> = ({
           onKeyDown={(e: any) => submitSearch(e)}
         />
       </div>
-      <button className="search-submit" onClick={() => {}}>
+      <button
+        className="search-submit"
+        onClick={() => {
+          callback(keywords);
+        }}
+      >
         Tìm kiếm
       </button>
     </div>

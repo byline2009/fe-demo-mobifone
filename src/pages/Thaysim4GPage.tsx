@@ -184,7 +184,7 @@ const Thaysim4GPage = () => {
         </Formik>
         <SearchHeader
           textSearch={textSearch}
-          textHolder="Nhập isdn ..."
+          textHolder="Nhập thông tin ..."
           callback={(e) => {
             setTextSearch(e);
             setLoading(true);
@@ -241,7 +241,7 @@ const Thaysim4GPage = () => {
                   <tr>
                     <th scope="col">Tỉnh</th>
                     <th scope="col">Shopcode</th>
-                    <th scope="col">Huyện</th>
+                    <th scope="col">Shopname</th>
                     <th scope="col">Mã nvpt</th>
                     <th scope="col">Họ và tên</th>
                     <th scope="col">Ngày kích hoạt</th>
