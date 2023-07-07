@@ -3,7 +3,6 @@ import { IonIcon } from "@ionic/react";
 import { Link, Outlet } from "react-router-dom";
 
 import {
-  chatbubbleOutline,
   homeOutline,
   helpOutline,
   settingsOutline,
@@ -15,7 +14,6 @@ import {
   pricetagOutline,
   shuffleOutline,
 } from "ionicons/icons";
-import SearchHeader from "../widgets/search/SearchHeader";
 
 const MasterLayout: React.FC = ({ children }) => {
   useEffect(() => {
@@ -170,7 +168,6 @@ const MasterLayout: React.FC = ({ children }) => {
               <IonIcon className="ion-icon" icon={searchOutline}></IonIcon>
             </label>
           </div> */}
-          <SearchHeader />
           {/* User IMG */}
           <div className="user">
             <img src="/imgs/user.jpg" alt="user" />

@@ -9,23 +9,24 @@ import { getPageNumber } from "../helpers/ConvertHelper";
 import ReactPaginate from "react-paginate";
 import { TailSpin } from "react-loader-spinner";
 import moment from "moment";
+import SearchHeader from "../components/widgets/search/SearchHeader";
 interface ThaySim4G {
   isdn: string;
-  shopCode: string;
-  shopName: string;
-  shopType: string;
-  issueDateTime: string;
-  empCode: string;
-  empName: string;
-  province: string;
-  districtName: string;
-  reasonId: string;
-  loaiTB: string;
-  thangtt: string;
+  shopCode?: string;
+  shopName?: string;
+  shopType?: string;
+  issueDateTime?: string;
+  empCode?: string;
+  empName?: string;
+  province?: string;
+  districtName?: string;
+  reasonId?: string;
+  loaiTB?: string;
+  thangtt?: string;
 }
 interface InitThaySim4G {
   selectMonthYear: Date;
-  selectType: String;
+  selectType: string;
 }
 var x = new Date();
 x.setDate(1);
@@ -44,41 +45,14 @@ const Thaysim4GPage = () => {
   const [forcePageIndex, setForcePageIndex] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [pageTotal, setPageTotal] = useState(getPageNumber(totalCount, limit));
+  const [textSearch, setTextSearch] = useState("");
   useEffect(() => {
     if (!renderAfterCalled.current) {
-      setLoading(true);
-      getThaySim({
+      handleGetThaySim4G({
         skip: 0,
-        limit: limit,
-        type: "NVBH",
         month: initValues.selectMonthYear.getMonth() + 1,
         year: initValues.selectMonthYear.getFullYear(),
-      }).then((response: any) => {
-        if (response) {
-          const arrTemp: ThaySim4G[] = [];
-          response &&
-            response.data.map((item: any) => {
-              const object = {
-                isdn: item[0],
-                shopCode: item[1],
-                shopName: item[2],
-                shopType: item[3],
-                issueDateTime: item[4],
-                empCode: item[5],
-                empName: item[6],
-                province: item[7],
-                districtName: item[8],
-                reasonId: item[9],
-                loaiTB: item[13],
-                thangtt: item[16],
-              };
-              arrTemp.push(object);
-            });
-          setArr(arrTemp);
-          console.log("arr", arr);
-          setTotalCount(response.totalCount);
-          setLoading(false);
-        }
+        type: initValues.selectType,
       });
     }
     renderAfterCalled.current = true;
@@ -87,14 +61,15 @@ const Thaysim4GPage = () => {
     setPageTotal(getPageNumber(totalCount, limit));
   }, [totalCount]);
 
-  const handlePageChange = (event: any) => {
+  const handleGetThaySim4G = (params: any) => {
     setLoading(true);
     getThaySim({
-      skip: event.selected + 1 == -1 ? 0 : event.selected * limit,
+      skip: params.skip,
       limit: limit,
-      month: initValues.selectMonthYear.getMonth() + 1,
-      year: initValues.selectMonthYear.getFullYear(),
-      type: initValues.selectType,
+      month: params.month,
+      year: params.year,
+      type: params.type,
+      textSearch: textSearch,
     }).then((response: any) => {
       const arrTemp: ThaySim4G[] = [];
       response &&
@@ -110,8 +85,8 @@ const Thaysim4GPage = () => {
             province: item[7],
             districtName: item[8],
             reasonId: item[9],
-            loaiTB: item[13],
-            thangtt: item[16],
+            loaiTB: item[10],
+            thangtt: item[11],
           };
           arrTemp.push(object);
           setArr(arrTemp);
@@ -119,108 +94,137 @@ const Thaysim4GPage = () => {
       setTotalCount(response.totalCount);
       setLoading(false);
     });
+  };
+
+  const handlePageChange = (event: any) => {
+    setLoading(true);
+    handleGetThaySim4G({
+      skip: event.selected + 1 == -1 ? 0 : event.selected * limit,
+      month: initValues.selectMonthYear.getMonth() + 1,
+      year: initValues.selectMonthYear.getFullYear(),
+      type: initValues.selectType,
+    });
     setForcePageIndex(event.selected);
   };
 
   return (
     <div className="thaysim">
       <h4 className="title">Chi phí thay sim 4G</h4>
-      <Formik
-        enableReinitialize={true}
-        initialValues={initValues}
-        validationSchema={formSchema}
-        onSubmit={async (values, { resetForm }) => {
-          const data = {
-            year: values.selectMonthYear.getFullYear(),
-            month: values.selectMonthYear.getMonth() + 1,
-            skip: 0,
-            limit: 10,
-            type: values.selectType,
-          };
+      <div className="d-flex">
+        <Formik
+          enableReinitialize={true}
+          initialValues={initValues}
+          validationSchema={formSchema}
+          onSubmit={async (values, { resetForm }) => {
+            const data = {
+              year: values.selectMonthYear.getFullYear(),
+              month: values.selectMonthYear.getMonth() + 1,
+              skip: 0,
+              type: values.selectType,
+            };
 
-          setInitValues({
-            selectMonthYear: values.selectMonthYear,
-            selectType: values.selectType,
-          } as InitThaySim4G);
-          setLoading(true);
-          await getThaySim(data).then((response) => {
-            const arrTemp: ThaySim4G[] = [];
-            response &&
-              response.data.map((item: any) => {
-                const object = {
-                  isdn: item[0],
-                  shopCode: item[1],
-                  shopName: item[2],
-                  shopType: item[3],
-                  issueDateTime: item[4],
-                  empCode: item[5],
-                  empName: item[6],
-                  province: item[7],
-                  districtName: item[8],
-                  reasonId: item[9],
-                  loaiTB: item[13],
-                  thangtt: item[16],
-                };
-                arrTemp.push(object);
-              });
-            setArr(arrTemp);
-            setTotalCount(response.totalCount);
-            setLoading(false);
-          });
-        }}
-      >
-        {(formikProps) => {
-          return (
-            <Form>
-              <div className=" filter mb-3">
-                <div className="filter-body d-flex flex-start">
-                  <div className="select-filter">
-                    <label
-                      htmlFor="selectMonthYear"
-                      className="form-label fs-6 fw-bold text-dark me-2"
-                    >
-                      Tháng
-                    </label>
-                    <DatePickerField
-                      showMonthYearPicker={true}
-                      name={`selectMonthYear`}
-                      dateFormat="MM/yyyy"
-                      disabled={false}
-                      callbackSetDate={(e: any) => {
-                        formikProps.handleSubmit();
-                      }}
-                    ></DatePickerField>
+            setInitValues({
+              selectMonthYear: values.selectMonthYear,
+              selectType: values.selectType,
+            } as InitThaySim4G);
+            handleGetThaySim4G(data);
+          }}
+        >
+          {(formikProps) => {
+            return (
+              <Form>
+                <div className=" filter mb-3 me-5">
+                  <div className="filter-body d-flex flex-start">
+                    <div className="select-filter">
+                      <label
+                        htmlFor="selectMonthYear"
+                        className="form-label fs-6 fw-bold text-dark me-2"
+                      >
+                        Tháng
+                      </label>
+                      <DatePickerField
+                        showMonthYearPicker={true}
+                        name={`selectMonthYear`}
+                        dateFormat="MM/yyyy"
+                        disabled={false}
+                        callbackSetDate={(e: any) => {
+                          formikProps.handleSubmit();
+                        }}
+                      ></DatePickerField>
 
-                    <div className="text-danger">
-                      <ErrorMessage name="selectMonthYear" />
+                      <div className="text-danger">
+                        <ErrorMessage name="selectMonthYear" />
+                      </div>
+                    </div>
+                    <div className="select-filter">
+                      <label
+                        htmlFor="type"
+                        className="form-label fs-6 fw-bolder text-dark required me-2"
+                      >
+                        Đối tượng
+                      </label>
+                      <FormSelect
+                        name="selectType"
+                        options={[
+                          { label: "NVBH", value: "NVBH" },
+                          { label: "GDV", value: "GDV" },
+                          { label: "AM", value: "AM" },
+                          { label: "Đại lý", value: "Dai ly" },
+                        ]}
+                        callback={(e: any) => {
+                          formikProps.handleSubmit();
+                        }}
+                      />
                     </div>
                   </div>
-                  <div className="select-filter">
-                    <label
-                      htmlFor="type"
-                      className="form-label fs-6 fw-bolder text-dark required me-2"
-                    >
-                      Đối tượng
-                    </label>
-                    <FormSelect
-                      name="selectType"
-                      options={[
-                        { label: "NVBH", value: "NVBH" },
-                        { label: "GDV", value: "GDV" },
-                        { label: "AM", value: "AM" },
-                        { label: "Đại lý", value: "Dai ly" },
-                      ]}
-                      callback={(e: any) => {
-                        formikProps.handleSubmit();
-                      }}
-                    />
-                  </div>
                 </div>
-              </div>
-            </Form>
-          );
-        }}
-      </Formik>
+              </Form>
+            );
+          }}
+        </Formik>
+        <SearchHeader
+          textSearch={textSearch}
+          textHolder="Nhập isdn ..."
+          callback={(e) => {
+            setTextSearch(e);
+            setLoading(true);
+            getThaySim({
+              skip: 0,
+              limit: limit,
+              type: "NVBH",
+              month: initValues.selectMonthYear.getMonth() + 1,
+              year: initValues.selectMonthYear.getFullYear(),
+              textSearch: e,
+            }).then((response: any) => {
+              if (response) {
+                const arrTemp: ThaySim4G[] = [];
+                response &&
+                  response.data.map((item: any) => {
+                    const object = {
+                      isdn: item[0],
+                      shopCode: item[1],
+                      shopName: item[2],
+                      shopType: item[3],
+                      issueDateTime: item[4],
+                      empCode: item[5],
+                      empName: item[6],
+                      province: item[7],
+                      districtName: item[8],
+                      reasonId: item[9],
+                      loaiTB: item[10],
+                      thangtt: item[11],
+                    };
+                    arrTemp.push(object);
+                  });
+                setArr(arrTemp);
+                console.log("arr", arr);
+                setTotalCount(response.totalCount);
+                setLoading(false);
+              }
+            });
+          }}
+        />
+      </div>
 
       <div>
         <div className="list-subscriber">
@@ -253,12 +257,14 @@ const Thaysim4GPage = () => {
                       <th>{item.empCode}</th>
                       <th>{item.empName}</th>
                       <th>
-                        {moment(new Date(item.issueDateTime)).format(
-                          "DD/MM/YYYY"
-                        )}
+                        {item.issueDateTime &&
+                          moment(new Date(item.issueDateTime)).format(
+                            "DD/MM/YYYY"
+                          )}
                       </th>
                       <th>
-                        {moment(new Date(item.thangtt)).format("MM/YYYY")}
+                        {item.thangtt &&
+                          moment(new Date(item.thangtt)).format("MM/YYYY")}
                       </th>
                     </tr>
                   ))}

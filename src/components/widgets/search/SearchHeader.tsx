@@ -1,8 +1,17 @@
 import { IonIcon } from "@ionic/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { closeCircleOutline } from "ionicons/icons";
-const SearchHeader = ({ keyQuery }: any) => {
-  const [keywords, setKeywords] = useState<string>(keyQuery || "");
+type PropsType = {
+  textSearch: string;
+  callback: (e: any) => void;
+  textHolder?: string;
+};
+const SearchHeader: FC<PropsType> = ({
+  textSearch,
+  callback,
+  textHolder,
+}: any) => {
+  const [keywords, setKeywords] = useState<string>(textSearch || "");
 
   useEffect(() => {
     if (keywords) {
@@ -12,6 +21,7 @@ const SearchHeader = ({ keyQuery }: any) => {
   const submitSearch = (e: any) => {
     if (e.key === "Enter") {
       (document.activeElement as HTMLElement).blur();
+      callback(keywords);
     }
   };
 
@@ -27,7 +37,7 @@ const SearchHeader = ({ keyQuery }: any) => {
         <input
           type="text"
           name="searchName"
-          placeholder="Nhập thông tin..."
+          placeholder={textHolder ? textHolder : "Nhập thông tin ..."}
           value={keywords || ""}
           onChange={(e: any) => setKeywords(e.target.value)}
           onKeyDown={(e: any) => submitSearch(e)}
