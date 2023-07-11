@@ -8,39 +8,18 @@ import { get_CP_PTM_NVBH_TBTT } from "../../../setup/axios/Ptm";
 import { ErrorMessage, Form, Formik } from "formik";
 import { TailSpin } from "react-loader-spinner";
 import ReactPaginate from "react-paginate";
+import SearchHeader from "../../../components/widgets/search/SearchHeader";
 interface NVBH_PTM_TBTT {
-  tinh: string;
+  tinh?: string;
   pay_month: string;
   shop_code: string;
   emp_code: string;
   sub_id: string;
   isdn: string;
-  act_status_1?: string;
-  month_n?: string;
-  charge: string;
-  comm_amount: string;
+  accept: string;
   description?: string;
-  verify: boolean;
-  verify_number?: string;
-  sta_datetime?: string;
-  ngay_xacminh?: string;
-  xacminh_songay?: string;
-  vp_8tieuchi?: string;
-  tinh_psc_dau?: string;
-  thang_psc_dau?: string;
+  comm_amount?: string;
   code?: string;
-  charge_price?: string;
-  accept?: string;
-  video_call?: string;
-  reg_type?: string;
-  ngay_sing?: string;
-  id_no?: string;
-  id_issue_place?: string;
-  pp_no?: string;
-  pp_issue_place?: string;
-  thutu_idno?: string;
-  thutu_ppno?: string;
-  product_code?: string;
 }
 
 interface InitValues {
@@ -62,60 +41,16 @@ const NVBH_PTM_TBTT = () => {
   const [forcePageIndex, setForcePageIndex] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [pageTotal, setPageTotal] = useState(getPageNumber(totalCount, limit));
+  const [skip, setSkip] = useState(0);
+  const [textSearch, setTextSearch] = useState("");
+
   useEffect(() => {
     if (!renderAfterCalled.current) {
-      setLoading(true);
-      get_CP_PTM_NVBH_TBTT({
-        skip: 0,
+      handleGet_CP_PTM_NVBH_TBTT({
+        skip: skip,
         limit: limit,
         month: initValues.selectMonthYear.getMonth() + 1,
         year: initValues.selectMonthYear.getFullYear(),
-      }).then((response: any) => {
-        if (response) {
-          const arrTemp: NVBH_PTM_TBTT[] = [];
-          response &&
-            response.data.map((item: any) => {
-              const object = {
-                tinh: item[0],
-                pay_month: item[1],
-                shop_code: item[2],
-                emp_code: item[3],
-                sub_id: item[4],
-                isdn: item[5],
-                act_status_1: item[6],
-                month_n: item[7],
-                charge: item[8],
-                comm_amount: item[9],
-                description: item[10],
-                verify: item[11],
-                verify_number: item[12],
-                sta_datetime: item[13],
-                ngay_xacminh: item[14],
-                xacminh_songay: item[15],
-                vp_8tieuchi: item[16],
-                tinh_psc_dau: item[17],
-                thang_psc_dau: item[18],
-                code: item[19],
-                charge_price: item[20],
-                accept: item[21],
-                video_call: item[22],
-                reg_type: item[23],
-                ngay_sing: item[24],
-                id_no: item[25],
-                id_issue_place: item[26],
-                pp_no: item[26],
-                pp_issue_place: item[27],
-                thutu_idno: item[28],
-                thutu_ppno: item[29],
-                product_code: item[30],
-              };
-              arrTemp.push(object);
-            });
-          setArr(arrTemp);
-          console.log("arr", arr);
-          setTotalCount(response.totalCount);
-          setLoading(false);
-        }
       });
     }
     renderAfterCalled.current = true;
@@ -125,12 +60,24 @@ const NVBH_PTM_TBTT = () => {
   }, [totalCount]);
 
   const handlePageChange = (event: any) => {
-    setLoading(true);
-    get_CP_PTM_NVBH_TBTT({
+    setSkip(event.selected + 1 == -1 ? 0 : event.selected * limit);
+    handleGet_CP_PTM_NVBH_TBTT({
       skip: event.selected + 1 == -1 ? 0 : event.selected * limit,
       limit: limit,
       month: initValues.selectMonthYear.getMonth() + 1,
       year: initValues.selectMonthYear.getFullYear(),
+    });
+    setForcePageIndex(event.selected);
+  };
+  const handleGet_CP_PTM_NVBH_TBTT = (params: any) => {
+    console.log("check ne");
+    setLoading(true);
+    get_CP_PTM_NVBH_TBTT({
+      skip: params.skip,
+      limit: params.limit,
+      month: params.month,
+      year: params.year,
+      textSearch: params.textSearch,
     }).then((response: any) => {
       const arrTemp: NVBH_PTM_TBTT[] = [];
       response &&
@@ -142,138 +89,86 @@ const NVBH_PTM_TBTT = () => {
             emp_code: item[3],
             sub_id: item[4],
             isdn: item[5],
-            act_status_1: item[6],
-            month_n: item[7],
-            charge: item[8],
-            comm_amount: item[9],
-            description: item[10],
-            verify: item[11],
-            verify_number: item[12],
-            sta_datetime: item[13],
-            ngay_xacminh: item[14],
-            xacminh_songay: item[15],
-            vp_8tieuchi: item[16],
-            tinh_psc_dau: item[17],
-            thang_psc_dau: item[18],
-            code: item[19],
-            charge_price: item[20],
-            accept: item[21],
-            video_call: item[22],
-            reg_type: item[23],
-            ngay_sing: item[24],
-            id_no: item[25],
-            id_issue_place: item[26],
-            pp_no: item[26],
-            pp_issue_place: item[27],
-            thutu_idno: item[28],
-            thutu_ppno: item[29],
-            product_code: item[30],
+            accept: item[6],
+            description: item[7],
+            comm_amount: item[8],
+            code: item[9],
           };
           arrTemp.push(object);
-          setArr(arrTemp);
         });
+      setArr(arrTemp);
+
       setTotalCount(response.totalCount);
       setLoading(false);
     });
-    setForcePageIndex(event.selected);
   };
 
   return (
     <div className="nvbh-tbtt">
-      <Formik
-        enableReinitialize={true}
-        initialValues={initValues}
-        validationSchema={formSchema}
-        onSubmit={async (values, { resetForm }) => {
-          const data = {
-            year: values.selectMonthYear.getFullYear(),
-            month: values.selectMonthYear.getMonth() + 1,
-            skip: 0,
-            limit: 10,
-          };
+      <div className="d-flex flex-start align-items-center">
+        <Formik
+          enableReinitialize={true}
+          initialValues={initValues}
+          validationSchema={formSchema}
+          onSubmit={async (values, { resetForm }) => {
+            setInitValues({
+              selectMonthYear: values.selectMonthYear,
+            } as InitValues);
+            handleGet_CP_PTM_NVBH_TBTT({
+              skip: skip,
+              limit: limit,
+              month: values.selectMonthYear.getMonth() + 1,
+              year: values.selectMonthYear.getFullYear(),
+            });
+          }}
+        >
+          {(formikProps) => {
+            return (
+              <Form>
+                <div className=" filter mb-3 mt-2 me-5">
+                  <div className="filter-body d-flex flex-start">
+                    <div className="select-filter me-5">
+                      <label
+                        htmlFor="selectMonthYear"
+                        className="form-label fs-6 fw-bold text-dark me-2"
+                      >
+                        Tháng
+                      </label>
+                      <DatePickerField
+                        showMonthYearPicker={true}
+                        name={`selectMonthYear`}
+                        dateFormat="MM/yyyy"
+                        disabled={false}
+                        callbackSetDate={(e: any) => {
+                          formikProps.handleSubmit();
+                        }}
+                      ></DatePickerField>
 
-          setInitValues({
-            selectMonthYear: values.selectMonthYear,
-          } as InitValues);
-          setLoading(true);
-          await get_CP_PTM_NVBH_TBTT(data).then((response) => {
-            const arrTemp: NVBH_PTM_TBTT[] = [];
-            response &&
-              response.data.map((item: any) => {
-                const object = {
-                  tinh: item[0],
-                  pay_month: item[1],
-                  shop_code: item[2],
-                  emp_code: item[3],
-                  sub_id: item[4],
-                  isdn: item[5],
-                  act_status_1: item[6],
-                  month_n: item[7],
-                  charge: item[8],
-                  comm_amount: item[9],
-                  description: item[10],
-                  verify: item[11],
-                  verify_number: item[12],
-                  sta_datetime: item[13],
-                  ngay_xacminh: item[14],
-                  xacminh_songay: item[15],
-                  vp_8tieuchi: item[16],
-                  tinh_psc_dau: item[17],
-                  thang_psc_dau: item[18],
-                  code: item[19],
-                  charge_price: item[20],
-                  accept: item[21],
-                  video_call: item[22],
-                  reg_type: item[23],
-                  ngay_sing: item[24],
-                  id_no: item[25],
-                  id_issue_place: item[26],
-                  pp_no: item[26],
-                  pp_issue_place: item[27],
-                  thutu_idno: item[28],
-                  thutu_ppno: item[29],
-                  product_code: item[30],
-                };
-                arrTemp.push(object);
-              });
-            setArr(arrTemp);
-            setTotalCount(response.totalCount);
-            setLoading(false);
-          });
-        }}
-      >
-        {(formikProps) => {
-          return (
-            <Form>
-              <div className=" filter mb-3 mt-2">
-                <div className="filter-body d-flex flex-start">
-                  <div className="select-filter">
-                    <label
-                      htmlFor="selectMonthYear"
-                      className="form-label fs-6 fw-bold text-dark me-2"
-                    >
-                      Tháng
-                    </label>
-                    <DatePickerField
-                      showMonthYearPicker={true}
-                      name={`selectMonthYear`}
-                      dateFormat="MM/yyyy"
-                      disabled={false}
-                      callbackSetDate={(e: any) => {
-                        formikProps.handleSubmit();
-                      }}
-                    ></DatePickerField>
-
-                    <div className="text-danger">
-                      <ErrorMessage name="selectMonthYear" />
+                      <div className="text-danger">
+                        <ErrorMessage name="selectMonthYear" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Form>
-          );
-        }}
-      </Formik>
+              </Form>
+            );
+          }}
+        </Formik>
+        <SearchHeader
+          textSearch={textSearch}
+          textHolder="Nhập thông tin ..."
+          callback={(e) => {
+            setTextSearch(e);
+            handleGet_CP_PTM_NVBH_TBTT({
+              skip: skip,
+              limit: limit,
+              month: initValues.selectMonthYear.getMonth() + 1,
+              year: initValues.selectMonthYear.getFullYear(),
+              textSearch: e,
+            });
+          }}
+        />
+      </div>
 
       <div>
         <div className="list-subscriber">
@@ -295,7 +190,6 @@ const NVBH_PTM_TBTT = () => {
                     <th scope="col">Emp_code</th>
                     <th scope="col">Code</th>
                     <th scope="col">Comm_amount</th>
-                    <th scope="col">Số ngày xác minh</th>
                     <th scope="col">accept</th>
                     <th scope="col">description</th>
                   </tr>
@@ -312,7 +206,6 @@ const NVBH_PTM_TBTT = () => {
                       <th>{item.emp_code}</th>
                       <th>{item.code}</th>
                       <th>{item.comm_amount}</th>
-                      <th>{item.xacminh_songay}</th>
                       <th>{item.accept}</th>
                       <th>{item.description}</th>
                     </tr>
