@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Form, Formik } from "formik";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Yup from "yup";
 import { DatePickerField } from "../components/widgets/datePickers/DatePickerField";
 import FormSelect from "../components/widgets/selects/FormSelect";
-import { getThaySim } from "../setup/axios/thaysimAPI";
+import { getFileExcelThaySim4G, getThaySim } from "../setup/axios/thaysimAPI";
 import { getPageNumber } from "../helpers/ConvertHelper";
 import ReactPaginate from "react-paginate";
 import { TailSpin } from "react-loader-spinner";
 import moment from "moment";
 import SearchHeader from "../components/widgets/search/SearchHeader";
+import ConfirmModal from "../components/modals/ConfirmModal";
 interface ThaySim4G {
   isdn: string;
   shopCode?: string;
@@ -46,6 +47,10 @@ const Thaysim4GPage = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [pageTotal, setPageTotal] = useState(getPageNumber(totalCount, limit));
   const [textSearch, setTextSearch] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [loadingExport, setLoadingExport] = useState(false);
+  const [skip, setSkip] = useState(0);
+
   useEffect(() => {
     if (!renderAfterCalled.current) {
       handleGetThaySim4G({
@@ -98,6 +103,7 @@ const Thaysim4GPage = () => {
 
   const handlePageChange = (event: any) => {
     setLoading(true);
+    setSkip(event.selected + 1 == -1 ? 0 : event.selected * limit);
     handleGetThaySim4G({
       skip: event.selected + 1 == -1 ? 0 : event.selected * limit,
       month: initValues.selectMonthYear.getMonth() + 1,
@@ -105,6 +111,37 @@ const Thaysim4GPage = () => {
       type: initValues.selectType,
     });
     setForcePageIndex(event.selected);
+  };
+
+  const handleExport = (e: string) => {
+    const isCurrentPage = e === "1" ? true : false;
+    setLoadingExport(true);
+    getFileExcelThaySim4G({
+      skip: skip,
+      limit: limit,
+      isCurrentPage: isCurrentPage,
+      type: initValues.selectType,
+      month: initValues.selectMonthYear.getMonth() + 1,
+      year: initValues.selectMonthYear.getFullYear(),
+      textSearch: textSearch,
+    })
+      .then((response) => {
+        if (response) {
+          let url = window.URL.createObjectURL(response.data);
+          let a = document.createElement("a");
+          document.body.appendChild(a);
+          a.setAttribute("style", "display: none");
+          a.href = url;
+          a.download = "thay_sim_4g.xlsx";
+          a.click();
+          window.URL.revokeObjectURL(url);
+          a.remove();
+        }
+        setLoadingExport(false);
+      })
+      .catch((error) => {
+        setLoadingExport(false);
+      });
   };
 
   return (
@@ -225,6 +262,26 @@ const Thaysim4GPage = () => {
           }}
         />
       </div>
+      <div className="d-flex justify-content-end align-items-center">
+        <div className="empty"></div>
+        <button
+          className="btn btn-primary btn-sm fs-6 mb-2 px-3 "
+          onClick={() => {
+            setShowConfirm(true);
+          }}
+        >
+          {!loadingExport && (
+            <span className="indicator-label">Export Excel</span>
+          )}
+
+          {loadingExport && (
+            <span className="indicator-progress" style={{ display: "block" }}>
+              Please wait...
+              <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+          )}
+        </button>
+      </div>
 
       <div>
         <div className="list-subscriber">
@@ -297,6 +354,18 @@ const Thaysim4GPage = () => {
           </div>
         </div>
       </div>
+      <ConfirmModal
+        onConfirm={(e) => {
+          setShowConfirm(false);
+          handleExport(e);
+        }}
+        onClose={() => {
+          setShowConfirm(false);
+        }}
+        title="Thông báo"
+        visible={showConfirm}
+        isDanger={true}
+      />
     </div>
   );
 };

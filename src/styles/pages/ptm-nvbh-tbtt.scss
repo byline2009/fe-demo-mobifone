@@ -9,8 +9,8 @@
 
   .filter {
     display: flex;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 150px;
     max-width: 150px;
     min-width: 0;
@@ -25,7 +25,7 @@
       height: 100%;
       .select-filter {
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
         align-items: center;
         select {
           width: 200px;
