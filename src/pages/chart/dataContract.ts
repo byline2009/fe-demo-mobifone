@@ -1,4 +1,4 @@
-const dataBarWith2Axis = (
+const dataBarWith2AxisContract = (
   labels: string[],
   numberTopCOntract: number[],
   doanhthuTopContract: number[]
@@ -14,7 +14,7 @@ const dataBarWith2Axis = (
         borderWidth: 2,
         fill: true,
         cubicInterpolationMode: "monotone",
-        barThickness: 10,
+        barThickness: 15,
         backgroundColor: "rgba(215, 236, 251, 0.5)",
         data: numberTopCOntract,
       },
@@ -36,7 +36,7 @@ const dataBarWith2Axis = (
   };
 };
 
-const optionsBarWith2Axis = {
+const optionsBarWith2AxisContract = {
   scales: {
     x: {
       grid: {
@@ -70,4 +70,4 @@ const optionsBarWith2Axis = {
   },
 };
 
-export { dataBarWith2Axis, optionsBarWith2Axis };
+export { dataBarWith2AxisContract, optionsBarWith2AxisContract };

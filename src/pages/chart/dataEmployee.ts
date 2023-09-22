@@ -14,7 +14,7 @@ const dataBarWith2AxisEmployee = (
         borderWidth: 2,
         fill: true,
         cubicInterpolationMode: "monotone",
-        barThickness: 10,
+        barThickness: 15,
         backgroundColor: "rgba(215, 236, 251, 0.5)",
         data: numberTopCOntract,
       },
@@ -23,8 +23,7 @@ const dataBarWith2AxisEmployee = (
         yAxisID: "left-y-axis",
         type: "bar",
         label: "Doanh thu",
-
-        borderWidth: 3,
+        borderWidth: 2,
         fill: true,
         cubicInterpolationMode: "monotone",
         borderColor: "#ffc107",

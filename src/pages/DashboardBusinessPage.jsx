@@ -5,7 +5,11 @@ import {
   dataHorizontalBar,
   optionsHorizontalBar,
 } from "./chart/dataHorizontalBar";
-import { dataBarWith2Axis, optionsBarWith2Axis } from "./chart/dataBar";
+import {
+  dataBarWith2Axis,
+  dataBarWith2AxisContract,
+  optionsBarWith2AxisContract,
+} from "./chart/dataContract";
 import { useEffect, useState } from "react";
 
 import {
@@ -20,7 +24,10 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import { optionsBarWith2AxisEmployee } from "./chart/dataEmployee";
+import {
+  dataBarWith2AxisEmployee,
+  optionsBarWith2AxisEmployee,
+} from "./chart/dataEmployee";
 
 ChartJS.register(
   CategoryScale,
@@ -83,6 +90,10 @@ export default function DashboardBusinessPage() {
   const [numberTopEmployee, setNumberTopEmployee] = useState([
     5, 10, 15, 20, 25, 20,
   ]);
+
+  const [dtLKYear, setDTLKYear] = useState(492);
+  const [dtKHYear, setDTKHYear] = useState(809);
+
   useEffect(() => {
     setTongTH(arrayCN.map((item) => item.th).reduce(sum));
     setTongKH(arrayCN.map((item) => item.kh).reduce(sum));
@@ -98,15 +109,15 @@ export default function DashboardBusinessPage() {
 
   return (
     <div className="dashboard-business">
-      <h4 className="title-pag text-center pt-2">
+      <h4 className="title-pag text-center mt-5">
         Dashboard Kinh Doanh Công nghệ số
       </h4>
-      <div className="card-dashboard">
+      <div className="card-dashboard bg-light">
         {show && (
           <div className="container px-4">
             <div className="row gx-5">
               <div className=" col-lg-3 col-xs-12 col-md-12">
-                <div className="p-3 border bg-light">
+                <div className="p-3 border mt-4 bg-card-info ">
                   <Doughnut
                     data={dataDonut(
                       tongTH,
@@ -129,7 +140,7 @@ export default function DashboardBusinessPage() {
               </div>
               <div className="col-lg-9 col-xs-12 row">
                 {arrayCN.map((item, index) => (
-                  <div className="p-3  col-lg-3 col-md-12" key={index}>
+                  <div className="p-3  col-lg-3 col-md-6 col-xs-12" key={index}>
                     <Doughnut
                       data={dataDonut(
                         item.th,
@@ -152,26 +163,50 @@ export default function DashboardBusinessPage() {
                 ))}
               </div>
             </div>
-            <div className="row g-5">
-              <div className="col-lg-8 col-xs-12">
-                <Bar
-                  options={optionsBarWith2AxisEmployee}
-                  data={dataBarWith2Axis(
-                    labelTopEmployees,
-                    numberTopEmployee,
-                    doanhThuTopEmployee
-                  )}
-                />
+            <div className="row g-5 mt-5">
+              <div className="col-lg-3 col-xs-12">
+                <div className="p-3 border bg-card-info ">
+                  <Doughnut
+                    data={dataDonut(
+                      dtLKYear,
+                      dtKHYear,
+                      dtLKYear / dtKHYear > 1
+                        ? "rgba(76, 175, 80, 0.5)"
+                        : "rgba(255, 177, 193, 1)",
+                      `DT LK năm(tr)`,
+                      `DT KH năm(tr)`
+                    )}
+                    plugins={pluginDonut(
+                      Number(
+                        Number(dtLKYear / dtKHYear).toFixed(2) * 100
+                      ).toFixed(0) + "%"
+                    )}
+                  />
+                  <h5 className="text-center pt-5">{`Số hợp đồng LK năm 882`}</h5>
+                  <h4 className="pt-2 text-center">Công ty 7</h4>
+                </div>
               </div>
-              <div className="col-lg-8 col-xs-12 ">
-                <Bar
-                  options={optionsBarWith2Axis}
-                  data={dataBarWith2Axis(
-                    labelTopContracts,
-                    numberTopContract,
-                    doanhThuTopContract
-                  )}
-                />
+              <div className="col-lg-9 row">
+                <div className="col-lg-12 col-xs-12 ">
+                  <Bar
+                    options={optionsBarWith2AxisEmployee}
+                    data={dataBarWith2AxisEmployee(
+                      labelTopEmployees,
+                      numberTopEmployee,
+                      doanhThuTopEmployee
+                    )}
+                  />
+                </div>
+                <div className="col-lg-13 col-xs-12 ">
+                  <Bar
+                    options={optionsBarWith2AxisContract}
+                    data={dataBarWith2AxisContract(
+                      labelTopContracts,
+                      numberTopContract,
+                      doanhThuTopContract
+                    )}
+                  />
+                </div>
               </div>
             </div>
           </div>

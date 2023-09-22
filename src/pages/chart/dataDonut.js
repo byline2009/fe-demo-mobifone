@@ -25,7 +25,7 @@ const pluginDonut = (textInput) => {
         ctx.textBaseline = "top";
         var text = textInput,
           textX = Math.round((width - ctx.measureText(text).width) / 2),
-          textY = height / 2 + 20;
+          textY = height / 2 + 10;
         ctx.fillText(text, textX, textY);
         ctx.save();
       },
