@@ -1,4 +1,4 @@
-const dataBarWith2Axis = (
+const dataBarWith2AxisEmployee = (
   labels: string[],
   numberTopCOntract: number[],
   doanhthuTopContract: number[]
@@ -36,7 +36,7 @@ const dataBarWith2Axis = (
   };
 };
 
-const optionsBarWith2Axis = {
+const optionsBarWith2AxisEmployee = {
   scales: {
     x: {
       grid: {
@@ -70,4 +70,4 @@ const optionsBarWith2Axis = {
   },
 };
 
-export { dataBarWith2Axis, optionsBarWith2Axis };
+export { dataBarWith2AxisEmployee, optionsBarWith2AxisEmployee };

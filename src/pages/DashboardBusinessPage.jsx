@@ -20,6 +20,7 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
+import { optionsBarWith2AxisEmployee } from "./chart/dataEmployee";
 
 ChartJS.register(
   CategoryScale,
@@ -51,7 +52,37 @@ export default function DashboardBusinessPage() {
   const [tongKH, setTongKH] = useState(1);
   const [tongPercent, setTongPercent] = useState("0%");
   const [show, setShow] = useState(false);
+  const [numberContract, setNumberContract] = useState(49);
 
+  const [labelTopContracts, setLabelTopContracts] = useState([
+    "SipTrunk",
+    "3C",
+    "Mobifone Invoice",
+    "Mobifone eContract",
+    "MobiCa",
+  ]);
+  const [doanhThuTopContract, setDoanhThuTopContract] = useState([
+    10000000, 20000000, 25000000, 30000000, 35000000,
+  ]);
+  const [numberTopContract, setNumberTopContract] = useState([
+    5, 10, 15, 20, 25,
+  ]);
+
+  const [labelTopEmployees, setLabelEmployees] = useState([
+    "Đặng Thị Mỹ Liên",
+    "Hoàng Xuân Minh",
+    "Trần Thị Thanh Thương",
+    "Nguyễn Tiến Hoàng",
+    "Đỗ Ngọc Hùng",
+    "Phạm Minh Rin",
+  ]);
+
+  const [doanhThuTopEmployee, setDoanhThuTopEmployee] = useState([
+    10000000, 20000000, 25000000, 30000000, 35000000, 40000000,
+  ]);
+  const [numberTopEmployee, setNumberTopEmployee] = useState([
+    5, 10, 15, 20, 25, 20,
+  ]);
   useEffect(() => {
     setTongTH(arrayCN.map((item) => item.th).reduce(sum));
     setTongKH(arrayCN.map((item) => item.kh).reduce(sum));
@@ -67,45 +98,52 @@ export default function DashboardBusinessPage() {
 
   return (
     <div className="dashboard-business">
-      <h4>Dashboard Kinh Doanh Công nghệ số</h4>
+      <h4 className="title-pag text-center pt-2">
+        Dashboard Kinh Doanh Công nghệ số
+      </h4>
       <div className="card-dashboard">
         {show && (
           <div className="container px-4">
             <div className="row gx-5">
-              <div className="col col-3">
+              <div className=" col-lg-3 col-xs-12 col-md-12">
                 <div className="p-3 border bg-light">
                   <Doughnut
                     data={dataDonut(
                       tongTH,
                       tongKH,
                       tongTH / tongKH > 1
-                        ? "rgba(76, 175, 80, 1)"
-                        : "rgba(255, 177, 193, 1)"
+                        ? "rgba(76, 175, 80, 0.5)"
+                        : "rgba(255, 177, 193, 1)",
+                      `DT LK tháng(tr)`,
+                      `DT KH tháng(tr)`
                     )}
                     plugins={pluginDonut(
                       Number(Number(tongTH / tongKH).toFixed(2) * 100).toFixed(
                         0
-                      ) + " %"
+                      ) + "%"
                     )}
                   />
+                  <h5 className="text-center pt-5">{`Số hợp đồng LK ${numberContract}`}</h5>
                   <h4 className="pt-2 text-center">Công ty 7</h4>
                 </div>
               </div>
-              <div className="col col-9 row">
+              <div className="col-lg-9 col-xs-12 row">
                 {arrayCN.map((item, index) => (
-                  <div className="p-3 col col-3" key={index}>
+                  <div className="p-3  col-lg-3 col-md-12" key={index}>
                     <Doughnut
                       data={dataDonut(
                         item.th,
                         item.kh,
                         item.th / item.kh > 1
-                          ? "rgba(76, 175, 80, 1)"
-                          : "rgba(255, 177, 193, 1)"
+                          ? "rgba(76, 175, 80, 0.5)"
+                          : "rgba(255, 177, 193, 1)",
+                        "KH",
+                        "TH"
                       )}
                       plugins={pluginDonut(
                         Number(
                           Number(item.th / item.kh).toFixed(2) * 100
-                        ).toFixed(0) + " %"
+                        ).toFixed(0) + "%"
                       )}
                     />
 
@@ -114,12 +152,26 @@ export default function DashboardBusinessPage() {
                 ))}
               </div>
             </div>
-            <div className="row">
-              <div className="col col-6">
-                <Bar options={optionsHorizontalBar} data={dataHorizontalBar} />
+            <div className="row g-5">
+              <div className="col-lg-8 col-xs-12">
+                <Bar
+                  options={optionsBarWith2AxisEmployee}
+                  data={dataBarWith2Axis(
+                    labelTopEmployees,
+                    numberTopEmployee,
+                    doanhThuTopEmployee
+                  )}
+                />
               </div>
-              <div className="col col-6">
-                <Bar options={optionsBarWith2Axis} data={dataBarWith2Axis} />
+              <div className="col-lg-8 col-xs-12 ">
+                <Bar
+                  options={optionsBarWith2Axis}
+                  data={dataBarWith2Axis(
+                    labelTopContracts,
+                    numberTopContract,
+                    doanhThuTopContract
+                  )}
+                />
               </div>
             </div>
           </div>

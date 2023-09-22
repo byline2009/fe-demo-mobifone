@@ -1,9 +1,9 @@
-const dataDonut = (th, kh, color) => {
+const dataDonut = (th, kh, color, labelth, labelkh) => {
   return {
-    labels: [`DT LK tháng (tr) ${th}`, `DT KH tháng (tr) ${kh}`],
+    labels: [`${labelth} ${th}`, `${labelkh} ${kh}`],
     datasets: [
       {
-        label: "Tháng 9",
+        label: "",
         data: [th / kh, 1 - th / kh < 0 ? 0 : 1 - th / kh],
         backgroundColor: [`${color}`, "rgba(54, 162, 235, 0.2)"],
         borderColor: [`${color}`, "rgba(54, 162, 235, 1)"],
@@ -25,7 +25,7 @@ const pluginDonut = (textInput) => {
         ctx.textBaseline = "top";
         var text = textInput,
           textX = Math.round((width - ctx.measureText(text).width) / 2),
-          textY = height / 2;
+          textY = height / 2 + 20;
         ctx.fillText(text, textX, textY);
         ctx.save();
       },
