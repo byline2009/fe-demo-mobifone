@@ -15,6 +15,7 @@
 @import "./components/pagination/pagination";
 @import "./pages/employee-off.scss";
 @import "./pages/dashboard.scss";
+@import "./pages/dashboard-business.scss";
 @import "./pages/ptm-nvbh-tbtt.scss";
 @import "./pages/thaysim.scss";
 @import "./components/ptm/header.scss";
@@ -48,6 +49,7 @@ body {
 .container {
   position: relative;
   width: 100%;
+  max-width: 1920px !important;
 }
 .navigation {
   position: fixed;

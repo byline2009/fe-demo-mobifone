@@ -46,6 +46,11 @@ const MasterLayout: React.FC = ({ children }) => {
         element = document.getElementById("menu-dashboard");
         element?.classList.add("active");
         break;
+
+      case "dashboard-business":
+        element = document.getElementById("menu-dashboard-business");
+        element?.classList.add("active");
+        break;
       case "ptm":
         element = document.getElementById("menu-ptm");
         element?.classList.add("active");
@@ -77,6 +82,14 @@ const MasterLayout: React.FC = ({ children }) => {
                 <IonIcon className="ion-icon" icon={homeOutline}></IonIcon>
               </span>
               <span className="title">DashBoard</span>
+            </Link>
+          </li>
+          <li id="menu-dashboard-business">
+            <Link className="menu-link" to={`dashboard-business`}>
+              <span className="icon">
+                <IonIcon className="ion-icon" icon={homeOutline}></IonIcon>
+              </span>
+              <span className="title">DashBoard Business</span>
             </Link>
           </li>
           <li id="menu-thay-sim-4g">

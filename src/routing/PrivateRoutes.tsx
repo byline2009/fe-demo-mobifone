@@ -1,8 +1,12 @@
+"use client";
 import { lazy, FC, Suspense } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import DashboardPage from "../pages/DashboardPage";
 import TopBarProgress from "react-topbar-progress-indicator";
 import MasterLayout from "../components/core/MasterLayout";
+import { ErrorBoundary } from "react-error-boundary";
+import DashboardBusinessPage from "../pages/DashboardBusinessPage";
+
 const NhanVienNghiViec = lazy(() => import("../pages/NhanVienNghiViec"));
 const DuytriPage = lazy(() => import("../pages/DuytriPage"));
 const Thaysim4GPage = lazy(() => import("../pages/Thaysim4GPage"));
@@ -28,25 +32,41 @@ const PrivateRoutes = () => {
         <Route
           path="dashboard"
           element={
-            <SuspensedView>
-              <DashboardPage />
-            </SuspensedView>
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <SuspensedView>
+                <DashboardPage />
+              </SuspensedView>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="dashboard-business"
+          element={
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <SuspensedView>
+                <DashboardBusinessPage />{" "}
+              </SuspensedView>
+            </ErrorBoundary>
           }
         />
         <Route
           path="nhan-vien-nghi-viec"
           element={
-            <SuspensedView>
-              <NhanVienNghiViec />{" "}
-            </SuspensedView>
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <SuspensedView>
+                <NhanVienNghiViec />{" "}
+              </SuspensedView>
+            </ErrorBoundary>
           }
         />
         <Route
           path="thay-sim-4g"
           element={
-            <SuspensedView>
-              <Thaysim4GPage />{" "}
-            </SuspensedView>
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <SuspensedView>
+                <Thaysim4GPage />{" "}
+              </SuspensedView>
+            </ErrorBoundary>
           }
         />
         <Route
