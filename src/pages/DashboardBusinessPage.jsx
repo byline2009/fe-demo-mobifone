@@ -54,7 +54,7 @@ function sum(prev, next) {
 }
 var x = new Date();
 x.setDate(1);
-x.setMonth(x.getMonth() - 1);
+x.setMonth(x.getMonth());
 const INIT_VALUES = {
   selectMonthYear: x,
 };
@@ -71,11 +71,11 @@ export default function DashboardBusinessPage() {
   ]);
   const [tongTH, setTongTH] = useState(1);
   const [tongKH, setTongKH] = useState(1);
-  const [tongPercent, setTongPercent] = useState("0%");
   const [show, setShow] = useState(false);
   const [selectMonth, setSelectMonth] = useState(
     moment(new Date()).format("DD-MM-YYYY")
   );
+  console.log("checkcccc", moment(new Date()).format("DD-MM-YYYY"));
   const [numberContract, setNumberContract] = useState(49);
 
   const [labelTopContracts, setLabelTopContracts] = useState([
@@ -113,12 +113,6 @@ export default function DashboardBusinessPage() {
 
   const formSchema = Yup.object().shape({});
   const [initValues, setInitValues] = useState(INIT_VALUES);
-
-  useEffect(() => {
-    console.log("check1");
-
-    setTongPercent(Number(Number(tongTH / tongKH).toFixed(2) * 100).toFixed(0));
-  }, [tongKH, tongKH]);
 
   useEffect(() => {
     getDashBoardBusiness({ month: selectMonth }).then((res) => {

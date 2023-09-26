@@ -2,7 +2,7 @@ const dataDonut = (th, kh, color, labelth, labelkh) => {
   return {
     labels: [
       `${labelth} ${th.toLocaleString()}`,
-      `${labelkh.toLocaleString()} ${kh}`,
+      `${labelkh} ${kh.toLocaleString()}`,
     ],
     datasets: [
       {
