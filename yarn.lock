@@ -3566,10 +3566,17 @@ char-regex@^2.0.0:
   resolved "https://registry.npmjs.org/char-regex/-/char-regex-2.0.1.tgz"
   integrity sha512-oSvEeo6ZUD7NepqAat3RqoucZ5SeqLJgOvVIwkafu6IP3V0pO38s/ypdVUmDDK6qIIHNlYHJAKX9E7R7HoKElw==
 
-chart.js@^3.5.0, chart.js@^3.9.1:
+chart.js@^3.2.0, chart.js@^3.5.0, chart.js@^3.9.1:
   version "3.9.1"
   resolved "https://registry.npmjs.org/chart.js/-/chart.js-3.9.1.tgz"
   integrity sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==
+
+chartjs-plugin-doughnut-innertext@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/chartjs-plugin-doughnut-innertext/-/chartjs-plugin-doughnut-innertext-3.1.0.tgz"
+  integrity sha512-uK6r/kgTTv6KxteQ8dFjcsFmah+E7sShB3kMI3zMpfiS+jksNvLtkZkE4Bm+0PwZ3ON4Ybq5CaqVTyOwOWt98g==
+  dependencies:
+    chart.js "^3.2.0"
 
 check-types@^11.1.1:
   version "11.2.2"
@@ -5010,11 +5017,6 @@ express@^4.17.3:
     type-is "~1.6.18"
     utils-merge "1.0.1"
     vary "~1.1.2"
-
-faker@^6.6.6:
-  version "6.6.6"
-  resolved "https://registry.npmjs.org/faker/-/faker-6.6.6.tgz"
-  integrity sha512-9tCqYEDHI5RYFQigXFwF1hnCwcWCOJl/hmll0lr5D2Ljjb0o4wphb69wikeJDz5qCEzXCoPvG6ss5SDP6IfOdg==
 
 fast-csv@^4.3.1:
   version "4.3.6"

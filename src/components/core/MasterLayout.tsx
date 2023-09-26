@@ -92,7 +92,7 @@ const MasterLayout: React.FC = ({ children }) => {
               <span className="title">DashBoard Business</span>
             </Link>
           </li>
-          <li id="menu-thay-sim-4g">
+          {/* <li id="menu-thay-sim-4g">
             <Link className="menu-link" to={`thay-sim-4g`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={pricetagOutline}></IonIcon>
@@ -162,7 +162,7 @@ const MasterLayout: React.FC = ({ children }) => {
               </span>
               <span className="title">Sign out</span>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className="main">
