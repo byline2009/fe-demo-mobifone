@@ -1,11 +1,11 @@
 const dataDonut = (th, kh, color, labelth, labelkh) => {
   return {
     labels: [
-      `${labelth} ${th.toLocaleString("vi-VN", {
+      `${labelth} ${th?.toLocaleString("vi-VN", {
         style: "currency",
         currency: "VND",
       })}`,
-      `${labelkh} ${kh.toLocaleString("vi-VN", {
+      `${labelkh} ${kh?.toLocaleString("vi-VN", {
         style: "currency",
         currency: "VND",
       })}`,
