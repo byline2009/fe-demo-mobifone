@@ -10,3 +10,16 @@ export const getDashBoardBusiness = async (params: any) => {
     console.log(e.toString());
   }
 };
+
+export const getDashBoardTopEmployees = async (params: any) => {
+  try {
+    const response = await API.get(
+      `/dashboard/top-employees?month=${params.month}`
+    );
+    if (response) {
+      return response.data;
+    }
+  } catch (e: any) {
+    console.log(e.toString());
+  }
+};

@@ -2,11 +2,6 @@ import { Bar } from "react-chartjs-2";
 import { Doughnut } from "react-chartjs-2";
 import { dataDonut, pluginDonut } from "./chart/dataDonut";
 import { TailSpin } from "react-loader-spinner";
-
-import {
-  dataHorizontalBar,
-  optionsHorizontalBar,
-} from "./chart/dataHorizontalBar";
 import {
   dataBarWith2Axis,
   dataBarWith2AxisContract,
@@ -17,7 +12,10 @@ import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
 import { ErrorMessage, Form, Formik } from "formik";
 import { DatePickerField } from "../components/widgets/datePickers/DatePickerField";
-import { getDashBoardBusiness } from "../setup/axios/DashBoardBusiness";
+import {
+  getDashBoardBusiness,
+  getDashBoardTopEmployees,
+} from "../setup/axios/DashBoardBusiness";
 import moment from "moment";
 
 import {
@@ -61,13 +59,13 @@ const INIT_VALUES = {
 
 export default function DashboardBusinessPage() {
   const [arrayCN, setArrayCN] = useState([
-    { th: 6.12, kh: 36.53, name: "Khánh Hòa" },
-    { th: 4.05, kh: 24.37, name: "Đắk Lắk" },
-    { th: 7.21, kh: 16.24, name: "Gia Lai" },
-    { th: 15.36, kh: 12.96, name: "Phú Yên" },
-    { th: 1.39, kh: 8.12, name: "Đắk Nông" },
-    { th: 3.31, kh: 8.39, name: "Kon Tum" },
-    { th: 9.38, kh: 8.39, name: "TTKDCNS" },
+    { th: 0, kh: 1, name: "Khánh Hòa" },
+    { th: 0, kh: 1, name: "Đắk Lắk" },
+    { th: 0, kh: 1, name: "Gia Lai" },
+    { th: 0, kh: 1, name: "Phú Yên" },
+    { th: 0, kh: 1, name: "Đắk Nông" },
+    { th: 0, kh: 1, name: "Kon Tum" },
+    { th: 0, kh: 1, name: "TTKDCNS" },
   ]);
   const [tongTH, setTongTH] = useState(1);
   const [tongKH, setTongKH] = useState(1);
@@ -75,7 +73,6 @@ export default function DashboardBusinessPage() {
   const [selectMonth, setSelectMonth] = useState(
     moment(new Date()).format("DD-MM-YYYY")
   );
-  console.log("checkcccc", moment(new Date()).format("DD-MM-YYYY"));
   const [numberContract, setNumberContract] = useState(49);
 
   const [labelTopContracts, setLabelTopContracts] = useState([
@@ -92,14 +89,7 @@ export default function DashboardBusinessPage() {
     5, 10, 15, 20, 25,
   ]);
 
-  const [labelTopEmployees, setLabelEmployees] = useState([
-    "Đặng Thị Mỹ Liên",
-    "Hoàng Xuân Minh",
-    "Trần Thị Thanh Thương",
-    "Nguyễn Tiến Hoàng",
-    "Đỗ Ngọc Hùng",
-    "Phạm Minh Rin",
-  ]);
+  const [labelTopEmployees, setLabelEmployees] = useState([]);
 
   const [doanhThuTopEmployee, setDoanhThuTopEmployee] = useState([
     10000000, 20000000, 25000000, 30000000, 35000000, 40000000,
@@ -108,8 +98,8 @@ export default function DashboardBusinessPage() {
     5, 10, 15, 20, 25, 20,
   ]);
 
-  const [dtLKYear, setDTLKYear] = useState(492);
-  const [dtKHYear, setDTKHYear] = useState(809);
+  const [dtLKYear, setDTLKYear] = useState(492000000);
+  const [dtKHYear, setDTKHYear] = useState(809000000);
 
   const formSchema = Yup.object().shape({});
   const [initValues, setInitValues] = useState(INIT_VALUES);
@@ -127,20 +117,28 @@ export default function DashboardBusinessPage() {
         setShow(true);
       }
     });
+
+    getDashBoardTopEmployees({ month: selectMonth }).then((res) => {
+      if (res && res.result && res.result.length > 0) {
+        console.log("res.result", res.result);
+        const topEmployees = res.result.slice(0, 6).map((item) => item.amName);
+        setLabelEmployees(topEmployees);
+        const topContracts = res.result
+          .slice(0, 6)
+          .map((item) => item.numberContract);
+        setNumberTopContract(topContracts);
+        const topDoanhThu = res.result.slice(0, 6).map((item) => item.doanhThu);
+        setDoanhThuTopEmployee(topDoanhThu);
+      }
+    });
   }, []);
   useEffect(() => {
-    console.log("check");
-
     setTongTH(arrayCN.map((item) => item.th).reduce(sum));
     setTongKH(arrayCN.map((item) => item.kh).reduce(sum));
   }, [arrayCN]);
 
   return (
     <div className="dashboard-business">
-      <h4 className="title-pag text-center mt-5">
-        Dashboard Kinh Doanh Công nghệ số
-      </h4>
-
       <div className="card-dashboard bg-light">
         <Formik
           enableReinitialize={true}
@@ -167,6 +165,23 @@ export default function DashboardBusinessPage() {
 
                   setArrayCN(arrayTemp);
                   setShow(true);
+                }
+              });
+              getDashBoardTopEmployees({ month: selectMonth }).then((res) => {
+                if (res && res.result && res.result.length > 0) {
+                  console.log("res.result", res.result);
+                  const topEmployees = res.result
+                    .slice(0, 6)
+                    .map((item) => item.amName);
+                  setLabelEmployees(topEmployees);
+                  const topContracts = res.result
+                    .slice(0, 6)
+                    .map((item) => item.numberContract);
+                  setNumberTopContract(topContracts);
+                  const topDoanhThu = res.result
+                    .slice(0, 6)
+                    .map((item) => item.doanhThu);
+                  setDoanhThuTopEmployee(topDoanhThu);
                 }
               });
             }
@@ -198,6 +213,9 @@ export default function DashboardBusinessPage() {
                         <ErrorMessage name="selectMonthYear" />
                       </div>
                     </div>
+                    <h5 className="title-pag text-center mt-2">
+                      Dashboard Kinh Doanh Công nghệ số
+                    </h5>
                   </div>
                 </div>
               </Form>
@@ -207,128 +225,176 @@ export default function DashboardBusinessPage() {
         {show ? (
           <div className="container px-4">
             <div className="row gx-5">
-              <div className=" col-lg-3 col-xs-12 col-md-12">
-                <div
-                  className="p-3 border mt-4 bg-card-info "
-                  style={{ position: "relative" }}
-                >
-                  <Doughnut
-                    data={dataDonut(
-                      tongTH,
-                      tongKH,
-                      tongTH / tongKH > 1
-                        ? "rgba(76, 175, 80, 0.5)"
-                        : "rgba(255, 177, 193, 1)",
-                      `DT LK tháng(tr)`,
-                      `DT KH tháng(tr)`
-                    )}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      width: "100%",
-                      top: "42%",
-                      left: 0,
-                      textAlign: "center",
-                      lineHeight: "20px",
-                      fontSize: "20px",
-                    }}
-                  >
-                    <span>
-                      {Number(Number(tongTH / tongKH).toFixed(2) * 100).toFixed(
-                        0
-                      ) + "%"}
-                    </span>
+              <div className=" col-lg-6 col-xs-12 col-md-12  border-solid">
+                <div className="col-12 d-flex justify-content-center ">
+                  <div className="col-12 d-flex justify-content-center">
+                    <div className="d-flex flex-column justify-content-center">
+                      <h5 className="number-contract pt-3 me-5">{`Số hợp đồng LK ${numberContract}`}</h5>
+
+                      <h5 className="pt-3 ">
+                        {`Công ty 7 `}
+                        <span style={{ fontSize: "14px" }}>{`(Tháng ${
+                          selectMonth.split("-")[1]
+                        })`}</span>
+                      </h5>
+                    </div>
+
+                    <div
+                      className="p-3 border donut-company "
+                      style={{ position: "relative" }}
+                    >
+                      <Doughnut
+                        data={dataDonut(
+                          tongTH,
+                          tongKH,
+                          tongTH / tongKH > 1
+                            ? "rgba(76, 175, 80, 0.5)"
+                            : "rgba(255, 177, 193, 1)",
+                          `DT LK tháng: `,
+                          `DT KH tháng: `
+                        )}
+                      />
+                      <div
+                        style={{
+                          position: "absolute",
+                          width: "100%",
+                          top: "57%",
+                          left: 0,
+                          textAlign: "center",
+                          lineHeight: "20px",
+                          fontSize: "20px",
+                        }}
+                      >
+                        <span>
+                          {Number(
+                            Number(tongTH / tongKH).toFixed(2) * 100
+                          ).toFixed(0) + "%"}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <h5 className="text-center pt-5">{`Số hợp đồng LK ${numberContract}`}</h5>
-                  <h4 className="pt-2 text-center">Công ty 7</h4>
+                </div>
+                <div className="col-12 mt-2">
+                  <div className="row">
+                    {arrayCN.map((item, index) => (
+                      <div
+                        className="p-3 col-lg-3 col-md-6 col-xs-12"
+                        key={index}
+                        style={{ position: "relative" }}
+                      >
+                        <Doughnut
+                          data={dataDonut(
+                            item.th,
+                            item.kh,
+                            item.th / item.kh > 1
+                              ? "rgba(76, 175, 80, 0.5)"
+                              : "rgba(255, 177, 193, 1)",
+                            "KH",
+                            "TH"
+                          )}
+                        />
+                        <div
+                          style={{
+                            position: "absolute",
+                            width: "100%",
+                            top: "50%",
+                            left: 0,
+                            textAlign: "center",
+                            marginTop: "-5%",
+                            lineHeight: "20px",
+                            fontSize: "20px",
+                          }}
+                        >
+                          <span>
+                            {Number(
+                              Number(item.th / item.kh).toFixed(2) * 100
+                            ).toFixed(0) + "%"}
+                          </span>
+                        </div>
+
+                        <h5 className="pt-3 text-center">{item.name}</h5>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="col-lg-9 col-xs-12 row">
-                {arrayCN.map((item, index) => (
+              <div className="col-lg-6 col-xs-12  ">
+                <div className="col-12 d-flex justify-content-center">
+                  <div className="d-flex flex-column justify-content-center">
+                    <h5 className=" number-contract pt-3 me-5">{`Số hợp đồng LK năm 882`}</h5>
+                    <h5 className=" number-contract pt-3 me-5">{`DT LK năm: ${(492000000).toLocaleString(
+                      "vi-VN",
+                      {
+                        style: "currency",
+                        currency: "VND",
+                      }
+                    )}`}</h5>
+                    <h5 className=" number-contract pt-3 me-5">{`DT KH năm: ${(809000000).toLocaleString(
+                      "vi-VN",
+                      {
+                        style: "currency",
+                        currency: "VND",
+                      }
+                    )}`}</h5>
+
+                    <h5 className="pt-3 ">Công ty 7</h5>
+                  </div>
                   <div
-                    className="p-3 col-lg-3 col-md-6 col-xs-12"
-                    key={index}
+                    className="p-3 border bg-card-info donut-company"
                     style={{ position: "relative" }}
                   >
                     <Doughnut
                       data={dataDonut(
-                        item.th,
-                        item.kh,
-                        item.th / item.kh > 1
+                        dtLKYear,
+                        dtKHYear,
+                        dtLKYear / dtKHYear > 1
                           ? "rgba(76, 175, 80, 0.5)"
                           : "rgba(255, 177, 193, 1)",
-                        "KH",
-                        "TH"
+                        `DT LK năm`,
+                        `DT KH năm`
                       )}
                     />
                     <div
                       style={{
                         position: "absolute",
                         width: "100%",
-                        top: "50%",
+                        top: "53%",
                         left: 0,
                         textAlign: "center",
-                        marginTop: "-5%",
                         lineHeight: "20px",
-                        fontSize: "20px",
+                        fontSize: "16px",
                       }}
                     >
                       <span>
                         {Number(
-                          Number(item.th / item.kh).toFixed(2) * 100
+                          Number(dtLKYear / dtKHYear).toFixed(2) * 100
                         ).toFixed(0) + "%"}
                       </span>
                     </div>
-
-                    <h4 className="pt-2 text-center">{item.name}</h4>
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="row g-5 mt-5">
-              <div className="col-lg-3 col-xs-12">
-                <div className="p-3 border bg-card-info ">
-                  <Doughnut
-                    data={dataDonut(
-                      dtLKYear,
-                      dtKHYear,
-                      dtLKYear / dtKHYear > 1
-                        ? "rgba(76, 175, 80, 0.5)"
-                        : "rgba(255, 177, 193, 1)",
-                      `DT LK năm(tr)`,
-                      `DT KH năm(tr)`
-                    )}
-                    plugins={pluginDonut(
-                      Number(
-                        Number(dtLKYear / dtKHYear).toFixed(2) * 100
-                      ).toFixed(0) + "%"
-                    )}
-                  />
-                  <h5 className="text-center pt-5">{`Số hợp đồng LK năm 882`}</h5>
-                  <h4 className="pt-2 text-center">Công ty 7</h4>
                 </div>
-              </div>
-              <div className="col-lg-9 row">
-                <div className="col-lg-12 col-xs-12 ">
-                  <Bar
-                    options={optionsBarWith2AxisEmployee}
-                    data={dataBarWith2AxisEmployee(
-                      labelTopEmployees,
-                      numberTopEmployee,
-                      doanhThuTopEmployee
-                    )}
-                  />
-                </div>
-                <div className="col-lg-13 col-xs-12 ">
-                  <Bar
-                    options={optionsBarWith2AxisContract}
-                    data={dataBarWith2AxisContract(
-                      labelTopContracts,
-                      numberTopContract,
-                      doanhThuTopContract
-                    )}
-                  />
+
+                <div className="row g-5 mt-2">
+                  <div className="col-lg-12 col-xs-12 ">
+                    <Bar
+                      options={optionsBarWith2AxisEmployee}
+                      data={dataBarWith2AxisEmployee(
+                        labelTopEmployees,
+                        numberTopEmployee,
+                        doanhThuTopEmployee
+                      )}
+                    />
+                  </div>
+                  <div className="col-lg-13 col-xs-12 ">
+                    <Bar
+                      options={optionsBarWith2AxisContract}
+                      data={dataBarWith2AxisContract(
+                        labelTopContracts,
+                        numberTopContract,
+                        doanhThuTopContract
+                      )}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
