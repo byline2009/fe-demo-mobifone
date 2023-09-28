@@ -1,9 +1,8 @@
 import { Bar } from "react-chartjs-2";
 import { Doughnut } from "react-chartjs-2";
-import { dataDonut, pluginDonut } from "./chart/dataDonut";
+import { dataDonut } from "./chart/dataDonut";
 import { TailSpin } from "react-loader-spinner";
 import {
-  dataBarWith2Axis,
   dataBarWith2AxisContract,
   optionsBarWith2AxisContract,
 } from "./chart/dataContract";
@@ -14,7 +13,9 @@ import { ErrorMessage, Form, Formik } from "formik";
 import { DatePickerField } from "../components/widgets/datePickers/DatePickerField";
 import {
   getDashBoardBusiness,
+  getDashBoardSummary,
   getDashBoardTopEmployees,
+  getDashBoardTopServices,
 } from "../setup/axios/DashBoardBusiness";
 import moment from "moment";
 
@@ -73,36 +74,28 @@ export default function DashboardBusinessPage() {
   const [selectMonth, setSelectMonth] = useState(
     moment(new Date()).format("DD-MM-YYYY")
   );
-  const [numberContract, setNumberContract] = useState(49);
+  const [numberContractMass, setNumberContractMass] = useState(0);
+  const [numberOfContractYear, setNumberOfContractYear] = useState(0);
 
-  const [labelTopContracts, setLabelTopContracts] = useState([
-    "SipTrunk",
-    "3C",
-    "Mobifone Invoice",
-    "Mobifone eContract",
-    "MobiCa",
-  ]);
-  const [doanhThuTopContract, setDoanhThuTopContract] = useState([
-    10000000, 20000000, 25000000, 30000000, 35000000,
-  ]);
-  const [numberTopContract, setNumberTopContract] = useState([
-    5, 10, 15, 20, 25,
-  ]);
+  const [labelTopServices, setLabelTopServices] = useState([]);
+  const [doanhThuTopServices, setDoanhThuTopServices] = useState([]);
+  const [numberTopContractServices, setNumberTopContractServices] = useState(
+    []
+  );
 
   const [labelTopEmployees, setLabelEmployees] = useState([]);
 
-  const [doanhThuTopEmployee, setDoanhThuTopEmployee] = useState([
-    10000000, 20000000, 25000000, 30000000, 35000000, 40000000,
-  ]);
-  const [numberTopEmployee, setNumberTopEmployee] = useState([
-    5, 10, 15, 20, 25, 20,
-  ]);
+  const [doanhThuTopEmployees, setDoanhThuTopEmployees] = useState([]);
+  const [numberTopConTractEmployees, setNumberTopConTractEmployees] = useState(
+    []
+  );
 
-  const [dtLKYear, setDTLKYear] = useState(492000000);
-  const [dtKHYear, setDTKHYear] = useState(809000000);
+  const [dtLKYear, setDTLKYear] = useState(0);
+  const [dtKHYear, setDTKHYear] = useState(0);
 
   const formSchema = Yup.object().shape({});
   const [initValues, setInitValues] = useState(INIT_VALUES);
+  const [showDonutYear, setShowDonutYear] = useState(false);
 
   useEffect(() => {
     getDashBoardBusiness({ month: selectMonth }).then((res) => {
@@ -120,18 +113,48 @@ export default function DashboardBusinessPage() {
 
     getDashBoardTopEmployees({ month: selectMonth }).then((res) => {
       if (res && res.result && res.result.length > 0) {
-        console.log("res.result", res.result);
         const topEmployees = res.result.slice(0, 6).map((item) => item.amName);
         setLabelEmployees(topEmployees);
         const topContracts = res.result
           .slice(0, 6)
           .map((item) => item.numberContract);
-        setNumberTopContract(topContracts);
+        setNumberTopConTractEmployees(topContracts);
         const topDoanhThu = res.result.slice(0, 6).map((item) => item.doanhThu);
-        setDoanhThuTopEmployee(topDoanhThu);
+        setDoanhThuTopEmployees(topDoanhThu);
+      }
+    });
+
+    getDashBoardTopServices({ month: selectMonth }).then((res) => {
+      if (res && res.result && res.result.length > 0) {
+        const topLabelServices = res.result
+          .slice(0, 6)
+          .map((item) => item.serviceName);
+        setLabelTopServices(topLabelServices);
+
+        const topDoanhThuServices = res.result
+          .slice(0, 6)
+          .map((item) => item.doanhThu);
+        setDoanhThuTopServices(topDoanhThuServices);
+
+        const topContractServices = res.result
+          .slice(0, 6)
+          .map((item) => item.numberOfContract);
+        setNumberTopContractServices(topContractServices);
+      }
+    });
+    getDashBoardSummary().then((res) => {
+      if (res && res.result && Object.keys(res.result)) {
+        setDTLKYear(res.result.doanhThu);
+        setDTKHYear(res.result.kpiDoanhThu);
+        setNumberOfContractYear(res.result.numberOfContract);
+        setShowDonutYear(true);
       }
     });
   }, []);
+
+  useEffect(() => {
+    console.log("dtKHYear", dtKHYear);
+  }, [dtKHYear]);
   useEffect(() => {
     setTongTH(arrayCN.map((item) => item.th).reduce(sum));
     setTongKH(arrayCN.map((item) => item.kh).reduce(sum));
@@ -177,11 +200,29 @@ export default function DashboardBusinessPage() {
                   const topContracts = res.result
                     .slice(0, 6)
                     .map((item) => item.numberContract);
-                  setNumberTopContract(topContracts);
+                  setNumberTopConTractEmployees(topContracts);
                   const topDoanhThu = res.result
                     .slice(0, 6)
                     .map((item) => item.doanhThu);
-                  setDoanhThuTopEmployee(topDoanhThu);
+                  setDoanhThuTopEmployees(topDoanhThu);
+                }
+              });
+              getDashBoardTopServices({ month: selectMonth }).then((res) => {
+                if (res && res.result && res.result.length > 0) {
+                  const topLabelServices = res.result
+                    .slice(0, 6)
+                    .map((item) => item.serviceName);
+                  setLabelTopServices(topLabelServices);
+
+                  const topDoanhThuServices = res.result
+                    .slice(0, 6)
+                    .map((item) => item.doanhThu);
+                  setDoanhThuTopServices(topDoanhThuServices);
+
+                  const topContractServices = res.result
+                    .slice(0, 6)
+                    .map((item) => item.numberOfContract);
+                  setNumberTopContractServices(topContractServices);
                 }
               });
             }
@@ -229,7 +270,7 @@ export default function DashboardBusinessPage() {
                 <div className="col-12 d-flex justify-content-center ">
                   <div className="col-12 d-flex justify-content-center">
                     <div className="d-flex flex-column justify-content-center">
-                      <h5 className="number-contract pt-3 me-5">{`Số hợp đồng LK ${numberContract}`}</h5>
+                      <h5 className="number-contract pt-3 me-5">{`Số hợp đồng LK ${numberContractMass}`}</h5>
 
                       <h5 className="pt-3 ">
                         {`Công ty 7 `}
@@ -321,15 +362,15 @@ export default function DashboardBusinessPage() {
               <div className="col-lg-6 col-xs-12  ">
                 <div className="col-12 d-flex justify-content-center">
                   <div className="d-flex flex-column justify-content-center">
-                    <h5 className=" number-contract pt-3 me-5">{`Số hợp đồng LK năm 882`}</h5>
-                    <h5 className=" number-contract pt-3 me-5">{`DT LK năm: ${(492000000).toLocaleString(
+                    <h5 className=" number-contract pt-3 me-5">{`Số hợp đồng LK năm: ${numberOfContractYear}`}</h5>
+                    <h5 className=" number-contract pt-3 me-5">{`DT LK năm: ${dtLKYear.toLocaleString(
                       "vi-VN",
                       {
                         style: "currency",
                         currency: "VND",
                       }
                     )}`}</h5>
-                    <h5 className=" number-contract pt-3 me-5">{`DT KH năm: ${(809000000).toLocaleString(
+                    <h5 className=" number-contract pt-3 me-5">{`DT KH năm: ${dtKHYear.toLocaleString(
                       "vi-VN",
                       {
                         style: "currency",
@@ -337,23 +378,29 @@ export default function DashboardBusinessPage() {
                       }
                     )}`}</h5>
 
-                    <h5 className="pt-3 ">Công ty 7</h5>
+                    <h5 className="pt-3 ">{`Công ty 7 (Năm ${
+                      selectMonth.split("-")[2]
+                    })`}</h5>
                   </div>
                   <div
                     className="p-3 border bg-card-info donut-company"
                     style={{ position: "relative" }}
                   >
-                    <Doughnut
-                      data={dataDonut(
-                        dtLKYear,
-                        dtKHYear,
-                        dtLKYear / dtKHYear > 1
-                          ? "rgba(76, 175, 80, 0.5)"
-                          : "rgba(255, 177, 193, 1)",
-                        `DT LK năm`,
-                        `DT KH năm`
-                      )}
-                    />
+                    {showDonutYear && (
+                      <>
+                        <Doughnut
+                          data={dataDonut(
+                            dtLKYear,
+                            dtKHYear,
+                            dtLKYear / dtKHYear > 1
+                              ? "rgba(76, 175, 80, 0.5)"
+                              : "rgba(255, 177, 193, 1)",
+                            `DT LK năm`,
+                            `DT KH năm`
+                          )}
+                        />
+                      </>
+                    )}
                     <div
                       style={{
                         position: "absolute",
@@ -380,8 +427,8 @@ export default function DashboardBusinessPage() {
                       options={optionsBarWith2AxisEmployee}
                       data={dataBarWith2AxisEmployee(
                         labelTopEmployees,
-                        numberTopEmployee,
-                        doanhThuTopEmployee
+                        numberTopConTractEmployees,
+                        doanhThuTopEmployees
                       )}
                     />
                   </div>
@@ -389,9 +436,9 @@ export default function DashboardBusinessPage() {
                     <Bar
                       options={optionsBarWith2AxisContract}
                       data={dataBarWith2AxisContract(
-                        labelTopContracts,
-                        numberTopContract,
-                        doanhThuTopContract
+                        labelTopServices,
+                        numberTopContractServices,
+                        doanhThuTopServices
                       )}
                     />
                   </div>

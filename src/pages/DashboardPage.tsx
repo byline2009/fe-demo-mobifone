@@ -17,32 +17,32 @@ const DashboardPage = () => {
 
   var d = new Date();
   d.setDate(d.getDate() - 5);
-  useEffect(() => {
-    get_PTM_BHTT({
-      month: new Date().getMonth() + 1,
-      year: new Date().getFullYear(),
-    }).then((result) => {
-      if (result) {
-        set_bhtt_ptm(result.data);
-      }
-      setLoading_BHTT_PTM(false);
-    });
-    get_PTM_DB01({
-      month: new Date().getMonth() + 1,
-      year: new Date().getFullYear(),
-    }).then((result) => {
-      if (result) {
-        set_db01_ptm(result.data);
-      }
-      setLoading_DB01_PTM(false);
-    });
-  }, []);
+  // useEffect(() => {
+  //   get_PTM_BHTT({
+  //     month: new Date().getMonth() + 1,
+  //     year: new Date().getFullYear(),
+  //   }).then((result) => {
+  //     if (result) {
+  //       set_bhtt_ptm(result.data);
+  //     }
+  //     setLoading_BHTT_PTM(false);
+  //   });
+  //   get_PTM_DB01({
+  //     month: new Date().getMonth() + 1,
+  //     year: new Date().getFullYear(),
+  //   }).then((result) => {
+  //     if (result) {
+  //       set_db01_ptm(result.data);
+  //     }
+  //     setLoading_DB01_PTM(false);
+  //   });
+  // }, []);
   return (
     <div className="dashboard">
       {/* begin::Row */}
       <h4 className="title mb-5">Dashboard Báo cáo của Công ty khu vực 7</h4>
       <div className="row gy-5 g-xl-8 mb-5 min-h-190px">
-        <div className="col-lg-3 col-xs-12">
+        {/* <div className="col-lg-3 col-xs-12">
           <div className="card h-100 card-ptm ">
             <div className="card-body d-flex justify-content-center text-center flex-column  p-8">
               <div className="fs-5 fw-bold text-gray-700 text-wrap mb-2">
@@ -81,7 +81,7 @@ const DashboardPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row gy-5 g-xl-8">

@@ -23,3 +23,26 @@ export const getDashBoardTopEmployees = async (params: any) => {
     console.log(e.toString());
   }
 };
+
+export const getDashBoardTopServices = async (params: any) => {
+  try {
+    const response = await API.get(
+      `/dashboard/top-services?month=${params.month}`
+    );
+    if (response) {
+      return response.data;
+    }
+  } catch (e: any) {
+    console.log(e.toString());
+  }
+};
+export const getDashBoardSummary = async () => {
+  try {
+    const response = await API.get(`/dashboard/summary`);
+    if (response) {
+      return response.data;
+    }
+  } catch (e: any) {
+    console.log(e.toString());
+  }
+};
