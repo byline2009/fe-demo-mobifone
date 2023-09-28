@@ -76,14 +76,14 @@ const MasterLayout: React.FC = ({ children }) => {
           <li className="title-sidebar">
             <h4>Báo cáo Sản Phẩm Dịch Vụ</h4>
           </li>
-          <li id="menu-dashboard">
+          {/* <li id="menu-dashboard">
             <Link className="menu-link" to={`dashboard`}>
               <span className="icon">
                 <IonIcon className="ion-icon" icon={homeOutline}></IonIcon>
               </span>
               <span className="title">DashBoard</span>
             </Link>
-          </li>
+          </li> */}
           <li id="menu-dashboard-business">
             <Link className="menu-link" to={`dashboard-business`}>
               <span className="icon">

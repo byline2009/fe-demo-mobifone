@@ -27,9 +27,9 @@ const PrivateRoutes = () => {
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path="auth/*" element={<Navigate to="/dashboard" />} />
+        <Route path="auth/*" element={<Navigate to="/dashboard-business" />} />
         {/* Pages */}
-        <Route
+        {/* <Route
           path="dashboard"
           element={
             <ErrorBoundary fallback={<div>Something went wrong</div>}>
@@ -38,7 +38,7 @@ const PrivateRoutes = () => {
               </SuspensedView>
             </ErrorBoundary>
           }
-        />
+        /> */}
         <Route
           path="dashboard-business"
           element={
