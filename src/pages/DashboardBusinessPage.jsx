@@ -99,12 +99,14 @@ export default function DashboardBusinessPage() {
 
   useEffect(() => {
     getDashBoardBusiness({ month: selectMonth }).then((res) => {
+      let arrayTemp = [];
       if (res && res.result && res.result.length > 0) {
-        const arrayTemp = res.result.map((item) => ({
+        arrayTemp = res.result.map((item) => ({
           th: item.doanhThu,
           kh: item.kpiDoanhThu,
           name: item.displayName,
         }));
+        console.log("check", arrayTemp);
 
         setArrayCN(arrayTemp);
         setShow(true);
