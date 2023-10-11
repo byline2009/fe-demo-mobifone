@@ -192,7 +192,7 @@ export default function DashboardBusinessPage() {
                   setShow(true);
                 }
               });
-              getDashBoardTopEmployees({ month: selectMonth }).then((res) => {
+              getDashBoardTopEmployees({ month: date }).then((res) => {
                 if (res && res.result && res.result.length > 0) {
                   console.log("res.result", res.result);
                   const topEmployees = res.result
@@ -209,7 +209,7 @@ export default function DashboardBusinessPage() {
                   setDoanhThuTopEmployees(topDoanhThu);
                 }
               });
-              getDashBoardTopServices({ month: selectMonth }).then((res) => {
+              getDashBoardTopServices({ month: date }).then((res) => {
                 if (res && res.result && res.result.length > 0) {
                   const topLabelServices = res.result
                     .slice(0, 6)
