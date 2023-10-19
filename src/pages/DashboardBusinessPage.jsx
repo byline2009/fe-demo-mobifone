@@ -13,9 +13,10 @@ import { ErrorMessage, Form, Formik } from "formik";
 import { DatePickerField } from "../components/widgets/datePickers/DatePickerField";
 import {
   getDashBoardBusiness,
-  getDashBoardSummary,
+  getDashBoardSummaryOfYear,
   getDashBoardTopEmployees,
   getDashBoardTopServices,
+  getDashBoardSummaryOfMonth,
 } from "../setup/axios/DashBoardBusiness";
 import moment from "moment";
 
@@ -74,7 +75,7 @@ export default function DashboardBusinessPage() {
   const [selectMonth, setSelectMonth] = useState(
     moment(new Date()).format("DD-MM-YYYY")
   );
-  const [numberContractMass, setNumberContractMass] = useState(0);
+  const [numberContractMonth, setNumberContractMonth] = useState(0);
   const [numberOfContractYear, setNumberOfContractYear] = useState(0);
 
   const [labelTopServices, setLabelTopServices] = useState([]);
@@ -96,6 +97,7 @@ export default function DashboardBusinessPage() {
   const formSchema = Yup.object().shape({});
   const [initValues, setInitValues] = useState(INIT_VALUES);
   const [showDonutYear, setShowDonutYear] = useState(false);
+  const [showDonutMonth, setShowDonutMonth] = useState(false);
 
   useEffect(() => {
     getDashBoardBusiness({ month: selectMonth }).then((res) => {
@@ -106,7 +108,6 @@ export default function DashboardBusinessPage() {
           kh: item.kpiDoanhThu,
           name: item.displayName,
         }));
-        console.log("check", arrayTemp);
 
         setArrayCN(arrayTemp);
         setShow(true);
@@ -144,23 +145,32 @@ export default function DashboardBusinessPage() {
         setNumberTopContractServices(topContractServices);
       }
     });
-    getDashBoardSummary().then((res) => {
-      if (res && res.result && Object.keys(res.result)) {
-        setDTLKYear(res.result.doanhThu);
-        setDTKHYear(res.result.kpiDoanhThu);
-        setNumberOfContractYear(res.result.numberOfContract);
+    getDashBoardSummaryOfYear({ year: selectMonth }).then((res) => {
+      if (res && res.result) {
+        setDTLKYear(res.result[0].doanhThu);
+        setDTKHYear(res.result[0].kpiDoanhThu);
+        setNumberOfContractYear(res.result[0].numberOfContract);
         setShowDonutYear(true);
+      }
+    });
+    getDashBoardSummaryOfMonth({ month: selectMonth }).then((res) => {
+      if (res && res.result && res.result.length > 0) {
+        setTongTH(res.result[0].doanhThu);
+        setTongKH(res.result[0].kpiDoanhThu);
+        setNumberContractMonth(res.result[0].numberContract);
+        setShowDonutMonth(true);
+      } else {
+        setShowDonutMonth(false);
       }
     });
   }, []);
 
-  useEffect(() => {
-    console.log("dtKHYear", dtKHYear);
-  }, [dtKHYear]);
-  useEffect(() => {
-    setTongTH(arrayCN.map((item) => item.th).reduce(sum));
-    setTongKH(arrayCN.map((item) => item.kh).reduce(sum));
-  }, [arrayCN]);
+  // useEffect(() => {
+  // }, [dtKHYear]);
+  // useEffect(() => {
+  //   setTongTH(arrayCN.map((item) => item.th).reduce(sum));
+  //   setTongKH(arrayCN.map((item) => item.kh).reduce(sum));
+  // }, [arrayCN]);
 
   return (
     <div className="dashboard-business">
@@ -171,10 +181,7 @@ export default function DashboardBusinessPage() {
           validationSchema={formSchema}
           onSubmit={async (values, { resetForm }) => {
             const date = moment(values.selectMonthYear).format("DD-MM-YYYY");
-            console.log("check", date !== selectMonth);
-
             setSelectMonth(date);
-
             setInitValues({
               selectMonthYear: values.selectMonthYear,
             });
@@ -194,7 +201,6 @@ export default function DashboardBusinessPage() {
               });
               getDashBoardTopEmployees({ month: date }).then((res) => {
                 if (res && res.result && res.result.length > 0) {
-                  console.log("res.result", res.result);
                   const topEmployees = res.result
                     .slice(0, 6)
                     .map((item) => item.amName);
@@ -227,6 +233,16 @@ export default function DashboardBusinessPage() {
                   setNumberTopContractServices(topContractServices);
                 }
               });
+              getDashBoardSummaryOfMonth({ month: date }).then((res) => {
+                if (res && res.result && res.result.length > 0) {
+                  setTongTH(res.result[0].doanhThu);
+                  setTongKH(res.result[0].kpiDoanhThu);
+                  setNumberContractMonth(res.result[0].numberContract);
+                  setShowDonutMonth(true);
+                } else {
+                  setShowDonutMonth(false);
+                }
+              });
             }
           }}
         >
@@ -250,6 +266,7 @@ export default function DashboardBusinessPage() {
                         callbackSetDate={(e) => {
                           formikProps.handleSubmit();
                         }}
+                        maxDate={new Date()}
                       ></DatePickerField>
 
                       <div className="text-danger">
@@ -270,94 +287,97 @@ export default function DashboardBusinessPage() {
             <div className="row gx-5">
               <div className=" col-lg-6 col-xs-12 col-md-12  border-solid">
                 <div className="col-12 d-flex justify-content-center ">
-                  <div className="col-12 d-flex justify-content-center">
-                    <div className="d-flex flex-column justify-content-center">
-                      <h5 className="number-contract pt-3 me-5">{`Số hợp đồng LK ${numberContractMass}`}</h5>
+                  {showDonutMonth && (
+                    <div className="col-12 d-flex justify-content-center">
+                      <div className="d-flex flex-column justify-content-center">
+                        <h5 className="number-contract pt-3 me-5">{`Số hợp đồng LK ${numberContractMonth}`}</h5>
 
-                      <h5 className="pt-3 ">
-                        {`Công ty 7 `}
-                        <span style={{ fontSize: "14px" }}>{`(Tháng ${
-                          selectMonth.split("-")[1]
-                        })`}</span>
-                      </h5>
-                    </div>
-
-                    <div
-                      className="p-3 border donut-company "
-                      style={{ position: "relative" }}
-                    >
-                      <Doughnut
-                        data={dataDonut(
-                          tongTH,
-                          tongKH,
-                          tongTH / tongKH > 1
-                            ? "rgba(76, 175, 80, 0.5)"
-                            : "rgba(255, 177, 193, 1)",
-                          `DT LK tháng: `,
-                          `DT KH tháng: `
-                        )}
-                      />
-                      <div
-                        style={{
-                          position: "absolute",
-                          width: "100%",
-                          top: "57%",
-                          left: 0,
-                          textAlign: "center",
-                          lineHeight: "20px",
-                          fontSize: "20px",
-                        }}
-                      >
-                        <span>
-                          {Number(
-                            Number(tongTH / tongKH).toFixed(2) * 100
-                          ).toFixed(0) + "%"}
-                        </span>
+                        <h5 className="pt-3 ">
+                          {`Công ty 7 `}
+                          <span style={{ fontSize: "14px" }}>{`(Tháng ${
+                            selectMonth.split("-")[1]
+                          })`}</span>
+                        </h5>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12 mt-2">
-                  <div className="row">
-                    {arrayCN.map((item, index) => (
+
                       <div
-                        className="p-3 col-lg-3 col-md-6 col-xs-12"
-                        key={index}
+                        className="p-3 border donut-company "
                         style={{ position: "relative" }}
                       >
                         <Doughnut
                           data={dataDonut(
-                            item.th,
-                            item.kh,
-                            item.th / item.kh > 1
+                            tongTH,
+                            tongKH,
+                            tongTH / tongKH > 1
                               ? "rgba(76, 175, 80, 0.5)"
                               : "rgba(255, 177, 193, 1)",
-                            "KH",
-                            "TH"
+                            `DT LK tháng: `,
+                            `DT KH tháng: `
                           )}
                         />
                         <div
                           style={{
                             position: "absolute",
                             width: "100%",
-                            top: "50%",
+                            top: "57%",
                             left: 0,
                             textAlign: "center",
-                            marginTop: "-5%",
                             lineHeight: "20px",
                             fontSize: "20px",
                           }}
                         >
                           <span>
                             {Number(
-                              Number(item.th / item.kh).toFixed(2) * 100
+                              Number(tongTH / tongKH).toFixed(2) * 100
                             ).toFixed(0) + "%"}
                           </span>
                         </div>
-
-                        <h5 className="pt-3 text-center">{item.name}</h5>
                       </div>
-                    ))}
+                    </div>
+                  )}
+                </div>
+                <div className="col-12 mt-2">
+                  <div className="row">
+                    {showDonutMonth &&
+                      arrayCN.map((item, index) => (
+                        <div
+                          className="p-3 col-lg-3 col-md-6 col-xs-12"
+                          key={index}
+                          style={{ position: "relative" }}
+                        >
+                          <Doughnut
+                            data={dataDonut(
+                              item.th,
+                              item.kh,
+                              item.th / item.kh > 1
+                                ? "rgba(76, 175, 80, 0.5)"
+                                : "rgba(255, 177, 193, 1)",
+                              "KH",
+                              "TH"
+                            )}
+                          />
+                          <div
+                            style={{
+                              position: "absolute",
+                              width: "100%",
+                              top: "50%",
+                              left: 0,
+                              textAlign: "center",
+                              marginTop: "-5%",
+                              lineHeight: "20px",
+                              fontSize: "20px",
+                            }}
+                          >
+                            <span>
+                              {Number(
+                                Number(item.th / item.kh).toFixed(2) * 100
+                              ).toFixed(0) + "%"}
+                            </span>
+                          </div>
+
+                          <h5 className="pt-3 text-center">{item.name}</h5>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>

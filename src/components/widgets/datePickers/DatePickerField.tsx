@@ -8,6 +8,7 @@ type PropsType = {
   showMonthYearPicker?: boolean;
   callbackSetDate?: (e: Date) => void;
   disabled?: boolean;
+  maxDate?: Date;
 };
 export const DatePickerField: FC<PropsType> = ({
   name,
@@ -15,6 +16,7 @@ export const DatePickerField: FC<PropsType> = ({
   showMonthYearPicker,
   callbackSetDate,
   disabled,
+  maxDate,
 }) => {
   const { setFieldValue } = useFormikContext();
   const [field] = useField(name);
@@ -31,6 +33,7 @@ export const DatePickerField: FC<PropsType> = ({
       customInput={<CustomDateInput />}
       showMonthYearPicker={showMonthYearPicker ? showMonthYearPicker : false}
       disabled={disabled}
+      maxDate={maxDate}
     />
   );
 };

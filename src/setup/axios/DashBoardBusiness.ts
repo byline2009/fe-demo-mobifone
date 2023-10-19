@@ -36,9 +36,24 @@ export const getDashBoardTopServices = async (params: any) => {
     console.log(e.toString());
   }
 };
-export const getDashBoardSummary = async () => {
+export const getDashBoardSummaryOfYear = async (params: any) => {
   try {
-    const response = await API.get(`/dashboard/summary`);
+    const response = await API.get(
+      `/dashboard/summaryOfYear?year=${params.year}`
+    );
+    if (response) {
+      return response.data;
+    }
+  } catch (e: any) {
+    console.log(e.toString());
+  }
+};
+
+export const getDashBoardSummaryOfMonth = async (params: any) => {
+  try {
+    const response = await API.get(
+      `/dashboard/summaryOfMonth?month=${params.month}`
+    );
     if (response) {
       return response.data;
     }
