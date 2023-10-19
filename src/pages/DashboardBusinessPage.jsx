@@ -108,6 +108,7 @@ export default function DashboardBusinessPage() {
           kh: item.kpiDoanhThu,
           name: item.displayName,
         }));
+        console.log("arrayTemp", arrayTemp);
 
         setArrayCN(arrayTemp);
         setShow(true);
@@ -352,8 +353,8 @@ export default function DashboardBusinessPage() {
                               item.th / item.kh > 1
                                 ? "rgba(76, 175, 80, 0.5)"
                                 : "rgba(255, 177, 193, 1)",
-                              "KH",
-                              "TH"
+                              "TH",
+                              "KH"
                             )}
                           />
                           <div
