@@ -183,7 +183,7 @@ const MasterLayout: React.FC = ({ children }) => {
           </div> */}
           {/* User IMG */}
           <div className="user">
-            <img src="/imgs/user.jpg" alt="user" />
+            <img src="/imgs/logo-mobifone.png" alt="user" />
           </div>
         </div>
         <div className="content-page">
