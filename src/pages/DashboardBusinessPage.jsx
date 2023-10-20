@@ -199,10 +199,9 @@ export default function DashboardBusinessPage() {
                     kh: item.kpiDoanhThu,
                     name: item.displayName,
                   }));
-                  const arraySort = [...arrayTemp].sort((a, b) =>
-                    a.doanhThu > b.doanhThu ? a.doanhThu : b.doanhThu
-                  );
-
+                  const arraySort = []
+                    .concat(arrayTemp)
+                    .sort((a, b) => b.th / b.kh - a.th / a.kh);
                   setArrayCN(arraySort);
                   setShow(true);
                 }
