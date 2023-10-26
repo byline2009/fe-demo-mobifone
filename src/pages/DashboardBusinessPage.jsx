@@ -98,6 +98,12 @@ export default function DashboardBusinessPage() {
   const [initValues, setInitValues] = useState(INIT_VALUES);
   const [showDonutYear, setShowDonutYear] = useState(false);
   const [showDonutMonth, setShowDonutMonth] = useState(false);
+  const [widthWindow, setWidthWindow] = useState(0);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWidthWindow(window.innerWidth);
+    }
+  }, []);
 
   useEffect(() => {
     getDashBoardBusiness({ month: selectMonth }).then((res) => {
@@ -280,7 +286,7 @@ export default function DashboardBusinessPage() {
                         <ErrorMessage name="selectMonthYear" />
                       </div>
                     </div>
-                    <h5 className="title-pag text-center mt-2">
+                    <h5 className="title-page text-center mt-2">
                       Dashboard Kinh Doanh Công nghệ số
                     </h5>
                   </div>
@@ -295,11 +301,11 @@ export default function DashboardBusinessPage() {
               <div className=" col-lg-6 col-xs-12 col-md-12  border-solid">
                 <div className="col-12 d-flex justify-content-center ">
                   {showDonutMonth && (
-                    <div className="col-12 d-flex justify-content-center">
-                      <div className="d-flex flex-column justify-content-center">
+                    <div className="col-12 d-flex justify-content-center row">
+                      <div className="col-xs-12 col-md-6 col-lg-4 d-flex flex-column justify-content-center">
                         <h5 className="number-contract pt-3 me-5">{`Số hợp đồng LK ${numberContractMonth}`}</h5>
 
-                        <h5 className="pt-3 ">
+                        <h5 className="pt-3  number-contract">
                           {`Công ty 7 `}
                           <span style={{ fontSize: "14px" }}>{`(Tháng ${
                             selectMonth.split("-")[1]
@@ -333,7 +339,11 @@ export default function DashboardBusinessPage() {
                             fontSize: "20px",
                           }}
                         >
-                          <span>
+                          <span
+                            style={{
+                              fontSize: widthWindow > 480 ? "16px" : "14px",
+                            }}
+                          >
                             {Number(
                               Number(tongTH / tongKH).toFixed(2) * 100
                             ).toFixed(0) + "%"}
@@ -375,7 +385,11 @@ export default function DashboardBusinessPage() {
                               fontSize: "20px",
                             }}
                           >
-                            <span>
+                            <span
+                              style={{
+                                fontSize: widthWindow > 480 ? "16px" : "14px",
+                              }}
+                            >
                               {Number(
                                 Number(item.th / item.kh).toFixed(2) * 100
                               ).toFixed(0) + "%"}
@@ -389,8 +403,9 @@ export default function DashboardBusinessPage() {
                 </div>
               </div>
               <div className="col-lg-6 col-xs-12  ">
-                <div className="col-12 d-flex justify-content-center">
-                  <div className="d-flex flex-column justify-content-center">
+                <div className="dash-line"></div>
+                <div className="col-12 d-flex justify-content-center row">
+                  <div className="col-xs-12 col-md-6  col-lg-4 d-flex flex-column justify-content-center">
                     <h5 className=" number-contract pt-3 me-5">{`Số hợp đồng LK năm: ${numberOfContractYear}`}</h5>
                     <h5 className=" number-contract pt-3 me-5">{`DT LK năm: ${dtLKYear.toLocaleString(
                       "vi-VN",
@@ -407,7 +422,7 @@ export default function DashboardBusinessPage() {
                       }
                     )}`}</h5>
 
-                    <h5 className="pt-3 ">{`Công ty 7 (Năm ${
+                    <h5 className="pt-3 number-contract">{`Công ty 7 (Năm ${
                       selectMonth.split("-")[2]
                     })`}</h5>
                   </div>
@@ -441,7 +456,11 @@ export default function DashboardBusinessPage() {
                         fontSize: "16px",
                       }}
                     >
-                      <span>
+                      <span
+                        style={{
+                          fontSize: widthWindow > 480 ? "16px" : "14px",
+                        }}
+                      >
                         {Number(
                           Number(dtLKYear / dtKHYear).toFixed(2) * 100
                         ).toFixed(0) + "%"}
@@ -451,23 +470,43 @@ export default function DashboardBusinessPage() {
                 </div>
 
                 <div className="row g-5 mt-2">
-                  <div className="col-lg-12 col-xs-12 ">
+                  <div
+                    className="col-lg-12 col-xs-12 "
+                    style={{ minHeight: "300px" }}
+                  >
                     <Bar
-                      options={optionsBarWith2AxisEmployee}
+                      options={optionsBarWith2AxisEmployee({
+                        borderDash: [8, 6],
+                        lineWidth: 2,
+                        responsive: true,
+                        fontSize: widthWindow > 480 ? 16 : 10,
+                      })}
                       data={dataBarWith2AxisEmployee(
                         labelTopEmployees,
                         numberTopConTractEmployees,
-                        doanhThuTopEmployees
+                        doanhThuTopEmployees,
+                        widthWindow > 480 ? 15 : 5,
+                        widthWindow > 480 ? 50 : 15
                       )}
                     />
                   </div>
-                  <div className="col-lg-13 col-xs-12 ">
+                  <div
+                    className="col-lg-13 col-xs-12 "
+                    style={{ minHeight: "300px" }}
+                  >
                     <Bar
-                      options={optionsBarWith2AxisContract}
+                      options={optionsBarWith2AxisContract({
+                        borderDash: [8, 6],
+                        lineWidth: 2,
+                        responsive: true,
+                        fontSize: widthWindow > 480 ? 16 : 10,
+                      })}
                       data={dataBarWith2AxisContract(
                         labelTopServices,
                         numberTopContractServices,
-                        doanhThuTopServices
+                        doanhThuTopServices,
+                        widthWindow > 480 ? 15 : 5,
+                        widthWindow > 480 ? 50 : 15
                       )}
                     />
                   </div>
