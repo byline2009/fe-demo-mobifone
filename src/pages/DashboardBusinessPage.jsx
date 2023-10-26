@@ -341,7 +341,7 @@ export default function DashboardBusinessPage() {
                         >
                           <span
                             style={{
-                              fontSize: widthWindow > 480 ? "16px" : "14px",
+                              fontSize: widthWindow > 480 ? "16px" : "18px",
                             }}
                           >
                             {Number(
@@ -387,7 +387,7 @@ export default function DashboardBusinessPage() {
                           >
                             <span
                               style={{
-                                fontSize: widthWindow > 480 ? "16px" : "14px",
+                                fontSize: widthWindow > 480 ? "16px" : "18px",
                               }}
                             >
                               {Number(
@@ -458,7 +458,7 @@ export default function DashboardBusinessPage() {
                     >
                       <span
                         style={{
-                          fontSize: widthWindow > 480 ? "16px" : "14px",
+                          fontSize: widthWindow > 480 ? "16px" : "18px",
                         }}
                       >
                         {Number(
