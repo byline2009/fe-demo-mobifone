@@ -17,6 +17,8 @@ import {
   getDashBoardTopEmployees,
   getDashBoardTopServices,
   getDashBoardSummaryOfMonth,
+  getCountView,
+  addCountView,
 } from "../setup/axios/DashBoardBusiness";
 import moment from "moment";
 
@@ -99,6 +101,20 @@ export default function DashboardBusinessPage() {
   const [showDonutYear, setShowDonutYear] = useState(false);
   const [showDonutMonth, setShowDonutMonth] = useState(false);
   const [widthWindow, setWidthWindow] = useState(0);
+  const today = Date.now();
+
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    getCountView({}).then((result) => {
+      console.log("check view", result);
+      setCount(result.count);
+    });
+  }, []);
+  useEffect(() => {
+    if (count) {
+      addCountView({ count: count });
+    }
+  }, [count]);
   useEffect(() => {
     if (typeof window !== "undefined") {
       setWidthWindow(window.innerWidth);
@@ -118,7 +134,6 @@ export default function DashboardBusinessPage() {
         const arraySort = []
           .concat(arrayTemp)
           .sort((a, b) => b.th / b.kh - a.th / a.kh);
-        console.log("arraySort", arraySort);
 
         setArrayCN(arraySort);
         setShow(true);
@@ -289,6 +304,17 @@ export default function DashboardBusinessPage() {
                     <h5 className="title-page text-center mt-2">
                       Dashboard Kinh Doanh Công nghệ số
                     </h5>
+                    <span className="view-count">
+                      views : {count ? count : ""} -{" "}
+                      {new Intl.DateTimeFormat("vi-VN", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      }).format(today)}
+                    </span>
                   </div>
                 </div>
               </Form>

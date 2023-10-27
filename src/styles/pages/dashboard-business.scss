@@ -59,4 +59,14 @@
       margin-bottom: 16px;
     }
   }
+  .filter {
+    position: relative;
+    .view-count {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
 }
