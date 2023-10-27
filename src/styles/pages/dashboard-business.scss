@@ -59,14 +59,18 @@
       margin-bottom: 16px;
     }
   }
-  .filter {
+  .card-dashboard {
     position: relative;
+
     .view-count {
       position: absolute;
-      top: 0;
-      right: 0;
+      top: 5px;
+      right: 5px;
       font-size: 16px;
       font-weight: 600;
+      @media (max-width: 480px) {
+        font-size: 12px;
+      }
     }
   }
 }

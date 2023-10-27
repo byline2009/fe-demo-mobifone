@@ -304,17 +304,14 @@ export default function DashboardBusinessPage() {
                     <h5 className="title-page text-center mt-2">
                       Dashboard Kinh Doanh Công nghệ số
                     </h5>
-                    <span className="view-count">
+                    <p className="view-count">
                       views : {count ? count : ""} -{" "}
                       {new Intl.DateTimeFormat("vi-VN", {
                         year: "numeric",
                         month: "2-digit",
                         day: "2-digit",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        second: "2-digit",
                       }).format(today)}
-                    </span>
+                    </p>
                   </div>
                 </div>
               </Form>
