@@ -64,7 +64,9 @@ export const getDashBoardSummaryOfMonth = async (params: any) => {
 };
 export const getCountView = async (params: any) => {
   try {
-    const response = await API.get("dashboard/dashboard-view-count");
+    const response = await API.get(
+      `dashboard/dashboard-view-count?pageId=${params.pageId}`
+    );
     if (response) {
       return response.data;
     }
@@ -76,6 +78,7 @@ export const addCountView = async (params: any) => {
   try {
     const response = await API.post("dashboard/dashboard-add-count", {
       count: params.count,
+      pageId: params.pageId,
     });
     if (response) {
       return response.data;

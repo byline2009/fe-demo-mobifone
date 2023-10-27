@@ -104,15 +104,20 @@ export default function DashboardBusinessPage() {
   const today = Date.now();
 
   const [count, setCount] = useState(0);
+  const [countMonth, setCountMonth] = useState(0);
+  const [countYear, setCountYear] = useState(0);
   useEffect(() => {
-    getCountView({}).then((result) => {
-      console.log("check view", result);
-      setCount(result.count);
+    getCountView({ pageId: "dashboard-business" }).then((result) => {
+      if (result && Object.keys(result).length > 0) {
+        result.countdate && setCount(result.countdate);
+        result.countmonth && setCountMonth(result.countmonth);
+        result.countyear && setCountYear(result.countyear);
+      }
     });
   }, []);
   useEffect(() => {
     if (count) {
-      addCountView({ count: count });
+      addCountView({ count: count, pageId: "dashboard-business" });
     }
   }, [count]);
   useEffect(() => {
@@ -305,12 +310,14 @@ export default function DashboardBusinessPage() {
                       Dashboard Kinh Doanh Công nghệ số
                     </h5>
                     <p className="view-count">
-                      views : {count ? count : ""} -{" "}
-                      {new Intl.DateTimeFormat("vi-VN", {
+                      Tổng views ngày : {count ? count : ""} - tháng :{" "}
+                      {countMonth ? countMonth : ""} - năm :{" "}
+                      {countYear ? countYear : ""}
+                      {/* {new Intl.DateTimeFormat("vi-VN", {
                         year: "numeric",
                         month: "2-digit",
                         day: "2-digit",
-                      }).format(today)}
+                      }).format(today)} */}
                     </p>
                   </div>
                 </div>
