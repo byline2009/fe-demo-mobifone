@@ -308,17 +308,19 @@ export default function DashboardBusinessPage() {
                     </div>
                     <h5 className="title-page text-center mt-2">
                       Dashboard Kinh Doanh Công nghệ số
-                    </h5>
-                    <p className="view-count">
-                      Tổng views ngày : {count ? count : ""} - tháng :{" "}
-                      {countMonth ? countMonth : ""} - năm :{" "}
-                      {countYear ? countYear : ""}
-                      {/* {new Intl.DateTimeFormat("vi-VN", {
+                    </h5>{" "}
+                    {count !== "undefined" && (
+                      <p className="view-count">
+                        Tổng views ngày : {count ? count : ""} - tháng :{" "}
+                        {countMonth ? countMonth : ""} - năm :{" "}
+                        {countYear ? countYear : ""}
+                        {/* {new Intl.DateTimeFormat("vi-VN", {
                         year: "numeric",
                         month: "2-digit",
                         day: "2-digit",
                       }).format(today)} */}
-                    </p>
+                      </p>
+                    )}
                   </div>
                 </div>
               </Form>
