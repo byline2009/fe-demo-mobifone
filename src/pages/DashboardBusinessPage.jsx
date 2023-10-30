@@ -116,7 +116,7 @@ export default function DashboardBusinessPage() {
     });
   }, []);
   useEffect(() => {
-    if (count) {
+    if (count !== "undefined") {
       addCountView({ count: count, pageId: "dashboard-business" });
     }
   }, [count]);
