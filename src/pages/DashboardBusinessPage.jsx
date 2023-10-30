@@ -103,7 +103,7 @@ export default function DashboardBusinessPage() {
   const [widthWindow, setWidthWindow] = useState(0);
   const today = Date.now();
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState();
   const [countMonth, setCountMonth] = useState(0);
   const [countYear, setCountYear] = useState(0);
   useEffect(() => {
