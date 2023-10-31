@@ -117,12 +117,13 @@ export default function DashboardBusinessPage() {
     });
   }, []);
   useEffect(() => {
-    if (firstUpdate.current) {
-      addCountView({ count: count, pageId: "dashboard-business" });
-      firstUpdate.current = false;
-      return;
+    if (count !== undefined) {
+      if (firstUpdate) {
+        addCountView({ count: count, pageId: "dashboard-business" });
+        firstUpdate.current = false;
+      }
     }
-  }, []);
+  }, [count]);
   useEffect(() => {
     if (typeof window !== "undefined") {
       setWidthWindow(window.innerWidth);
@@ -312,7 +313,7 @@ export default function DashboardBusinessPage() {
                     <h5 className="title-page text-center mt-2">
                       Dashboard Kinh Doanh Công nghệ số
                     </h5>{" "}
-                    {count !== "undefined" && (
+                    {count !== undefined && (
                       <p className="view-count">
                         Tổng views ngày : {count ? count : ""} - tháng :{" "}
                         {countMonth ? countMonth : ""} - năm :{" "}
