@@ -77,7 +77,7 @@ export const getCountView = async (params: any) => {
 export const addCountView = async (params: any) => {
   try {
     const response = await API.post("dashboard/dashboard-add-count", {
-      count: params.count,
+      count: params.count ? params.count : 0,
       pageId: params.pageId,
     });
     if (response) {

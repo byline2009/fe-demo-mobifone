@@ -101,7 +101,6 @@ export default function DashboardBusinessPage() {
   const [showDonutYear, setShowDonutYear] = useState(false);
   const [showDonutMonth, setShowDonutMonth] = useState(false);
   const [widthWindow, setWidthWindow] = useState(0);
-  const today = Date.now();
 
   const [count, setCount] = useState();
   const [countMonth, setCountMonth] = useState(0);
