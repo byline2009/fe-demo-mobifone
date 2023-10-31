@@ -6,7 +6,7 @@ import {
   dataBarWith2AxisContract,
   optionsBarWith2AxisContract,
 } from "./chart/dataContract";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
 import { ErrorMessage, Form, Formik } from "formik";
@@ -105,6 +105,8 @@ export default function DashboardBusinessPage() {
   const [count, setCount] = useState();
   const [countMonth, setCountMonth] = useState(0);
   const [countYear, setCountYear] = useState(0);
+  const firstUpdate = useRef(true);
+
   useEffect(() => {
     getCountView({ pageId: "dashboard-business" }).then((result) => {
       if (result && Object.keys(result).length > 0) {
@@ -115,10 +117,12 @@ export default function DashboardBusinessPage() {
     });
   }, []);
   useEffect(() => {
-    if (count !== "undefined") {
+    if (firstUpdate.current) {
       addCountView({ count: count, pageId: "dashboard-business" });
+      firstUpdate.current = false;
+      return;
     }
-  }, [count]);
+  }, []);
   useEffect(() => {
     if (typeof window !== "undefined") {
       setWidthWindow(window.innerWidth);
