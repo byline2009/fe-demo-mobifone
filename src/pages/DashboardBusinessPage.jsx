@@ -110,16 +110,20 @@ export default function DashboardBusinessPage() {
   useEffect(() => {
     getCountView({ pageId: "dashboard-business" }).then((result) => {
       if (result && Object.keys(result).length > 0) {
-        result.countdate && setCount(result.countdate);
-        result.countmonth && setCountMonth(result.countmonth);
-        result.countyear && setCountYear(result.countyear);
+        result.countdate !== undefined && setCount(result.countdate);
+        result.countmonth !== undefined && setCountMonth(result.countmonth);
+        result.countyear !== undefined && setCountYear(result.countyear);
       }
     });
   }, []);
   useEffect(() => {
+    console.log("check count", count);
     if (count !== undefined) {
       if (firstUpdate) {
-        addCountView({ count: count, pageId: "dashboard-business" });
+        addCountView({
+          count: parseInt(count) ? parseInt(count) : 0,
+          pageId: "dashboard-business",
+        });
         firstUpdate.current = false;
       }
     }
