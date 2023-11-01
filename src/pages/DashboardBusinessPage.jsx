@@ -143,7 +143,6 @@ export default function DashboardBusinessPage() {
         const arraySort = []
           .concat(arrayTemp)
           .sort((a, b) => b.th / b.kh - a.th / a.kh);
-
         setArrayCN(arraySort);
         setShow(true);
       }
@@ -189,6 +188,7 @@ export default function DashboardBusinessPage() {
       }
     });
     getDashBoardSummaryOfMonth({ month: selectMonth }).then((res) => {
+      console.log("check show", res);
       if (res && res.result && res.result.length > 0) {
         setTongTH(res.result[0].doanhThu);
         setTongKH(res.result[0].kpiDoanhThu);
@@ -508,7 +508,7 @@ export default function DashboardBusinessPage() {
                 <div className="row g-5 mt-2">
                   <div
                     className="col-lg-12 col-xs-12 "
-                    style={{ minHeight: "300px" }}
+                    style={{ minHeight: "350px" }}
                   >
                     <Bar
                       options={optionsBarWith2AxisEmployee({
@@ -528,7 +528,7 @@ export default function DashboardBusinessPage() {
                   </div>
                   <div
                     className="col-lg-13 col-xs-12 "
-                    style={{ minHeight: "300px" }}
+                    style={{ minHeight: "350px" }}
                   >
                     <Bar
                       options={optionsBarWith2AxisContract({
