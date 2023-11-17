@@ -37,11 +37,31 @@ const DashboardPage = () => {
   //     setLoading_DB01_PTM(false);
   //   });
   // }, []);
+
+  const ref = React.useRef();
+  const [height, setHeight] = React.useState("0px");
+  const onLoad = () => {
+    if (ref.current && ref.current.contentWindow) {
+      setHeight(ref.current.contentWindow.document.body.scrollHeight + "px");
+    }
+  };
   return (
     <div className="dashboard">
       {/* begin::Row */}
-      <h4 className="title mb-5">Dashboard Báo cáo của Công ty khu vực 7</h4>
-      <div className="row gy-5 g-xl-8 mb-5 min-h-190px">
+      <h4 className="title mb-5">Dashboard Power BI</h4>
+      <div
+        className="row gy-5 g-xl-8 mb-5"
+        style={{ minHeight: "500px", height: "600px" }}
+      >
+        <iframe
+          title="Report Section"
+          width="100%"
+          height="auto"
+          src="https://app.powerbi.com/view?r=eyJrIjoiMGUzMDVmMTQtYTc1Zi00YTgzLTgyZDYtNmUwZTA3NGZlNWYzIiwidCI6IjQ4NTRlYTQzLWQ2ZGQtNDJkNy1hMjVmLWMwZThkMDY2Mzc5NSIsImMiOjEwfQ%3D%3D"
+          frameborder="0"
+          allowFullScreen="true"
+          scoll
+        ></iframe>
         {/* <div className="col-lg-3 col-xs-12">
           <div className="card h-100 card-ptm ">
             <div className="card-body d-flex justify-content-center text-center flex-column  p-8">
@@ -84,7 +104,7 @@ const DashboardPage = () => {
         </div> */}
       </div>
 
-      <div className="row gy-5 g-xl-8">
+      {/* <div className="row gy-5 g-xl-8">
         <div className="col-xxl-3">
           <ChartsWidget1 className="mb-5 mb-xxl-8" />
         </div>
@@ -103,7 +123,7 @@ const DashboardPage = () => {
         <div className="col-xxl-6">
           <ChartsWidget6 className="mb-5 mb-xxl-8" />
         </div>
-      </div>
+      </div> */}
       {/* end::Row */}
     </div>
   );
