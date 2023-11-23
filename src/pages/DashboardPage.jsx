@@ -54,14 +54,16 @@ const DashboardPage = () => {
         style={{ minHeight: "500px", height: "600px" }}
       >
         <iframe
+          // className="iframe-power-bi"
           title="Report Section"
-          width="100%"
-          height="auto"
-          src="https://app.powerbi.com/view?r=eyJrIjoiMGUzMDVmMTQtYTc1Zi00YTgzLTgyZDYtNmUwZTA3NGZlNWYzIiwidCI6IjQ4NTRlYTQzLWQ2ZGQtNDJkNy1hMjVmLWMwZThkMDY2Mzc5NSIsImMiOjEwfQ%3D%3D"
+          width="133.34%"
+          height="133.34%"
+          src="https://app.powerbi.com/view?r=eyJrIjoiYTk3NmM1NTUtZjdlMy00NDZiLWJiMGMtYjdiYjJhOTJmNTAzIiwidCI6IjQ4NTRlYTQzLWQ2ZGQtNDJkNy1hMjVmLWMwZThkMDY2Mzc5NSIsImMiOjEwfQ%3D%3D"
           frameborder="0"
-          allowFullScreen="true"
+          allowFullScreen="false"
           scoll
         ></iframe>
+
         {/* <div className="col-lg-3 col-xs-12">
           <div className="card h-100 card-ptm ">
             <div className="card-body d-flex justify-content-center text-center flex-column  p-8">
