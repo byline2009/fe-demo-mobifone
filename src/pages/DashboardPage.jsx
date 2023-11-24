@@ -54,14 +54,12 @@ const DashboardPage = () => {
         style={{ minHeight: "500px", height: "600px" }}
       >
         <iframe
-          // className="iframe-power-bi"
-          title="Report Section"
-          width="133.34%"
-          height="133.34%"
+          title="dashboard_business"
+          width="1024"
+          height="1060"
           src="https://app.powerbi.com/view?r=eyJrIjoiYTk3NmM1NTUtZjdlMy00NDZiLWJiMGMtYjdiYjJhOTJmNTAzIiwidCI6IjQ4NTRlYTQzLWQ2ZGQtNDJkNy1hMjVmLWMwZThkMDY2Mzc5NSIsImMiOjEwfQ%3D%3D"
           frameborder="0"
-          allowFullScreen="false"
-          scoll
+          allowFullScreen="true"
         ></iframe>
 
         {/* <div className="col-lg-3 col-xs-12">
