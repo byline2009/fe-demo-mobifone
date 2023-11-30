@@ -83,7 +83,10 @@ const MasterLayout: React.FC = ({ children }) => {
           <li id="menu-dashboard">
             <Link className="menu-link" to={`dashboard`}>
               <span className="icon">
-                <IonIcon className="ion-icon" icon={homeOutline}></IonIcon>
+                <IonIcon
+                  className="ion-icon"
+                  icon={trendingUpOutline}
+                ></IonIcon>
               </span>
               <span className="title">DashBoard</span>
             </Link>
@@ -99,7 +102,7 @@ const MasterLayout: React.FC = ({ children }) => {
           <li id="warning-expire">
             <Link className="menu-link" to={`warning-expire`}>
               <span className="icon">
-                <IonIcon className="ion-icon" icon={helpOutline}></IonIcon>
+                <IonIcon className="ion-icon" icon={shuffleOutline}></IonIcon>
               </span>
               <span className="title">Warning Expire</span>
             </Link>
