@@ -6,6 +6,7 @@ import TopBarProgress from "react-topbar-progress-indicator";
 import MasterLayout from "../components/core/MasterLayout";
 import { ErrorBoundary } from "react-error-boundary";
 import DashboardBusinessPage from "../pages/DashboardBusinessPage";
+import WarningExpireContract from "../pages/WarningExpireContract";
 
 const NhanVienNghiViec = lazy(() => import("../pages/NhanVienNghiViec"));
 const DuytriPage = lazy(() => import("../pages/DuytriPage"));
@@ -35,6 +36,16 @@ const PrivateRoutes = () => {
             <ErrorBoundary fallback={<div>Something went wrong</div>}>
               <SuspensedView>
                 <DashboardPage />
+              </SuspensedView>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="warning-expire"
+          element={
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <SuspensedView>
+                <WarningExpireContract />
               </SuspensedView>
             </ErrorBoundary>
           }

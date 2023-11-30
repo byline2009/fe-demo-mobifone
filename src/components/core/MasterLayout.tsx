@@ -46,6 +46,10 @@ const MasterLayout: React.FC = ({ children }) => {
         element = document.getElementById("menu-dashboard");
         element?.classList.add("active");
         break;
+      case "warning-expire":
+        element = document.getElementById("warning-expire");
+        element?.classList.add("active");
+        break;
 
       case "dashboard-business":
         element = document.getElementById("menu-dashboard-business");
@@ -92,6 +96,15 @@ const MasterLayout: React.FC = ({ children }) => {
               <span className="title">DashBoard Business</span>
             </Link>
           </li>
+          <li id="warning-expire">
+            <Link className="menu-link" to={`warning-expire`}>
+              <span className="icon">
+                <IonIcon className="ion-icon" icon={helpOutline}></IonIcon>
+              </span>
+              <span className="title">Warning Expire</span>
+            </Link>
+          </li>
+
           {/* <li id="menu-thay-sim-4g">
             <Link className="menu-link" to={`thay-sim-4g`}>
               <span className="icon">
