@@ -4,15 +4,10 @@ import { Link, Outlet } from "react-router-dom";
 
 import {
   homeOutline,
-  helpOutline,
-  settingsOutline,
-  personOutline,
-  lockClosedOutline,
-  logOutOutline,
   menuOutline,
-  trendingUpOutline,
-  pricetagOutline,
-  shuffleOutline,
+  todayOutline,
+  warningOutline,
+  analytics,
 } from "ionicons/icons";
 
 const MasterLayout: React.FC = ({ children }) => {
@@ -73,6 +68,13 @@ const MasterLayout: React.FC = ({ children }) => {
     navigation?.classList.toggle("active");
     main?.classList.toggle("active");
   };
+  const removeActiveNavigation = () => {
+    console.log("check");
+    let navigation = document.querySelector(".navigation");
+    let main = document.querySelector(".main");
+    navigation?.classList.add("active");
+    main?.classList.add("active");
+  };
   return (
     <div className="container-warper">
       <div className="navigation">
@@ -81,28 +83,37 @@ const MasterLayout: React.FC = ({ children }) => {
             <h4>Báo cáo Sản Phẩm Dịch Vụ</h4>
           </li>
           <li id="menu-dashboard">
-            <Link className="menu-link" to={`dashboard`}>
+            <Link
+              className="menu-link"
+              to={`dashboard`}
+              onClick={removeActiveNavigation}
+            >
               <span className="icon">
-                <IonIcon
-                  className="ion-icon"
-                  icon={trendingUpOutline}
-                ></IonIcon>
+                <IonIcon className="ion-icon" icon={todayOutline}></IonIcon>
               </span>
               <span className="title">DashBoard</span>
             </Link>
           </li>
           <li id="menu-dashboard-business">
-            <Link className="menu-link" to={`dashboard-business`}>
+            <Link
+              className="menu-link"
+              to={`dashboard-business`}
+              onClick={removeActiveNavigation}
+            >
               <span className="icon">
-                <IonIcon className="ion-icon" icon={homeOutline}></IonIcon>
+                <IonIcon className="ion-icon" icon={analytics}></IonIcon>
               </span>
               <span className="title">DashBoard Business</span>
             </Link>
           </li>
           <li id="warning-expire">
-            <Link className="menu-link" to={`warning-expire`}>
+            <Link
+              className="menu-link"
+              to={`warning-expire`}
+              onClick={removeActiveNavigation}
+            >
               <span className="icon">
-                <IonIcon className="ion-icon" icon={shuffleOutline}></IonIcon>
+                <IonIcon className="ion-icon" icon={warningOutline}></IonIcon>
               </span>
               <span className="title">Warning Expire</span>
             </Link>

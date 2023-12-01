@@ -13,3 +13,15 @@ export const getWarningExpire = async (params: any) => {
     console.log(e.toString());
   }
 };
+export const getFileExcelWarningContract = async (params: any) => {
+  try {
+    const response = await APIExport.get(
+      `/warning-contract/export-excel?month=${params.month}&year=${params.year}&skip=${params.skip}&limit=${params.limit}&isCurrentPage=${params.isCurrentPage}`
+    );
+    if (response) {
+      return response;
+    }
+  } catch (e: any) {
+    console.log(e.toString());
+  }
+};

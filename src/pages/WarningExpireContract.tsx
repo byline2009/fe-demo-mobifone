@@ -10,7 +10,10 @@ import ReactPaginate from "react-paginate";
 import { TailSpin } from "react-loader-spinner";
 import moment from "moment";
 import SearchHeader from "../components/widgets/search/SearchHeader";
-import { getWarningExpire } from "../setup/axios/warningExpire";
+import {
+  getFileExcelWarningContract,
+  getWarningExpire,
+} from "../setup/axios/warningExpire";
 import ConfirmModal from "../components/modals/ConfirmModal";
 interface InitWarningExpire {
   selectMonthYear: Date;
@@ -34,6 +37,11 @@ interface IWarningExpire {
   endDate?: string;
   cost?: string;
   costVAT?: string;
+  customerId?: string;
+  customerName?: string;
+  customerEmail?: string;
+  customerPhone?: string;
+  customerAddress?: string;
 }
 const WarningExpireContract = () => {
   const formSchema = Yup.object().shape({});
@@ -72,10 +80,8 @@ const WarningExpireContract = () => {
       type: params.type,
     }).then((response: any) => {
       const arrTemp: IWarningExpire[] = [];
-      console.log("response.data", response.data);
       response &&
         response.data.map((item: any) => {
-          console.log("item", item);
           const object = {
             contractId: item.CONTRACT_ID,
             amCode: item.AM_NAME,
@@ -86,10 +92,13 @@ const WarningExpireContract = () => {
             endDate: item.END_DATE,
             cost: item.COST,
             costVAT: item.COST_VAT,
+            customerName: item.CUSTOMER_NAME,
+            customerPhone: item.CUSTOMER_PHONE,
+            customerEmail: item.CUSTOMER_EMAIL,
+            customerAddress: item.CUSTOMER_ADDRESS,
           };
           arrTemp.push(object);
         });
-      console.log("arrTemp", arrTemp);
       setArr(arrTemp);
 
       setTotalCount(response.totalCount);
@@ -108,10 +117,39 @@ const WarningExpireContract = () => {
     setForcePageIndex(event.selected);
   };
 
+  const handleExport = (e: string) => {
+    const isCurrentPage = e === "1" ? true : false;
+    setLoadingExport(true);
+    getFileExcelWarningContract({
+      skip: skip,
+      limit: limit,
+      isCurrentPage: isCurrentPage,
+      month: initValues.selectMonthYear.getMonth() + 1,
+      year: initValues.selectMonthYear.getFullYear(),
+    })
+      .then((response) => {
+        if (response) {
+          let url = window.URL.createObjectURL(response.data);
+          let a = document.createElement("a");
+          document.body.appendChild(a);
+          a.setAttribute("style", "display: none");
+          a.href = url;
+          a.download = "canh_bao_thue_bao_het_han.xlsx";
+          a.click();
+          window.URL.revokeObjectURL(url);
+          a.remove();
+        }
+        setLoadingExport(false);
+      })
+      .catch((error) => {
+        setLoadingExport(false);
+      });
+  };
+
   return (
     <div className="thaysim">
       <h4 className="title">Cảnh báo thuê bao hết hạn</h4>
-      <div className="d-flex">
+      <div className="d-flex justify-content-between align-items-center">
         <Formik
           enableReinitialize={true}
           initialValues={initValues}
@@ -161,9 +199,6 @@ const WarningExpireContract = () => {
             );
           }}
         </Formik>
-      </div>
-      <div className="d-flex justify-content-end align-items-center">
-        <div className="empty"></div>
         <button
           className="btn btn-primary btn-sm fs-6 mb-2 px-3 "
           onClick={() => {
@@ -196,7 +231,12 @@ const WarningExpireContract = () => {
               <table className="table table-row-dashed table-striped  table-row-gray-300 align-middle gs-0 gy-3">
                 <thead className="">
                   <tr>
-                    <th scope="col">Hợp đồng</th>
+                    <th scope="col" className="ps-1">
+                      Hợp đồng
+                    </th>
+                    <th scope="col">Khách hàng</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Phone</th>
                     <th scope="col">Am Code</th>
                     <th scope="col">Am Name</th>
                     <th scope="col">Product Code</th>
@@ -207,20 +247,23 @@ const WarningExpireContract = () => {
                 <tbody>
                   {(arr as any).map((item: IWarningExpire, index: number) => (
                     <tr key={index}>
-                      <th>{item.contractId}</th>
-                      <th>{item.amCode}</th>
-                      <th>{item.amName}</th>
-                      <th>{item.productCode}</th>
-                      <th>
+                      <td className="ps-1">{item.contractId}</td>
+                      <td>{item.customerName}</td>
+                      <td>{item.customerAddress}</td>
+                      <td>{item.customerName}</td>
+                      <td>{item.amCode}</td>
+                      <td>{item.amName}</td>
+                      <td>{item.productCode}</td>
+                      <td>
                         {item.startedDate &&
                           moment(new Date(item.startedDate)).format(
                             "DD/MM/YYYY"
                           )}
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         {item.endDate &&
                           moment(new Date(item.endDate)).format("MM/YYYY")}
-                      </th>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -255,7 +298,7 @@ const WarningExpireContract = () => {
       <ConfirmModal
         onConfirm={(e) => {
           setShowConfirm(false);
-          // handleExport(e);
+          handleExport(e);
         }}
         onClose={() => {
           setShowConfirm(false);
