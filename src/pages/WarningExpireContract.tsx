@@ -250,7 +250,7 @@ const WarningExpireContract = () => {
                       <td className="ps-1">{item.contractId}</td>
                       <td>{item.customerName}</td>
                       <td>{item.customerAddress}</td>
-                      <td>{item.customerName}</td>
+                      <td>{item.customerPhone}</td>
                       <td>{item.amCode}</td>
                       <td>{item.amName}</td>
                       <td>{item.productCode}</td>
