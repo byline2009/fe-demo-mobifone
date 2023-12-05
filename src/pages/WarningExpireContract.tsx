@@ -247,7 +247,7 @@ const WarningExpireContract = () => {
                 <tbody>
                   {(arr as any).map((item: IWarningExpire, index: number) => (
                     <tr key={index}>
-                      <td className="ps-1">{item.contractId}</td>
+                      <td className="ps-1 fw-bold">{item.contractId}</td>
                       <td>{item.customerName}</td>
                       <td>{item.customerAddress}</td>
                       <td>{item.customerPhone}</td>
@@ -262,7 +262,7 @@ const WarningExpireContract = () => {
                       </td>
                       <td>
                         {item.endDate &&
-                          moment(new Date(item.endDate)).format("MM/YYYY")}
+                          moment(new Date(item.endDate)).format("DD/MM/YYYY")}
                       </td>
                     </tr>
                   ))}
