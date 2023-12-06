@@ -12,6 +12,19 @@ export const getDashBoardBusiness = async (params: any) => {
   }
 };
 
+export const getDashBoardBusinessDetail = async (params: any) => {
+  try {
+    const response = await API.get(
+      `dashboard/dashboard-by-shop-code?year=${params.selectYear}&&shopCode=${params.shopCode}`
+    );
+    if (response) {
+      return response.data;
+    }
+  } catch (e: any) {
+    console.log(e.toString());
+  }
+};
+
 export const getDashBoardTopEmployees = async (params: any) => {
   try {
     const response = await API.get(

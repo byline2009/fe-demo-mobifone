@@ -7,6 +7,7 @@ import MasterLayout from "../components/core/MasterLayout";
 import { ErrorBoundary } from "react-error-boundary";
 import DashboardBusinessPage from "../pages/DashboardBusinessPage";
 import WarningExpireContract from "../pages/WarningExpireContract";
+import DashboardBusinessDetail from "../pages/dashboard/DashboardBusinessDetail";
 
 const NhanVienNghiViec = lazy(() => import("../pages/NhanVienNghiViec"));
 const DuytriPage = lazy(() => import("../pages/DuytriPage"));
@@ -56,6 +57,16 @@ const PrivateRoutes = () => {
             <ErrorBoundary fallback={<div>Something went wrong</div>}>
               <SuspensedView>
                 <DashboardBusinessPage />{" "}
+              </SuspensedView>
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/dashboard-business/:id"
+          element={
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <SuspensedView>
+                <DashboardBusinessDetail />{" "}
               </SuspensedView>
             </ErrorBoundary>
           }

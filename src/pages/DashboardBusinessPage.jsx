@@ -2,6 +2,8 @@ import { Bar } from "react-chartjs-2";
 import { Doughnut } from "react-chartjs-2";
 import { dataDonut } from "./chart/dataDonut";
 import { TailSpin } from "react-loader-spinner";
+import { Link } from "react-router-dom";
+
 import {
   dataBarWith2AxisContract,
   optionsBarWith2AxisContract,
@@ -142,6 +144,7 @@ export default function DashboardBusinessPage() {
           th: item.doanhThu,
           kh: item.kpiDoanhThu,
           name: item.displayName,
+          shopCode: item.shopCode,
         }));
 
         const arraySort = []
@@ -232,6 +235,7 @@ export default function DashboardBusinessPage() {
                     th: item.doanhThu,
                     kh: item.kpiDoanhThu,
                     name: item.displayName,
+                    shopCode: item.shopCode,
                   }));
                   const arraySort = []
                     .concat(arrayTemp)
@@ -435,8 +439,9 @@ export default function DashboardBusinessPage() {
                               ).toFixed(0) + "%"}
                             </span>
                           </div>
-
-                          <h5 className="pt-3 text-center">{item.name}</h5>
+                          <Link to={`${item.shopCode}`}>
+                            <h5 className="pt-3 text-center">{item.name}</h5>
+                          </Link>
                         </div>
                       ))}
                   </div>
