@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getDashBoardBusinessDetail } from "../../setup/axios/DashBoardBusiness";
+import { getDashBoardBusinessEmployeeDetail } from "../../setup/axios/DashBoardBusiness";
 import moment from "moment";
 
 import { Bar } from "react-chartjs-2";
@@ -52,7 +52,7 @@ x.setMonth(x.getMonth());
 const INIT_VALUES = {
   selectYear: x,
 };
-const DasboardBusinessDetail = () => {
+const DasboardBusinessEmployeeDetail = () => {
   const [arrayData, setArrayData] = useState([]);
   const [show, setShow] = useState(false);
   const [initValues, setInitValues] = useState(INIT_VALUES);
@@ -70,9 +70,9 @@ const DasboardBusinessDetail = () => {
     }
   }, []);
   useEffect(() => {
-    getDashBoardBusinessDetail({
+    getDashBoardBusinessEmployeeDetail({
       selectYear: selectYear,
-      shopCode: params.id,
+      amCode: params.id,
     }).then((res) => {
       let arrayTemp = [];
       if (res && res.result && res.result.length > 0) {
@@ -115,9 +115,9 @@ const DasboardBusinessDetail = () => {
             if (date !== selectYear) {
               setSelectYear(date);
               setShow(false);
-              getDashBoardBusinessDetail({
+              getDashBoardBusinessEmployeeDetail({
                 selectYear: date,
-                shopCode: params.id,
+                amCode: params.amCode,
               }).then((res) => {
                 let arrayTemp = [];
                 if (res && res.result && res.result.length > 0) {
@@ -250,4 +250,4 @@ const DasboardBusinessDetail = () => {
   );
 };
 
-export default DasboardBusinessDetail;
+export default DasboardBusinessEmployeeDetail;

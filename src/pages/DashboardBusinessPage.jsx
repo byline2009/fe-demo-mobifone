@@ -108,6 +108,7 @@ export default function DashboardBusinessPage() {
   const [countMonth, setCountMonth] = useState(0);
   const [countYear, setCountYear] = useState(0);
   const firstUpdate = useRef(true);
+  const chartRef = useRef();
 
   useEffect(() => {
     getCountView({ pageId: "dashboard-business" }).then((result) => {
@@ -119,7 +120,6 @@ export default function DashboardBusinessPage() {
     });
   }, []);
   useEffect(() => {
-    console.log("check count", count);
     if (count !== undefined) {
       if (firstUpdate) {
         addCountView({
@@ -195,7 +195,6 @@ export default function DashboardBusinessPage() {
       }
     });
     getDashBoardSummaryOfMonth({ month: selectMonth }).then((res) => {
-      console.log("check show", res);
       if (res && res.result && res.result.length > 0) {
         setTongTH(res.result[0].doanhThu);
         setTongKH(res.result[0].kpiDoanhThu);
