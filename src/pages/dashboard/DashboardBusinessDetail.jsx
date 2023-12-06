@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getDashBoardBusinessDetail } from "../../setup/axios/DashBoardBusiness";
 import moment from "moment";
+import { Line } from "react-chartjs-2";
 
 import { Bar } from "react-chartjs-2";
 import { Doughnut } from "react-chartjs-2";
@@ -8,10 +9,6 @@ import { dataDonut } from "../chart/dataDonut";
 import { TailSpin } from "react-loader-spinner";
 import { Link, useParams } from "react-router-dom";
 
-import {
-  dataBarWith2AxisContract,
-  optionsBarWith2AxisContract,
-} from "../chart/dataContract";
 import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
 import { ErrorMessage, Form, Formik } from "formik";
@@ -30,10 +27,6 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import {
-  dataBarWith2AxisEmployee,
-  optionsBarWith2AxisEmployee,
-} from "../chart/dataEmployee";
 
 ChartJS.register(
   CategoryScale,
@@ -54,6 +47,10 @@ const INIT_VALUES = {
 };
 const DasboardBusinessDetail = () => {
   const [arrayData, setArrayData] = useState([]);
+  const [labels, setLabels] = useState([]);
+  const [dataTHLine, setDataTHLine] = useState([]);
+  const [dataKHLine, setDataKHLine] = useState([]);
+
   const [show, setShow] = useState(false);
   const [initValues, setInitValues] = useState(INIT_VALUES);
   const [selectYear, setSelectYear] = useState(
@@ -76,18 +73,27 @@ const DasboardBusinessDetail = () => {
     }).then((res) => {
       let arrayTemp = [];
       if (res && res.result && res.result.length > 0) {
-        arrayTemp = res.result.map((item) => ({
+        const arraySorted = res.result.sort(function (a, b) {
+          // Turn your strings into dates, and then subtract them
+          // to get a value that is either negative, positive, or zero.
+          return new Date(a.MONTH) - new Date(b.MONTH);
+        });
+        arrayTemp = arraySorted.map((item) => ({
           th: item.doanhThu,
           kh: item.kpiDoanhThu,
           name: item.displayName,
           month: item.MONTH,
         }));
-        console.log("arrayTemp", arrayTemp);
+        const labelArr = arraySorted.map((item) =>
+          moment(item.MONTH).format("DD-MM-YYYY")
+        );
+        setLabels(labelArr);
+        const dataTHArr = arraySorted.map((item) => item.doanhThu);
+        setDataTHLine(dataTHArr);
+        const dataKHArr = arraySorted.map((item) => item.kpiDoanhThu);
+        setDataKHLine(dataKHArr);
 
-        const arraySort = []
-          .concat(arrayTemp)
-          .sort((a, b) => b.th / b.kh - a.th / a.kh);
-        setArrayData(arraySort);
+        setArrayData(arrayTemp);
         setShow(true);
       }
     });
@@ -121,14 +127,25 @@ const DasboardBusinessDetail = () => {
               }).then((res) => {
                 let arrayTemp = [];
                 if (res && res.result && res.result.length > 0) {
-                  arrayTemp = res.result.map((item) => ({
+                  const arraySorted = res.result.sort(function (a, b) {
+                    // Turn your strings into dates, and then subtract them
+                    // to get a value that is either negative, positive, or zero.
+                    return new Date(a.MONTH) - new Date(b.MONTH);
+                  });
+                  arrayTemp = arraySorted.map((item) => ({
                     th: item.doanhThu,
                     kh: item.kpiDoanhThu,
                     name: item.displayName,
                     month: item.MONTH,
                   }));
-                  console.log("arrayTemp", arrayTemp);
-
+                  const labelArr = arraySorted.map((item) =>
+                    moment(item.MONTH).format("DD-MM-YYYY")
+                  );
+                  setLabels(labelArr);
+                  const dataTHArr = arraySorted.map((item) => item.doanhThu);
+                  setDataTHLine(dataTHArr);
+                  const dataKHArr = arraySorted.map((item) => item.kpiDoanhThu);
+                  setDataKHLine(dataKHArr);
                   const arraySort = []
                     .concat(arrayTemp)
                     .sort((a, b) => b.th / b.kh - a.th / a.kh);
@@ -232,6 +249,32 @@ const DasboardBusinessDetail = () => {
                       </div>
                     ))}
                   </div>
+                </div>
+                <div className="col-lg-10 col-md-12 col-xs-12 mt-2">
+                  {show && (
+                    <Line
+                      datasetIdKey="id"
+                      data={{
+                        labels: labels,
+                        datasets: [
+                          {
+                            id: 1,
+                            label: "Doanh thu",
+                            data: dataTHLine,
+                            borderColor: "#ff6384",
+                            pointRadius: 5,
+                          },
+                          {
+                            id: 2,
+                            label: "Kpi Doanh thu",
+                            data: dataKHLine,
+                            borderColor: "#3080d0",
+                            pointRadius: 5,
+                          },
+                        ],
+                      }}
+                    ></Line>
+                  )}
                 </div>
               </div>
             </div>

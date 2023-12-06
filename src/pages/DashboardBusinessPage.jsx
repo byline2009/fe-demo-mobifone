@@ -108,7 +108,6 @@ export default function DashboardBusinessPage() {
   const [countMonth, setCountMonth] = useState(0);
   const [countYear, setCountYear] = useState(0);
   const firstUpdate = useRef(true);
-  const chartRef = useRef();
 
   useEffect(() => {
     getCountView({ pageId: "dashboard-business" }).then((result) => {
@@ -340,7 +339,7 @@ export default function DashboardBusinessPage() {
         </Formik>
         {show ? (
           <div className="container px-4">
-            <div className="row gx-5">
+            <div className="row">
               <div className=" col-lg-6 col-xs-12 col-md-12  border-solid">
                 <div className="col-12 d-flex justify-content-center ">
                   {showDonutMonth && (
