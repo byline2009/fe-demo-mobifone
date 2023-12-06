@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getDashBoardBusinessEmployeeDetail } from "../../setup/axios/DashBoardBusiness";
+import { getDashBoardBusinessEmployee } from "../../setup/axios/DashBoardBusiness";
 import moment from "moment";
+import { Line } from "react-chartjs-2";
 
 import { Bar } from "react-chartjs-2";
 import { Doughnut } from "react-chartjs-2";
@@ -52,7 +53,7 @@ x.setMonth(x.getMonth());
 const INIT_VALUES = {
   selectYear: x,
 };
-const DasboardBusinessEmployeeDetail = () => {
+const DasboardBusinessEmployee = () => {
   const [arrayData, setArrayData] = useState([]);
   const [show, setShow] = useState(false);
   const [initValues, setInitValues] = useState(INIT_VALUES);
@@ -63,6 +64,20 @@ const DasboardBusinessEmployeeDetail = () => {
   const formSchema = Yup.object().shape({});
   const params = useParams();
   const navigate = useNavigate();
+  const [amThanhThuong, setAmThanhThuong] = useState([]);
+  const [amXuanMinh, setAmXuanMinh] = useState([]);
+  const [amTienHoang, setAmTienHoang] = useState([]);
+  const [amMyLien, setAmMyLien] = useState([]);
+  const [amMinhRin, setAmMinhRin] = useState([]);
+  const [amNgocHung, setAmNgocHung] = useState([]);
+
+  const [labels, setLabels] = useState([]);
+  const [dataTHLineThanhThuong, setDataTHLineThanhThuong] = useState([]);
+  const [dataTHLineXuanMinh, setDataTHLineXuanMinh] = useState([]);
+  const [dataTHLineTienHoang, setDataTHLineTienHoang] = useState([]);
+  const [dataTHLineMyLien, setDataTHLineMyLien] = useState([]);
+  const [dataTHLineMinhRin, setDataTHLineMinhRin] = useState([]);
+  const [dataTHLineNgocHung, setDataTHLineNgocHung] = useState([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -70,26 +85,64 @@ const DasboardBusinessEmployeeDetail = () => {
     }
   }, []);
   useEffect(() => {
-    getDashBoardBusinessEmployeeDetail({
+    getDashBoardBusinessEmployee({
       selectYear: selectYear,
-      amCode: params.id,
     }).then((res) => {
-      let arrayTemp = [];
-      if (res && res.result && res.result.length > 0) {
-        arrayTemp = res.result.map((item) => ({
-          th: item.doanhThu,
-          kh: item.kpiDoanhThu,
-          name: item.displayName,
-          month: item.MONTH,
-        }));
-        console.log("arrayTemp", arrayTemp);
+      console.log("res", res);
+      const arrayTemp = res.result.sort(function (a, b) {
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(a.MONTH) - new Date(b.MONTH);
+      });
+      const arrayThanhThuong = arrayTemp.filter((item) => {
+        if (item.amCode === "7GLAC10A1017") return item;
+      });
+      const arrayXuanMinh = arrayTemp.filter((item) => {
+        if (item.amCode === "7KHOC01A1016") return item;
+      });
 
-        const arraySort = []
-          .concat(arrayTemp)
-          .sort((a, b) => b.th / b.kh - a.th / a.kh);
-        setArrayData(arraySort);
-        setShow(true);
-      }
+      const arrayTienHoang = arrayTemp.filter((item) => {
+        if (item.amCode === "7KHOC01A1011") return item;
+      });
+
+      const arrayMyLien = arrayTemp.filter((item) => {
+        if (item.amCode === "3PYEC02A1020") return item;
+      });
+
+      const arrayMinhRin = arrayTemp.filter((item) => {
+        if (item.amCode === "7KONC11A1024") return item;
+      });
+      const arrayNgocHung = arrayTemp.filter((item) => {
+        if (item.amCode === "7DLAC12A1049") return item;
+      });
+
+      console.log("ngoc hung", arrayNgocHung);
+      const labelArr = arrayThanhThuong.map((item) =>
+        moment(item.MONTH).format("DD-MM-YYYY")
+      );
+
+      setLabels(labelArr);
+      const dataTHArrThanhThuong = arrayThanhThuong.map(
+        (item) => item.doanhThu
+      );
+      setDataTHLineThanhThuong(dataTHArrThanhThuong);
+
+      const dataTHArrXuanMinh = arrayXuanMinh.map((item) => item.doanhThu);
+      setDataTHLineXuanMinh(dataTHArrXuanMinh);
+
+      const dataTHArrTienHoang = arrayTienHoang.map((item) => item.doanhThu);
+      setDataTHLineTienHoang(dataTHArrTienHoang);
+
+      const dataTHArrMyLien = arrayMyLien.map((item) => item.doanhThu);
+      setDataTHLineMyLien(dataTHArrMyLien);
+
+      const dataTHArrMinhRin = arrayMinhRin.map((item) => item.doanhThu);
+      setDataTHLineMinhRin(dataTHArrMinhRin);
+
+      const dataTHArrNgocHung = arrayNgocHung.map((item) => item.doanhThu);
+      setDataTHLineNgocHung(dataTHArrNgocHung);
+
+      setShow(true);
     });
   }, []);
   return (
@@ -115,9 +168,8 @@ const DasboardBusinessEmployeeDetail = () => {
             if (date !== selectYear) {
               setSelectYear(date);
               setShow(false);
-              getDashBoardBusinessEmployeeDetail({
+              getDashBoardBusinessEmployee({
                 selectYear: date,
-                amCode: params.amCode,
               }).then((res) => {
                 let arrayTemp = [];
                 if (res && res.result && res.result.length > 0) {
@@ -168,12 +220,7 @@ const DasboardBusinessEmployeeDetail = () => {
                       </div>
                     </div>
                     <h5 className="title-page text-center mt-2">
-                      Dashboard Kinh Doanh Mass{" "}
-                      <span>
-                        {arrayData && arrayData.length > 0
-                          ? arrayData[0].name
-                          : ""}
-                      </span>
+                      Dashboard Kinh Doanh Nhân Viên
                     </h5>{" "}
                   </div>
                 </div>
@@ -187,7 +234,7 @@ const DasboardBusinessEmployeeDetail = () => {
               <div className=" col-lg-12 col-xs-12 col-md-12 ">
                 <div className="col-12 mt-2">
                   <div className="row">
-                    {arrayData.map((item, index) => (
+                    {/* {arrayData.map((item, index) => (
                       <div
                         className="p-3 col-lg-2 col-md-6 col-xs-12"
                         key={index}
@@ -230,7 +277,62 @@ const DasboardBusinessEmployeeDetail = () => {
                           {moment(item.month).format("MM-YYYY")}
                         </h5>
                       </div>
-                    ))}
+                    ))} */}
+                    <div className="col-lg-10 col-md-12 col-xs-12 mt-2">
+                      {show && (
+                        <Line
+                          datasetIdKey="id"
+                          data={{
+                            labels: labels,
+                            datasets: [
+                              {
+                                id: 1,
+                                label: "Trần thị Thanh Thương",
+                                data: dataTHLineThanhThuong,
+                                borderColor: "#ff6384",
+                                pointRadius: 5,
+                              },
+                              {
+                                id: 2,
+                                label: "Hoàng Xuân Minh",
+                                data: dataTHLineXuanMinh,
+                                borderColor: "#3080d0",
+                                pointRadius: 5,
+                              },
+                              {
+                                id: 3,
+                                label: "Nguyễn Tiến Hoàng",
+                                data: dataTHLineTienHoang,
+                                borderColor: "#3f9b12",
+                                pointRadius: 5,
+                              },
+                              {
+                                id: 4,
+                                label: "Đặng Thị Mỹ Liên",
+                                data: dataTHLineMyLien,
+                                borderColor: "#600dfd",
+                                pointRadius: 5,
+                              },
+                              {
+                                id: 5,
+                                label: "Phạm Minh Rin",
+                                data: dataTHLineMinhRin,
+                                borderColor: "#fd520d",
+                                pointRadius: 5,
+                              },
+
+                              {
+                                id: 6,
+                                label: "Đỗ Ngọc Hùng",
+                                data: dataTHLineNgocHung,
+                                borderColor: "#fd0d6f",
+                                pointRadius: 5,
+                              },
+                            ],
+                          }}
+                        ></Line>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -250,4 +352,4 @@ const DasboardBusinessEmployeeDetail = () => {
   );
 };
 
-export default DasboardBusinessEmployeeDetail;
+export default DasboardBusinessEmployee;

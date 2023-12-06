@@ -25,10 +25,10 @@ export const getDashBoardBusinessDetail = async (params: any) => {
   }
 };
 
-export const getDashBoardBusinessEmployeeDetail = async (params: any) => {
+export const getDashBoardBusinessEmployee = async (params: any) => {
   try {
     const response = await API.get(
-      `dashboard/dashboard-by-am-code?year=${params.selectYear}&&shopCode=${params.shopCode}`
+      `dashboard/dashboard-employee?year=${params.selectYear}`
     );
     if (response) {
       return response.data;

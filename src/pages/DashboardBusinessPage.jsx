@@ -3,6 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 import { dataDonut } from "./chart/dataDonut";
 import { TailSpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   dataBarWith2AxisContract,
@@ -108,6 +109,7 @@ export default function DashboardBusinessPage() {
   const [countMonth, setCountMonth] = useState(0);
   const [countYear, setCountYear] = useState(0);
   const firstUpdate = useRef(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCountView({ pageId: "dashboard-business" }).then((result) => {
@@ -339,7 +341,7 @@ export default function DashboardBusinessPage() {
         </Formik>
         {show ? (
           <div className="container px-4">
-            <div className="row">
+            <div className="row gx-5">
               <div className=" col-lg-6 col-xs-12 col-md-12  border-solid">
                 <div className="col-12 d-flex justify-content-center ">
                   {showDonutMonth && (
@@ -533,6 +535,17 @@ export default function DashboardBusinessPage() {
                       )}
                     />
                   </div>
+                  <div className="d-flex align-items-center justify-content-center">
+                    <button
+                      className="btn btn-primary btn-sm fs-6 mb-2 px-3 ms-5 "
+                      onClick={() => {
+                        navigate(`/dashboard-business-employee`);
+                      }}
+                    >
+                      Chi tiết doanh thu nhân viên
+                    </button>
+                  </div>
+
                   <div
                     className="col-lg-13 col-xs-12 "
                     style={{ minHeight: "350px" }}
