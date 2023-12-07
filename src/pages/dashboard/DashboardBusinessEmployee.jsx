@@ -78,6 +78,7 @@ const DasboardBusinessEmployee = () => {
   const [dataTHLineMyLien, setDataTHLineMyLien] = useState([]);
   const [dataTHLineMinhRin, setDataTHLineMinhRin] = useState([]);
   const [dataTHLineNgocHung, setDataTHLineNgocHung] = useState([]);
+  const [sumDoanhThuThanhThuong, setSumDoanhThuThanhThuong] = useState([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -138,8 +139,22 @@ const DasboardBusinessEmployee = () => {
 
       const dataTHArrMinhRin = arrayMinhRin.map((item) => item.doanhThu);
       setDataTHLineMinhRin(dataTHArrMinhRin);
+      if (
+        arrayMinhRin &&
+        arrayMinhRin.length > 0 &&
+        moment(selectYear).format("YYYY") == "2023"
+      ) {
+        dataTHArrMinhRin.unshift(0, 0, 0, 0, 0);
+      }
 
-      const dataTHArrNgocHung = arrayNgocHung.map((item) => item.doanhThu);
+      let dataTHArrNgocHung = arrayNgocHung.map((item) => item.doanhThu);
+      if (
+        arrayNgocHung &&
+        arrayNgocHung.length > 0 &&
+        moment(selectYear).format("YYYY") == "2023"
+      ) {
+        dataTHArrNgocHung.unshift(0, 0, 0, 0, 0);
+      }
       setDataTHLineNgocHung(dataTHArrNgocHung);
 
       setShow(true);
@@ -278,7 +293,7 @@ const DasboardBusinessEmployee = () => {
                         </h5>
                       </div>
                     ))} */}
-                    <div className="col-lg-10 col-md-12 col-xs-12 mt-2">
+                    <div className="col-lg-8 col-md-12 col-xs-12 mt-2">
                       {show && (
                         <Line
                           datasetIdKey="id"
@@ -332,6 +347,114 @@ const DasboardBusinessEmployee = () => {
                           }}
                         ></Line>
                       )}
+                    </div>
+                    <h4 className="mt-3">{`Tổng Doanh Thu Năm ${moment(
+                      selectYear
+                    ).format("YYYY")}`}</h4>
+                    <div className="row mt-3">
+                      <div className="col-12 col-lg-2 col-md-4">
+                        <div className="card">
+                          <div className="card-header border-0 py-2">
+                            <p className="card-label fs-5 mb-1 text-center">
+                              Trần Thị Thanh Thương
+                            </p>
+                            <h5 className="text-center fw-bold">
+                              {dataTHLineThanhThuong
+                                .reduce((partialSum, a) => partialSum + a, 0)
+                                .toLocaleString("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                })}
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-12 col-lg-2 col-md-4">
+                        <div className="card">
+                          <div className="card-header border-0 py-2">
+                            <p className="card-label fs-5 mb-1 text-center">
+                              Đỗ Ngọc Hùng
+                            </p>
+                            <h5 className="text-center fw-bold">
+                              {dataTHLineNgocHung
+                                .reduce((partialSum, a) => partialSum + a, 0)
+                                .toLocaleString("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                })}
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-12 col-lg-2 col-md-4">
+                        <div className="card">
+                          <div className="card-header border-0 py-2">
+                            <p className="card-label fs-5 mb-1 text-center">
+                              Hoàng Xuân Minh
+                            </p>
+                            <h5 className="text-center fw-bold">
+                              {dataTHLineXuanMinh
+                                .reduce((partialSum, a) => partialSum + a, 0)
+                                .toLocaleString("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                })}
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="col-12 col-lg-2 col-md-4">
+                        <div className="card">
+                          <div className="card-header border-0 py-2">
+                            <p className="card-label fs-5 mb-1 text-center">
+                              Nguyễn Tiến Hoàng
+                            </p>
+                            <h5 className="text-center fw-bold">
+                              {dataTHLineTienHoang
+                                .reduce((partialSum, a) => partialSum + a, 0)
+                                .toLocaleString("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                })}
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-12 col-lg-2 col-md-4">
+                        <div className="card">
+                          <div className="card-header border-0 py-2">
+                            <p className="card-label fs-5 mb-1 text-center">
+                              Đặng Thị Mỹ Liên
+                            </p>
+                            <h5 className="text-center fw-bold">
+                              {dataTHLineMyLien
+                                .reduce((partialSum, a) => partialSum + a, 0)
+                                .toLocaleString("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                })}
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-12 col-lg-2 col-md-4">
+                        <div className="card">
+                          <div className="card-header border-0 py-2">
+                            <p className="card-label fs-5 mb-1 text-center">
+                              Phạm Minh Rin
+                            </p>
+                            <h5 className="text-center fw-bold">
+                              {dataTHLineMinhRin
+                                .reduce((partialSum, a) => partialSum + a, 0)
+                                .toLocaleString("vi-VN", {
+                                  style: "currency",
+                                  currency: "VND",
+                                })}
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
