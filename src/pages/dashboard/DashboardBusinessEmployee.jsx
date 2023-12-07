@@ -3,16 +3,9 @@ import { getDashBoardBusinessEmployee } from "../../setup/axios/DashBoardBusines
 import moment from "moment";
 import { Line } from "react-chartjs-2";
 
-import { Bar } from "react-chartjs-2";
-import { Doughnut } from "react-chartjs-2";
-import { dataDonut } from "../chart/dataDonut";
 import { TailSpin } from "react-loader-spinner";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import {
-  dataBarWith2AxisContract,
-  optionsBarWith2AxisContract,
-} from "../chart/dataContract";
 import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
 import { ErrorMessage, Form, Formik } from "formik";
@@ -31,10 +24,6 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import {
-  dataBarWith2AxisEmployee,
-  optionsBarWith2AxisEmployee,
-} from "../chart/dataEmployee";
 
 ChartJS.register(
   CategoryScale,
@@ -54,7 +43,6 @@ const INIT_VALUES = {
   selectYear: x,
 };
 const DasboardBusinessEmployee = () => {
-  const [arrayData, setArrayData] = useState([]);
   const [show, setShow] = useState(false);
   const [initValues, setInitValues] = useState(INIT_VALUES);
   const [selectYear, setSelectYear] = useState(
@@ -64,12 +52,6 @@ const DasboardBusinessEmployee = () => {
   const formSchema = Yup.object().shape({});
   const params = useParams();
   const navigate = useNavigate();
-  const [amThanhThuong, setAmThanhThuong] = useState([]);
-  const [amXuanMinh, setAmXuanMinh] = useState([]);
-  const [amTienHoang, setAmTienHoang] = useState([]);
-  const [amMyLien, setAmMyLien] = useState([]);
-  const [amMinhRin, setAmMinhRin] = useState([]);
-  const [amNgocHung, setAmNgocHung] = useState([]);
 
   const [labels, setLabels] = useState([]);
   const [dataTHLineThanhThuong, setDataTHLineThanhThuong] = useState([]);
@@ -78,18 +60,20 @@ const DasboardBusinessEmployee = () => {
   const [dataTHLineMyLien, setDataTHLineMyLien] = useState([]);
   const [dataTHLineMinhRin, setDataTHLineMinhRin] = useState([]);
   const [dataTHLineNgocHung, setDataTHLineNgocHung] = useState([]);
-  const [sumDoanhThuThanhThuong, setSumDoanhThuThanhThuong] = useState([]);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setWidthWindow(window.innerWidth);
+      if (window.innerWidth < 480) {
+        setOpen(false);
+      }
     }
   }, []);
   useEffect(() => {
     getDashBoardBusinessEmployee({
       selectYear: selectYear,
     }).then((res) => {
-      console.log("res", res);
       const arrayTemp = res.result.sort(function (a, b) {
         // Turn your strings into dates, and then subtract them
         // to get a value that is either negative, positive, or zero.
@@ -117,7 +101,6 @@ const DasboardBusinessEmployee = () => {
         if (item.amCode === "7DLAC12A1049") return item;
       });
 
-      console.log("ngoc hung", arrayNgocHung);
       const labelArr = arrayThanhThuong.map((item) =>
         moment(item.MONTH).format("DD-MM-YYYY")
       );
@@ -196,10 +179,6 @@ const DasboardBusinessEmployee = () => {
                   }));
                   console.log("arrayTemp", arrayTemp);
 
-                  const arraySort = []
-                    .concat(arrayTemp)
-                    .sort((a, b) => b.th / b.kh - a.th / a.kh);
-                  setArrayData(arraySort);
                   setShow(true);
                 }
               });
@@ -249,52 +228,8 @@ const DasboardBusinessEmployee = () => {
               <div className=" col-lg-12 col-xs-12 col-md-12 ">
                 <div className="col-12 mt-2">
                   <div className="row">
-                    {/* {arrayData.map((item, index) => (
-                      <div
-                        className="p-3 col-lg-2 col-md-6 col-xs-12"
-                        key={index}
-                        style={{ position: "relative" }}
-                      >
-                        <Doughnut
-                          data={dataDonut(
-                            item.th,
-                            item.kh,
-                            item.th / item.kh > 1
-                              ? "rgba(76, 175, 80, 0.5)"
-                              : "rgba(255, 177, 193, 1)",
-                            "TH",
-                            "KH"
-                          )}
-                        />
-                        <div
-                          style={{
-                            position: "absolute",
-                            width: "100%",
-                            top: "50%",
-                            left: 0,
-                            textAlign: "center",
-                            marginTop: "-5%",
-                            lineHeight: "20px",
-                            fontSize: "20px",
-                          }}
-                        >
-                          <span
-                            style={{
-                              fontSize: widthWindow > 480 ? "16px" : "18px",
-                            }}
-                          >
-                            {Number(
-                              Number(item.th / item.kh).toFixed(2) * 100
-                            ).toFixed(0) + "%"}
-                          </span>
-                        </div>
-                        <h5 className="pt-3 text-center">
-                          {moment(item.month).format("MM-YYYY")}
-                        </h5>
-                      </div>
-                    ))} */}
                     <div className="col-lg-8 col-md-12 col-xs-12 mt-2">
-                      {show && (
+                      {show && open ? (
                         <Line
                           datasetIdKey="id"
                           data={{
@@ -346,7 +281,7 @@ const DasboardBusinessEmployee = () => {
                             ],
                           }}
                         ></Line>
-                      )}
+                      ) : null}
                     </div>
                     <h4 className="mt-3">{`Tổng Doanh Thu Năm ${moment(
                       selectYear
