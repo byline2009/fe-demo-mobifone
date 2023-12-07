@@ -464,7 +464,7 @@ const DasboardBusinessEmployee = () => {
         ) : (
           <div>
             <div className="empty-content">
-              <div className="w-100 h-100 d-flex align-items-center justify-content-center">
+              <div className="w-100 full-height-content d-flex align-items-center justify-content-center">
                 <TailSpin ariaLabel="loading-indicator" />{" "}
               </div>
             </div>

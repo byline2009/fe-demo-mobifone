@@ -250,7 +250,7 @@ const DasboardBusinessDetail = () => {
                     ))}
                   </div>
                 </div>
-                <div className="col-lg-10 col-md-12 col-xs-12 mt-2">
+                <div className="col-lg-8 col-md-12 col-xs-12 mt-2">
                   {show && (
                     <Line
                       datasetIdKey="id"
@@ -282,7 +282,7 @@ const DasboardBusinessDetail = () => {
         ) : (
           <div>
             <div className="empty-content">
-              <div className="w-100 h-100 d-flex align-items-center justify-content-center">
+              <div className="w-100 full-height-content d-flex align-items-center justify-content-center">
                 <TailSpin ariaLabel="loading-indicator" />{" "}
               </div>
             </div>

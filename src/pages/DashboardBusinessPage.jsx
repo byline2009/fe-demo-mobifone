@@ -572,7 +572,7 @@ export default function DashboardBusinessPage() {
           </div>
         ) : (
           <div>
-            <div className="empty-content">
+            <div className="w-100 full-height-content">
               <div className="w-100 h-100 d-flex align-items-center justify-content-center">
                 <TailSpin ariaLabel="loading-indicator" />{" "}
               </div>
