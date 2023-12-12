@@ -345,7 +345,7 @@ export default function DashboardBusinessPage() {
               <div className=" col-lg-6 col-xs-12 col-md-12  border-solid">
                 <div className="col-12 d-flex justify-content-center ">
                   {showDonutMonth && (
-                    <div className="col-12 d-flex justify-content-center row">
+                    <div className="col-12 d-flex justify-content-center row card-dashboard">
                       <div className="col-xs-12 col-md-6 col-lg-4 d-flex flex-column justify-content-center">
                         <h5 className="number-contract pt-3 me-5">{`Số hợp đồng LK ${numberContractMonth}`}</h5>
 
@@ -358,7 +358,7 @@ export default function DashboardBusinessPage() {
                       </div>
 
                       <div
-                        className="p-3 border donut-company "
+                        className="p-3  donut-company "
                         style={{ position: "relative" }}
                       >
                         <Doughnut
@@ -398,50 +398,54 @@ export default function DashboardBusinessPage() {
                   )}
                 </div>
                 <div className="col-12 mt-2">
-                  <div className="row">
+                  <div className="row g-2">
                     {showDonutMonth &&
                       arrayCN.map((item, index) => (
                         <div
-                          className="p-3 col-lg-3 col-md-6 col-xs-12"
+                          className=" col-lg-3 col-md-6 col-xs-12 "
                           key={index}
-                          style={{ position: "relative" }}
                         >
-                          <Doughnut
-                            data={dataDonut(
-                              item.th,
-                              item.kh,
-                              item.th / item.kh > 1
-                                ? "rgba(76, 175, 80, 0.5)"
-                                : "rgba(255, 177, 193, 1)",
-                              "TH",
-                              "KH"
-                            )}
-                          />
                           <div
-                            style={{
-                              position: "absolute",
-                              width: "100%",
-                              top: "50%",
-                              left: 0,
-                              textAlign: "center",
-                              marginTop: "-5%",
-                              lineHeight: "20px",
-                              fontSize: "20px",
-                            }}
+                            className="card-dashboard"
+                            style={{ position: "relative" }}
                           >
-                            <span
+                            <Doughnut
+                              data={dataDonut(
+                                item.th,
+                                item.kh,
+                                item.th / item.kh > 1
+                                  ? "rgba(76, 175, 80, 0.5)"
+                                  : "rgba(255, 177, 193, 1)",
+                                "TH",
+                                "KH"
+                              )}
+                            />
+                            <div
                               style={{
-                                fontSize: widthWindow > 480 ? "16px" : "18px",
+                                position: "absolute",
+                                width: "100%",
+                                top: "50%",
+                                left: 0,
+                                textAlign: "center",
+                                marginTop: "-5%",
+                                lineHeight: "20px",
+                                fontSize: "20px",
                               }}
                             >
-                              {Number(
-                                Number(item.th / item.kh).toFixed(2) * 100
-                              ).toFixed(0) + "%"}
-                            </span>
+                              <span
+                                style={{
+                                  fontSize: widthWindow > 480 ? "16px" : "18px",
+                                }}
+                              >
+                                {Number(
+                                  Number(item.th / item.kh).toFixed(2) * 100
+                                ).toFixed(0) + "%"}
+                              </span>
+                            </div>
+                            <Link to={`${item.shopCode}`}>
+                              <h5 className="pt-3 text-center">{item.name}</h5>
+                            </Link>
                           </div>
-                          <Link to={`${item.shopCode}`}>
-                            <h5 className="pt-3 text-center">{item.name}</h5>
-                          </Link>
                         </div>
                       ))}
                   </div>
@@ -449,8 +453,8 @@ export default function DashboardBusinessPage() {
               </div>
               <div className="col-lg-6 col-xs-12  ">
                 <div className="dash-line"></div>
-                <div className="col-12 d-flex justify-content-center row">
-                  <div className="col-xs-12 col-md-6  col-lg-4 d-flex flex-column justify-content-center">
+                <div className="col-12 card-dashboard row">
+                  <div className="col-xs-12 col-md-6  col-lg-4 d-flex flex-column justify-content-center ">
                     <h5 className=" number-contract pt-3 me-5">{`Số hợp đồng LK năm: ${numberOfContractYear}`}</h5>
                     <h5 className=" number-contract pt-3 me-5">{`DT LK năm: ${dtLKYear.toLocaleString(
                       "vi-VN",
@@ -514,7 +518,7 @@ export default function DashboardBusinessPage() {
                   </div>
                 </div>
 
-                <div className="row g-5 mt-2">
+                <div className="col-12 row mt-2 card-dashboard">
                   <div
                     className="col-lg-12 col-xs-12 "
                     style={{ minHeight: "350px" }}
