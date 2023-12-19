@@ -341,57 +341,81 @@ export default function DashboardBusinessPage() {
         </Formik>
         {show ? (
           <div className="container px-4">
-            <div className="row gx-5">
+            <div className="row gx-5 ">
               <div className=" col-lg-6 col-xs-12 col-md-12  border-solid">
-                <div className="col-12 d-flex justify-content-center ">
+                <div className="col-12 d-flex justify-content-center">
                   {showDonutMonth && (
-                    <div className="col-12 d-flex justify-content-center row card-dashboard">
-                      <div className="col-xs-12 col-md-6 col-lg-4 d-flex flex-column justify-content-center">
-                        <h5 className="number-contract pt-3 me-5">{`Số hợp đồng LK ${numberContractMonth}`}</h5>
-
-                        <h5 className="pt-3  number-contract">
-                          {`Công ty 7 `}
-                          <span style={{ fontSize: "14px" }}>{`(Tháng ${
-                            selectMonth.split("-")[1]
-                          })`}</span>
-                        </h5>
-                      </div>
-
-                      <div
-                        className="p-3  donut-company "
-                        style={{ position: "relative" }}
-                      >
-                        <Doughnut
-                          data={dataDonut(
-                            tongTH,
-                            tongKH,
-                            tongTH / tongKH > 1
-                              ? "rgba(76, 175, 80, 0.5)"
-                              : "rgba(255, 177, 193, 1)",
-                            `DT LK tháng: `,
-                            `DT KH tháng: `
-                          )}
-                        />
+                    <div className="col-12">
+                      <div className=" row g-2 ">
                         <div
-                          style={{
-                            position: "absolute",
-                            width: "100%",
-                            top: "57%",
-                            left: 0,
-                            textAlign: "center",
-                            lineHeight: "20px",
-                            fontSize: "20px",
-                          }}
+                          className="col-xs-12 col-md-6 col-lg-4 "
+                          style={{ height: "280px" }}
                         >
-                          <span
-                            style={{
-                              fontSize: widthWindow > 480 ? "16px" : "18px",
-                            }}
+                          <div className="card-dashboard  h-100">
+                            <div className="d-flex flex-column justify-content-center ">
+                              <h5 className="number-contract pt-3  text-center">
+                                {`Số hợp đồng lũy kế tháng `}{" "}
+                              </h5>
+                              <h4 className="text-center">
+                                {numberContractMonth}
+                              </h4>
+                              <h5 className=" number-contract pt-3  text-center">{`Số hợp đồng lũy kế năm`}</h5>
+                              <h4 className="text-center">
+                                {numberOfContractYear}
+                              </h4>
+                              <h5 className="pt-3 number-contract text-center">
+                                {`Công ty 7 `}
+                              </h5>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-xs-12 col-md-6 col-lg-4   ">
+                          <div
+                            style={{ height: "280px" }}
+                            className="card-dashboard"
                           >
-                            {Number(
-                              Number(tongTH / tongKH).toFixed(2) * 100
-                            ).toFixed(0) + "%"}
-                          </span>
+                            <div
+                              style={{
+                                position: "relative",
+                              }}
+                              className="donut-company"
+                            >
+                              <Doughnut
+                                data={dataDonut(
+                                  tongTH,
+                                  tongKH,
+                                  tongTH / tongKH > 1
+                                    ? "rgba(76, 175, 80, 0.5)"
+                                    : "rgba(255, 177, 193, 1)",
+                                  `DT LK tháng: `,
+                                  `DT KH tháng: `
+                                )}
+                              />
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  width: "100%",
+                                  top: "57%",
+                                  left: 0,
+                                  textAlign: "center",
+                                  lineHeight: "20px",
+                                  fontSize: "20px",
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    fontSize:
+                                      widthWindow > 480 ? "16px" : "18px",
+                                  }}
+                                >
+                                  {Number(
+                                    Number(tongTH / tongKH).toFixed(2) * 100
+                                  ).toFixed(0) + "%"}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -402,11 +426,11 @@ export default function DashboardBusinessPage() {
                     {showDonutMonth &&
                       arrayCN.map((item, index) => (
                         <div
-                          className=" col-lg-3 col-md-6 col-xs-12 "
+                          className=" col-lg-4 col-md-6 col-xs-12 h-100"
                           key={index}
                         >
                           <div
-                            className="card-dashboard"
+                            className="card-dashboard "
                             style={{ position: "relative" }}
                           >
                             <Doughnut
@@ -453,72 +477,80 @@ export default function DashboardBusinessPage() {
               </div>
               <div className="col-lg-6 col-xs-12  ">
                 <div className="dash-line"></div>
-                <div className="col-12 card-dashboard row">
-                  <div className="col-xs-12 col-md-6  col-lg-4 d-flex flex-column justify-content-center ">
-                    <h5 className=" number-contract pt-3 me-5">{`Số hợp đồng LK năm: ${numberOfContractYear}`}</h5>
-                    <h5 className=" number-contract pt-3 me-5">{`DT LK năm: ${dtLKYear.toLocaleString(
-                      "vi-VN",
-                      {
-                        style: "currency",
-                        currency: "VND",
-                      }
-                    )}`}</h5>
-                    <h5 className=" number-contract pt-3 me-5">{`DT KH năm: ${dtKHYear.toLocaleString(
-                      "vi-VN",
-                      {
-                        style: "currency",
-                        currency: "VND",
-                      }
-                    )}`}</h5>
-
-                    <h5 className="pt-3 number-contract">{`Công ty 7 (Năm ${
-                      selectMonth.split("-")[2]
-                    })`}</h5>
-                  </div>
-                  <div
-                    className="p-3 border bg-card-info donut-company"
-                    style={{ position: "relative" }}
-                  >
-                    {showDonutYear && (
-                      <>
-                        <Doughnut
-                          data={dataDonut(
-                            dtLKYear,
-                            dtKHYear,
-                            dtLKYear / dtKHYear > 1
-                              ? "rgba(76, 175, 80, 0.5)"
-                              : "rgba(255, 177, 193, 1)",
-                            `DT LK năm`,
-                            `DT KH năm`
+                <div className="col-12 ">
+                  <div className="row g-2">
+                    <div className="col-12 col-lg-4 col-md-6 ">
+                      <div className="card-dashboard h-100">
+                        <h5 className=" number-contract pt-3 text-center">
+                          {`Doanh thu lũy kế năm: `}
+                        </h5>
+                        <h4 className="text-center">
+                          {dtLKYear.toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          })}
+                        </h4>
+                        <h5 className=" number-contract pt-3 text-center">{`Doanh thu kế hoạch năm: `}</h5>
+                        <h4 className="text-center">
+                          {dtKHYear.toLocaleString("vi-VN", {
+                            style: "currency",
+                            currency: "VND",
+                          })}
+                        </h4>
+                        <h5 className="pt-3 number-contract text-center">{`Công ty 7 (Năm ${
+                          selectMonth.split("-")[2]
+                        })`}</h5>
+                      </div>
+                    </div>
+                    <div className="col-md-6 col-lg-4 col-xs-12 ">
+                      <div className="card-dashboard">
+                        <div
+                          className=" donut-company"
+                          style={{ position: "relative" }}
+                        >
+                          {showDonutYear && (
+                            <>
+                              <Doughnut
+                                data={dataDonut(
+                                  dtLKYear,
+                                  dtKHYear,
+                                  dtLKYear / dtKHYear > 1
+                                    ? "rgba(76, 175, 80, 0.5)"
+                                    : "rgba(255, 177, 193, 1)",
+                                  `DT LK năm`,
+                                  `DT KH năm`
+                                )}
+                              />
+                            </>
                           )}
-                        />
-                      </>
-                    )}
-                    <div
-                      style={{
-                        position: "absolute",
-                        width: "100%",
-                        top: "53%",
-                        left: 0,
-                        textAlign: "center",
-                        lineHeight: "20px",
-                        fontSize: "16px",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: widthWindow > 480 ? "16px" : "18px",
-                        }}
-                      >
-                        {Number(
-                          Number(dtLKYear / dtKHYear).toFixed(2) * 100
-                        ).toFixed(0) + "%"}
-                      </span>
+                          <div
+                            style={{
+                              position: "absolute",
+                              width: "100%",
+                              top: "53%",
+                              left: 0,
+                              textAlign: "center",
+                              lineHeight: "20px",
+                              fontSize: "16px",
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontSize: widthWindow > 480 ? "16px" : "18px",
+                              }}
+                            >
+                              {Number(
+                                Number(dtLKYear / dtKHYear).toFixed(2) * 100
+                              ).toFixed(0) + "%"}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="col-12 row mt-2 card-dashboard">
+                <div className="col-12 row mt-2 card-dashboard ">
                   <div
                     className="col-lg-12 col-xs-12 "
                     style={{ minHeight: "350px" }}
@@ -551,7 +583,7 @@ export default function DashboardBusinessPage() {
                   </div>
 
                   <div
-                    className="col-lg-13 col-xs-12 "
+                    className="col-lg-12 col-xs-12 "
                     style={{ minHeight: "350px" }}
                   >
                     <Bar
