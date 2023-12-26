@@ -284,7 +284,8 @@ const DasboardBusinessEmployee = () => {
                       ) : null}
                     </div>
                     <h4 className="mt-3">{`Tổng Doanh Thu Năm ${moment(
-                      selectYear
+                      selectYear,
+                      "DD-MM-YYYY"
                     ).format("YYYY")}`}</h4>
                     <div className="row mt-3">
                       <div className="col-12 col-lg-2 col-md-4">
