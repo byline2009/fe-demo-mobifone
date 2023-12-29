@@ -1,0 +1,27 @@
+.login {
+  display: flex;
+  align-items: center;
+  background: url("../../../public/imgs/background.jpg") no-repeat 40%
+    center/600px;
+  background-size: 100% 100%;
+  height: 100vh;
+  &::before {
+    left: 0;
+    background: linear-gradient(90deg, #f8f8f8 0%, rgba(248, 248, 248, 0) 100%);
+  }
+  &::after {
+    right: 0;
+    background: linear-gradient(90deg, rgba(248, 248, 248, 0) 0%, #f8f8f8 100%);
+  }
+  .login-form {
+    max-width: 500px;
+    width: 400px;
+    @media (width: 480px) {
+      width: 100%;
+    }
+    h1 {
+      font-size: 32px;
+      color: $danger-light;
+    }
+  }
+}

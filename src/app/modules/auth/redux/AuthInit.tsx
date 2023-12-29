@@ -33,15 +33,15 @@ const AuthInit: FC<PropsFromRedux> = (props) => {
   }, []);
 
   // We should request user by authToken before rendering the application
-  // useEffect(() => {
-  //   console.log("check", accessToken);
+  useEffect(() => {
+    console.log("check", accessToken);
 
-  //   if (accessToken!) {
-  //     console.log("check");
-  //     // dispatch(props.logout());
-  //     setShowSplashScreen(false);
-  //   }
-  // }, []);
+    if (accessToken!) {
+      console.log("check");
+      // dispatch(props.logout());
+      setShowSplashScreen(false);
+    }
+  }, []);
 
   return showSplashScreen ? <LayoutSplashScreen /> : <>{props.children}</>;
 };

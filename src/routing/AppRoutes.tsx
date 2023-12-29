@@ -12,6 +12,7 @@ import { PrivateRoutes } from "./PrivateRoutes";
 import App from "../App";
 import { ErrorsPage } from "../pages/ErrorPage";
 import { RootState } from "../setup";
+import { Logout, AuthPage } from "../../src/app/modules/auth";
 
 /**
  * Base URL of the website.
@@ -30,14 +31,16 @@ const AppRoutes: FC = () => {
       <Routes>
         <Route element={<App />}>
           <Route path="error/*" element={<ErrorsPage />} />
+          <Route path="logout" element={<Logout />} />
           {isAuthorized ? (
             <>
-              <Route path="*" element={<Navigate to="/auth" />} />
+              <Route path="/*" element={<PrivateRoutes />} />
+              <Route index element={<Navigate to="/dashboard" />} />
             </>
           ) : (
             <>
-              <Route path="/*" element={<PrivateRoutes />} />
-              <Route index element={<Navigate to="/dashboard-business" />} />
+              <Route path="auth/*" element={<AuthPage />} />
+              <Route path="*" element={<Navigate to="/auth" />} />
             </>
           )}
         </Route>

@@ -8,9 +8,16 @@ import {
   todayOutline,
   warningOutline,
   analytics,
+  logOutOutline,
 } from "ionicons/icons";
+import { shallowEqual, useSelector } from "react-redux";
+import { RootState } from "../../setup";
 
 const MasterLayout: React.FC = ({ children }) => {
+  const user = useSelector<RootState>(
+    ({ auth }) => auth.user,
+    shallowEqual
+  ) as string;
   useEffect(() => {
     if (document) {
       let list = document.querySelectorAll(".navigation li");
@@ -118,6 +125,14 @@ const MasterLayout: React.FC = ({ children }) => {
               <span className="title">Warning Expire</span>
             </Link>
           </li>
+          <li>
+            <Link className="menu-link" to={`/logout`}>
+              <span className="icon">
+                <IonIcon className="ion-icon" icon={logOutOutline}></IonIcon>
+              </span>
+              <span className="title">Sign out</span>
+            </Link>
+          </li>
 
           {/* <li id="menu-thay-sim-4g">
             <Link className="menu-link" to={`thay-sim-4g`}>
@@ -210,7 +225,13 @@ const MasterLayout: React.FC = ({ children }) => {
           </div> */}
           {/* User IMG */}
           <div className="user">
-            <img src="/imgs/logo-mobifone.png" alt="user" />
+            <p className="header-name pt-3 me-5">
+              <span style={{ fontWeight: 500 }}>Xin chào </span>
+              {user?.split("@")[0]}
+            </p>
+            <div className="user-header">
+              <img src="/imgs/logo-mobifone.png" alt="user" />
+            </div>
           </div>
         </div>
         <div className="content-page">

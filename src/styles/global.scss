@@ -3,6 +3,7 @@
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
+
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 @import "breakpoint";
 @import "tables";
@@ -19,6 +20,7 @@
 @import "./pages/ptm-nvbh-tbtt.scss";
 @import "./pages/thaysim.scss";
 @import "./components/ptm/header.scss";
+@import "./pages/login.scss";
 
 * {
   padding: 0;
@@ -46,11 +48,7 @@ body {
   position: relative;
   height: 100vh;
 }
-.container {
-  position: relative;
-  width: 100%;
-  max-width: 1920px !important;
-}
+
 .navigation {
   position: fixed;
   width: 300px;
@@ -188,6 +186,19 @@ body {
   margin-right: 16px;
   padding-bottom: 144px;
 }
+.container,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
+  @media (min-width: 1400px) {
+    max-width: 1140px;
+  }
+  @media (max-width: 480px) {
+    padding: 0 16px;
+  }
+}
 .topbar {
   width: inherit;
   height: 60px;
@@ -215,12 +226,20 @@ body {
     }
   }
   .user {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 16px;
+    display: flex;
+    flex-direction: flex-end;
+
+    .user-header {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 16px;
+    }
+    .header-name {
+      color: $primary;
+    }
 
     img {
       position: absolute;

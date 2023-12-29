@@ -125,7 +125,7 @@ const DasboardBusinessEmployee = () => {
       if (
         arrayMinhRin &&
         arrayMinhRin.length > 0 &&
-        moment(selectYear).format("YYYY") == "2023"
+        moment(selectYear, "DD-MM-YYYY").format("YYYY") == "2023"
       ) {
         dataTHArrMinhRin.unshift(0, 0, 0, 0, 0);
       }
@@ -134,7 +134,7 @@ const DasboardBusinessEmployee = () => {
       if (
         arrayNgocHung &&
         arrayNgocHung.length > 0 &&
-        moment(selectYear).format("YYYY") == "2023"
+        moment(selectYear, "DD-MM-YYYY").format("YYYY") == "2023"
       ) {
         dataTHArrNgocHung.unshift(0, 0, 0, 0, 0);
       }
@@ -223,7 +223,7 @@ const DasboardBusinessEmployee = () => {
           }}
         </Formik>
         {show ? (
-          <div className="container px-4">
+          <div className=" px-4">
             <div className="row gx-5">
               <div className=" col-lg-12 col-xs-12 col-md-12 ">
                 <div className="col-12 mt-2">
@@ -275,7 +275,7 @@ const DasboardBusinessEmployee = () => {
                                 id: 6,
                                 label: "Đỗ Ngọc Hùng",
                                 data: dataTHLineNgocHung,
-                                borderColor: "#fd0d6f",
+                                borderColor: "#dbb319",
                                 pointRadius: 5,
                               },
                             ],

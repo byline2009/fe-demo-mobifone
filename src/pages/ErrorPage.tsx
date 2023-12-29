@@ -37,7 +37,7 @@ const ErrorsLayout = () => {
         ></div>
       </div>
 
-      <div className="d-flex flex-center flex-column-auto p-10">
+      {/* <div className="d-flex flex-center flex-column-auto p-10">
         <div className="d-flex align-items-center fw-bold fs-6">
           <a href="#" className="text-muted text-hover-primary px-2">
             About
@@ -55,7 +55,7 @@ const ErrorsLayout = () => {
             Contact Us
           </a>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -340,7 +340,7 @@ export default function DashboardBusinessPage() {
           }}
         </Formik>
         {show ? (
-          <div className="container px-4">
+          <div className=" px-4">
             <div className="row gx-5 ">
               <div className=" col-lg-6 col-xs-12 col-md-12  border-solid">
                 <div className="col-12 d-flex justify-content-center">
