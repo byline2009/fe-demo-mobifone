@@ -236,9 +236,17 @@ body {
       border-radius: 50%;
       overflow: hidden;
       margin-right: 16px;
+      @media (max-width: 480px) {
+        display: none;
+      }
     }
     .header-name {
       color: $primary;
+      @media (max-width: 480px) {
+        margin-left: 16px;
+        margin-right: 5px !important;
+        text-align: right;
+      }
     }
 
     img {

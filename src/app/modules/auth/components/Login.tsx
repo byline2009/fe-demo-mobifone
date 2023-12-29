@@ -68,7 +68,7 @@ export function Login() {
       id="kt_login_signin_form"
     >
       {/* begin::Heading */}
-      <div className="text-center mb-10">
+      <div className="mb-10">
         <h1 className="text-dark mb-3">Sign In to MobiFone</h1>
       </div>
       {/* begin::Heading */}
@@ -111,7 +111,7 @@ export function Login() {
       {/* end::Form group */}
 
       {/* begin::Form group */}
-      <div className="fv-row mb-2 mt-2">
+      <div className="fv-row mb-2 mt-4">
         <label className="form-label fs-6 fw-bolder text-dark">Password</label>
         <input
           type="password"
