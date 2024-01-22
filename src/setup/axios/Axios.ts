@@ -18,7 +18,7 @@ export default function setupAxios(axios: any, store: any) {
   axios.interceptors.response.use(
     function (response: any) {
       // Do something with response data
-      console.log("response", response.data.status);
+      // console.log("response", response.data.status);
 
       if (response.status == 200) {
         return response;

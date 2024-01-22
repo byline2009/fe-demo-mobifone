@@ -111,26 +111,26 @@ export default function DashboardBusinessPage() {
   const firstUpdate = useRef(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // getCountView({ pageId: "dashboard-business" }).then((result) => {
-    //   if (result && Object.keys(result).length > 0) {
-    //     result.countdate !== undefined && setCount(result.countdate);
-    //     result.countmonth !== undefined && setCountMonth(result.countmonth);
-    //     result.countyear !== undefined && setCountYear(result.countyear);
-    //   }
-    // });
-  }, []);
-  useEffect(() => {
-    if (count !== undefined) {
-      if (firstUpdate) {
-        addCountView({
-          count: parseInt(count) ? parseInt(count) : 0,
-          pageId: "dashboard-business",
-        });
-        firstUpdate.current = false;
-      }
-    }
-  }, [count]);
+  // useEffect(() => {
+  //   getCountView({ pageId: "dashboard-business" }).then((result) => {
+  //     if (result && Object.keys(result).length > 0) {
+  //       result.countdate !== undefined && setCount(result.countdate);
+  //       result.countmonth !== undefined && setCountMonth(result.countmonth);
+  //       result.countyear !== undefined && setCountYear(result.countyear);
+  //     }
+  //   });
+  // }, []);
+  // useEffect(() => {
+  //   if (count !== undefined) {
+  //     if (firstUpdate) {
+  //       addCountView({
+  //         count: parseInt(count) ? parseInt(count) : 0,
+  //         pageId: "dashboard-business",
+  //       });
+  //       firstUpdate.current = false;
+  //     }
+  //   }
+  // }, [count]);
   useEffect(() => {
     if (typeof window !== "undefined") {
       setWidthWindow(window.innerWidth);
@@ -139,6 +139,8 @@ export default function DashboardBusinessPage() {
 
   useEffect(() => {
     getDashBoardBusiness({ month: selectMonth }).then((res) => {
+      console.log("check ne");
+
       let arrayTemp = [];
       if (res && res.result && res.result.length > 0) {
         arrayTemp = res.result.map((item) => ({
