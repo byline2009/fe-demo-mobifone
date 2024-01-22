@@ -112,13 +112,13 @@ export default function DashboardBusinessPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getCountView({ pageId: "dashboard-business" }).then((result) => {
-      if (result && Object.keys(result).length > 0) {
-        result.countdate !== undefined && setCount(result.countdate);
-        result.countmonth !== undefined && setCountMonth(result.countmonth);
-        result.countyear !== undefined && setCountYear(result.countyear);
-      }
-    });
+    // getCountView({ pageId: "dashboard-business" }).then((result) => {
+    //   if (result && Object.keys(result).length > 0) {
+    //     result.countdate !== undefined && setCount(result.countdate);
+    //     result.countmonth !== undefined && setCountMonth(result.countmonth);
+    //     result.countyear !== undefined && setCountYear(result.countyear);
+    //   }
+    // });
   }, []);
   useEffect(() => {
     if (count !== undefined) {
@@ -323,9 +323,9 @@ export default function DashboardBusinessPage() {
                     </h5>{" "}
                     {count !== undefined && (
                       <p className="view-count">
-                        Tổng views ngày : {count ? count : ""} - tháng :{" "}
+                        {/* Tổng views ngày : {count ? count : ""} - tháng :{" "}
                         {countMonth ? countMonth : ""} - năm :{" "}
-                        {countYear ? countYear : ""}
+                        {countYear ? countYear : ""} */}
                         {/* {new Intl.DateTimeFormat("vi-VN", {
                         year: "numeric",
                         month: "2-digit",
