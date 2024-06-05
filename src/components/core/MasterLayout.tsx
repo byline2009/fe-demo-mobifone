@@ -48,8 +48,13 @@ const MasterLayout: React.FC = ({ children }) => {
         element = document.getElementById("menu-dashboard");
         element?.classList.add("active");
         break;
+
       case "warning-expire":
         element = document.getElementById("warning-expire");
+        element?.classList.add("active");
+        break;
+      case "crawl-muasamcong":
+        element = document.getElementById("menu-crawl-muasamcong");
         element?.classList.add("active");
         break;
 
@@ -123,6 +128,18 @@ const MasterLayout: React.FC = ({ children }) => {
                 <IonIcon className="ion-icon" icon={warningOutline}></IonIcon>
               </span>
               <span className="title">Warning Expire</span>
+            </Link>
+          </li>
+          <li id="menu-crawl-muasamcong">
+            <Link
+              className="menu-link"
+              to={`crawl-muasamcong`}
+              onClick={removeActiveNavigation}
+            >
+              <span className="icon">
+                <IonIcon className="ion-icon" icon={todayOutline}></IonIcon>
+              </span>
+              <span className="title">Crawl-MuaSamCong</span>
             </Link>
           </li>
           <li>
