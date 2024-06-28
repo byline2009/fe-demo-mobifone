@@ -57,7 +57,10 @@ const MasterLayout: React.FC = ({ children }) => {
         element = document.getElementById("menu-crawl-muasamcong");
         element?.classList.add("active");
         break;
-
+      case "platform":
+        element = document.getElementById("menu-platform");
+        element?.classList.add("active");
+        break;
       case "dashboard-business":
         element = document.getElementById("menu-dashboard-business");
         element?.classList.add("active");
@@ -81,7 +84,6 @@ const MasterLayout: React.FC = ({ children }) => {
     main?.classList.toggle("active");
   };
   const removeActiveNavigation = () => {
-    console.log("check");
     let navigation = document.querySelector(".navigation");
     let main = document.querySelector(".main");
     navigation?.classList.add("active");
@@ -140,6 +142,18 @@ const MasterLayout: React.FC = ({ children }) => {
                 <IonIcon className="ion-icon" icon={todayOutline}></IonIcon>
               </span>
               <span className="title">Crawl-MuaSamCong</span>
+            </Link>
+          </li>
+          <li id="menu-platform">
+            <Link
+              className="menu-link"
+              to={`platform`}
+              onClick={removeActiveNavigation}
+            >
+              <span className="icon">
+                <IonIcon className="ion-icon" icon={todayOutline}></IonIcon>
+              </span>
+              <span className="title">Platform</span>
             </Link>
           </li>
           <li>

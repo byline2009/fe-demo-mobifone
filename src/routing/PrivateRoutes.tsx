@@ -10,6 +10,7 @@ import WarningExpireContract from "../pages/WarningExpireContract";
 import DashboardBusinessDetail from "../pages/dashboard/DashboardBusinessDetail";
 import DashBoardBusinessEmployeeDetail from "../pages/dashboard/DashboardBusinessEmployee";
 import CrawMuaSamCong from "../pages/CrawMuaSamCong";
+import PlatFormPage from "../pages/Platform";
 
 const NhanVienNghiViec = lazy(() => import("../pages/NhanVienNghiViec"));
 const DuytriPage = lazy(() => import("../pages/DuytriPage"));
@@ -60,6 +61,17 @@ const PrivateRoutes = () => {
             <ErrorBoundary fallback={<div>Something went wrong</div>}>
               <SuspensedView>
                 <CrawMuaSamCong />
+              </SuspensedView>
+            </ErrorBoundary>
+          }
+        />
+
+        <Route
+          path="platform"
+          element={
+            <ErrorBoundary fallback={<div>Something went wrong</div>}>
+              <SuspensedView>
+                <PlatFormPage />
               </SuspensedView>
             </ErrorBoundary>
           }
