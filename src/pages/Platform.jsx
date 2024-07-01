@@ -52,12 +52,17 @@ const PlatFormPage = () => {
     // const formattedToday = dd + "-" + mm + "-" + yyyy;
 
     const isCurrentPage = e === "1" ? true : false;
+    console.log(
+      "initValues.selectMonth",
+      initValues.selectMonth,
+      moment(initValues.selectMonth).format("DD-MM-yyyy")
+    );
     setLoadingExport(true);
     getFileDoanhthuPlatform({
       skip: skip,
       limit: limit,
       isCurrentPage: isCurrentPage,
-      month: initValues.selectMonth,
+      month: moment(initValues.selectMonth).format("DD-MM-yyyy"),
     })
       .then((response) => {
         if (response) {
@@ -101,7 +106,7 @@ const PlatFormPage = () => {
             validationSchema={formSchema}
             onSubmit={async (values, { resetForm }) => {
               setInitValues({
-                selectMonth: moment(values.selectMonth).format("DD-MM-YYYY"),
+                selectMonth: values.selectMonth,
               });
             }}
           >
@@ -120,12 +125,12 @@ const PlatFormPage = () => {
                         <DatePickerField
                           showMonthYearPicker={true}
                           name={`selectMonth`}
-                          dateFormat="dd/MM/yyyy"
+                          dateFormat="MM/yyyy"
                           disabled={false}
                           callbackSetDate={(e) => {
                             setInitValues({
                               ...initValues,
-                              selectMonth: moment(e).format("DD-MM-YYYY"),
+                              selectMonth: e,
                             });
                           }}
                         ></DatePickerField>
