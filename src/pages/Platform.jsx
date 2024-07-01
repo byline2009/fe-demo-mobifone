@@ -1,17 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  getDoanhthuPlatformMonthly,
-  getFileDoanhthuPlatform,
-  getFileExcelNhanVienNghiViec,
-  getNhanVienNghiViec,
-} from "../setup/axios/InitApi";
+import { getFileDoanhthuPlatform } from "../setup/axios/InitApi";
 import ReactPaginate from "react-paginate";
 import { TailSpin } from "react-loader-spinner";
 import { getPageNumber } from "../helpers/ConvertHelper";
 import ConfirmModal from "../components/modals/ConfirmModal";
-import { months } from "moment";
+import moment from "moment";
+import { ErrorMessage, Form, Formik } from "formik";
+import "react-datepicker/dist/react-datepicker.css";
+import { DatePickerField } from "../components/widgets/datePickers/DatePickerField";
+import * as Yup from "yup";
 
 const limit = 10;
+var x = new Date();
+x.setDate(1);
+x.setMonth(x.getMonth());
+const INIT_VALUES = {
+  selectMonth: x,
+};
 
 const PlatFormPage = () => {
   const [arr, setArr] = useState([]);
@@ -23,6 +28,8 @@ const PlatFormPage = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [loadingExport, setLoadingExport] = useState(false);
   const [skip, setSkip] = useState(0);
+  const [initValues, setInitValues] = useState(INIT_VALUES);
+  const formSchema = Yup.object().shape({});
 
   useEffect(() => {
     renderAfterCalled.current = true;
@@ -36,20 +43,21 @@ const PlatFormPage = () => {
   };
 
   const handleExport = (e) => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; // Months start at 0!
-    let dd = "01";
-    if (mm < 10) mm = "0" + mm;
+    // const today = new Date();
+    // const yyyy = today.getFullYear();
+    // let mm = today.getMonth() + 1; // Months start at 0!
+    // let dd = "01";
+    // if (mm < 10) mm = "0" + mm;
 
-    const formattedToday = dd + "-" + mm + "-" + yyyy;
+    // const formattedToday = dd + "-" + mm + "-" + yyyy;
+
     const isCurrentPage = e === "1" ? true : false;
     setLoadingExport(true);
     getFileDoanhthuPlatform({
       skip: skip,
       limit: limit,
       isCurrentPage: isCurrentPage,
-      month: formattedToday,
+      month: initValues.selectMonth,
     })
       .then((response) => {
         if (response) {
@@ -74,6 +82,65 @@ const PlatFormPage = () => {
     <div>
       <div className="employee-off">
         <h4 className="title mb-3 me-5">Doanh Thu Platform tháng hiện tại</h4>
+
+        {/* <DatePickerField
+            showMonthYearPicker={true}
+            name={`selectMonthYear`}
+            dateFormat="MM/yyyy"
+            disabled={false}
+            callbackSetDate={(e) => {
+              const date = moment(e).format("DD-MM-YYYY");
+              setSelectMonth(date);
+            }}
+            maxDate={new Date()}
+          ></DatePickerField> */}
+        <div className="d-flex select-filter">
+          <Formik
+            enableReinitialize={true}
+            initialValues={initValues}
+            validationSchema={formSchema}
+            onSubmit={async (values, { resetForm }) => {
+              setInitValues({
+                selectMonth: moment(values.selectMonth).format("DD-MM-YYYY"),
+              });
+            }}
+          >
+            {(formikProps) => {
+              return (
+                <Form>
+                  <div className=" filter mb-3 me-5">
+                    <div className="filter-body d-flex flex-start">
+                      <div className="select-filter">
+                        <label
+                          htmlFor="selectMonth"
+                          className="form-label fs-6 fw-bold text-dark me-2"
+                        >
+                          Tháng
+                        </label>
+                        <DatePickerField
+                          showMonthYearPicker={true}
+                          name={`selectMonth`}
+                          dateFormat="dd/MM/yyyy"
+                          disabled={false}
+                          callbackSetDate={(e) => {
+                            setInitValues({
+                              ...initValues,
+                              selectMonth: moment(e).format("DD-MM-YYYY"),
+                            });
+                          }}
+                        ></DatePickerField>
+
+                        <div className="text-danger">
+                          <ErrorMessage name="selectMonth" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Form>
+              );
+            }}
+          </Formik>
+        </div>
         {loading ? (
           <div className="empty-content">
             <div className="w-100 h-100 d-flex align-items-center justify-content-center">
